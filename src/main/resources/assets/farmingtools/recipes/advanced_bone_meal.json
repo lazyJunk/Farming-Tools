@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "farmingtools:advanced_bone_meal",
+    "count": 4
+  },
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:bone"
+    },
+    "B": {
+      "item": "minecraft:dye",
+      "data": 15
+    }
+  }
+}
