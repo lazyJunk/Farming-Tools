@@ -5,14 +5,18 @@ import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class BlockGrowthPedestal extends FTBlockTileEntity<TileEntityGrowthPedestal> {
@@ -24,6 +28,12 @@ public class BlockGrowthPedestal extends FTBlockTileEntity<TileEntityGrowthPedes
         super(materialIn, name);
         setLightLevel(7F);
         setTickRandomly(true);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+        super.addInformation(stack, player, tooltip, advanced);
+        tooltip.add(TextFormatting.RED + "Only work during day time.");
     }
 
     @Override

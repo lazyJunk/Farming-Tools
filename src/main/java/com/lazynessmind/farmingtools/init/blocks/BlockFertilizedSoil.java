@@ -5,14 +5,19 @@ import com.lazynessmind.farmingtools.init.tileentities.TileEntityFertilizedSoil;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class BlockFertilizedSoil extends FTBlockTileEntity<TileEntityFertilizedSoil> {
@@ -25,6 +30,12 @@ public class BlockFertilizedSoil extends FTBlockTileEntity<TileEntityFertilizedS
         setTickRandomly(true);
         setHardness(0.5f);
         setHarvestLevel("wood", 0);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+        super.addInformation(stack, player, tooltip, advanced);
+        tooltip.add(TextFormatting.RED + "Only work during day time.");
     }
 
     @Override
