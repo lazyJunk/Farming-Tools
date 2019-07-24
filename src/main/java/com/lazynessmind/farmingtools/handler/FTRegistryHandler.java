@@ -4,9 +4,9 @@ import com.lazynessmind.farmingtools.FarmingToolsConst;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockDispenser;
+import com.lazynessmind.farmingtools.util.FarmUtils;
+import com.lazynessmind.farmingtools.util.SpawnUtils;
+import net.minecraft.block.*;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -14,7 +14,6 @@ import net.minecraft.init.Bootstrap;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -22,6 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.apache.commons.lang3.RandomUtils;
 
 public class FTRegistryHandler {
 
@@ -43,9 +43,9 @@ public class FTRegistryHandler {
     }
 
     /* Just used to get recipes with items that cant be used in JSON METHOD */
-    private static void registryCustomRecipes(){
+    private static void registryCustomRecipes() {
         GameRegistry.addShapedRecipe(new ResourceLocation(FarmingToolsConst.MODID, "farmingtools.recipe"), null, new ItemStack(Item.getItemFromBlock(FarmingToolsBlocks.FERTILIZED_SOIL)),
-                new String[] {
+                new String[]{
                         "AAA",
                         "ABA",
                         "AAA"
@@ -55,18 +55,30 @@ public class FTRegistryHandler {
         );
     }
 
-    public static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos){
-        if(!world.isRemote){
-            if(player.getHeldItem(hand) != ItemStack.EMPTY && player.getActiveHand() == EnumHand.MAIN_HAND){
-                if(world.getBlockState(pos).getBlock() instanceof BlockCrops){
-                    if(player.getHeldItem(hand).getItem() instanceof ItemHoe){
-                        BlockCrops crop = (BlockCrops)world.getBlockState(pos).getBlock();
-                        crop.dropBlockAsItemWithChance(world, pos, crop.getDefaultState(), 1f, 0);
-                        world.setBlockState(pos, crop.getStateFromMeta(0));
-                        player.getHeldItem(hand).damageItem(1, player);
+
+    public static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
+        if (!world.isRemote) {
+            if (player.getHeldItem(hand) != ItemStack.EMPTY && player.getActiveHand() == EnumHand.MAIN_HAND) {
+                if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
+                    if (player.getHeldItem(hand).getItem() instanceof ItemHoe) {
+                        BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
+                        if(FarmUtils.canFarmWithHoe(crop, world, pos)){
+                            if(crop instanceof  BlockCarrot){
+                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.CARROT));
+                            } else if(crop instanceof BlockPotato){
+                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.POTATO));
+                            } else if(crop instanceof BlockBeetroot){
+                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.BEETROOT));
+                            } else {
+                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.WHEAT));
+                            }
+                            if (!player.isCreative())
+                                player.getHeldItem(hand).damageItem(1, player);
+                        }
                     }
                 }
             }
         }
     }
 }
+
