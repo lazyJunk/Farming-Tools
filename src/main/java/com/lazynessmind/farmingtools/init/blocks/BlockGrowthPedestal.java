@@ -59,7 +59,9 @@ public class BlockGrowthPedestal extends FTBlockTileEntity<TileEntityGrowthPedes
 
     @Override
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        ParticleCreator.spawnParticle(EnumParticleTypes.PORTAL, worldIn, pos, 10, rand);
+        if(worldIn.getWorldInfo().getWorldTime() < 12500){
+            ParticleCreator.spawnParticle(EnumParticleTypes.PORTAL, worldIn, pos, 10, rand);
+        }
     }
 
     @Override
