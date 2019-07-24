@@ -13,6 +13,8 @@ gui.config.category.blocks.tooltip=All the mod blocks configs
 
 gui.config.blocks.fertilizedSoil.name=Fertilized Soil - Crop grow speed.
 gui.config.blocks.fertilizedSoil.comment=Bigger = Faster
+gui.config.blocks.growthPedestal.name=Growth Pedestal - Crop grow speed.
+gui.config.blocks.growthPedestal.comment=Bigger = Faster
 
 gui.config.category.items=Items Configs
 gui.config.category.items.tooltip=All the mod items configs

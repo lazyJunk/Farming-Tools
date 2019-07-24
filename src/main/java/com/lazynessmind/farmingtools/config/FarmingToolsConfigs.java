@@ -23,6 +23,7 @@ public class FarmingToolsConfigs {
 
     //Blocks/TileEntity
     public static int fertilizedSoilSpeedVar;
+    public static int growthPedestalSpeedVar;
 
     //Items
     public static int advancedBoneMealRange;
@@ -71,15 +72,22 @@ public class FarmingToolsConfigs {
         fertilizedSoilSpeed.setComment(I18n.format("gui.config.blocks.fertilizedSoil.comment"));
         fertilizedSoilSpeed.setMinValue(1);
 
+        Property growthPedestalSpeed = config.get(CATEGORY_NAME_BLOCKS, "growth_speed_speed", 7);
+        growthPedestalSpeed.setLanguageKey("gui.config.blocks.growthPedestal.name");
+        growthPedestalSpeed.setComment(I18n.format("gui.config.blocks.growthPedestal.comment"));
+        growthPedestalSpeed.setMinValue(1);
+
         List<String> propertyOrderBlocks = new ArrayList<String>();
         propertyOrderBlocks.add(fertilizedSoilSpeed.getName());
         config.setCategoryPropertyOrder(CATEGORY_NAME_BLOCKS, propertyOrderBlocks);
 
         if (readFieldsFromConfig) {
             fertilizedSoilSpeedVar = fertilizedSoilSpeed.getInt();
+            growthPedestalSpeedVar = growthPedestalSpeed.getInt();
         }
 
         fertilizedSoilSpeed.set(fertilizedSoilSpeedVar);
+        growthPedestalSpeed.set(growthPedestalSpeedVar);
     }
 
     public static void setItemsConfigs(boolean readFieldsFromConfig) {
