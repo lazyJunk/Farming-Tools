@@ -5,7 +5,6 @@ import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.util.FarmUtils;
-import com.lazynessmind.farmingtools.util.SpawnUtils;
 import net.minecraft.block.*;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +20,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import org.apache.commons.lang3.RandomUtils;
 
 public class FTRegistryHandler {
 
@@ -62,12 +60,12 @@ public class FTRegistryHandler {
                 if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                     if (player.getHeldItem(hand).getItem() instanceof ItemHoe) {
                         BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
-                        if(FarmUtils.canFarmWithHoe(crop, world, pos)){
-                            if(crop instanceof  BlockCarrot){
+                        if (FarmUtils.canFarmWithHoe(crop, world, pos)) {
+                            if (crop instanceof BlockCarrot) {
                                 FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.CARROT));
-                            } else if(crop instanceof BlockPotato){
+                            } else if (crop instanceof BlockPotato) {
                                 FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.POTATO));
-                            } else if(crop instanceof BlockBeetroot){
+                            } else if (crop instanceof BlockBeetroot) {
                                 FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.BEETROOT));
                             } else {
                                 FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.WHEAT));
