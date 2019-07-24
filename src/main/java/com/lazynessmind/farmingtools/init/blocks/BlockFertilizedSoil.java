@@ -41,7 +41,9 @@ public class BlockFertilizedSoil extends FTBlockTileEntity<TileEntityFertilizedS
     @Override
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         super.randomDisplayTick(stateIn, worldIn, pos, rand);
-        ParticleCreator.spawnParticle(EnumParticleTypes.WATER_SPLASH, worldIn, pos, 2, rand);
+        if(worldIn.getWorldInfo().getWorldTime() < 12500){
+            ParticleCreator.spawnParticle(EnumParticleTypes.WATER_SPLASH, worldIn, pos, 10, rand);
+        }
     }
 
     @Override

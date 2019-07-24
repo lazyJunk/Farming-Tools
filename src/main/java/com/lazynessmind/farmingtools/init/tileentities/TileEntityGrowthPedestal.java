@@ -1,5 +1,6 @@
 package com.lazynessmind.farmingtools.init.tileentities;
 
+import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
@@ -12,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class TileEntityGrowthPedestal extends TileEntity implements ITickable {
 
-    private int growthSpeed = 7;
+    private int growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
     private int range = 4;
 
     @Override
@@ -63,6 +64,7 @@ public class TileEntityGrowthPedestal extends TileEntity implements ITickable {
 
     @Override
     public void update() {
+        this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
         for (int x = -range; x < range + 1; x++) {
             for (int z = -range; z < range + 1; z++) {
                 BlockPos temp = new BlockPos(this.pos.getX() + x, this.pos.getY(), this.getPos().getZ() + z);
@@ -79,7 +81,7 @@ public class TileEntityGrowthPedestal extends TileEntity implements ITickable {
             if (crop instanceof BlockCrops) {
                 if (crop.getTickRandomly()) {
                     if (this.world.getBlockState(pos) == cropState) {
-                        for (int i = 0; i < growthSpeed; i++) {
+                        for (int i = 0; i < this.growthSpeed; i++) {
                             crop.updateTick(this.world, pos, cropState, this.world.rand);
                             crop.updateTick(this.world, pos, cropState, this.world.rand);
                             crop.updateTick(this.world, pos, cropState, this.world.rand);

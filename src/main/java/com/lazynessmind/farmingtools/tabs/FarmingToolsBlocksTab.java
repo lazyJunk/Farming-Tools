@@ -1,5 +1,6 @@
 package com.lazynessmind.farmingtools.tabs;
 
+import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -13,6 +14,6 @@ public class FarmingToolsBlocksTab extends CreativeTabs {
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(Item.getItemFromBlock(Blocks.DIRT));
+        return new ItemStack(Item.getItemFromBlock(FarmingToolsBlocks.FERTILIZED_SOIL));
     }
 }
