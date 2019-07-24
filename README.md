@@ -6,16 +6,10 @@ This mod add tools to faster and better farming in Minecraft.
 
 &#x1F535; Existing features **can change in future updates**.
 
-## Current features:
+## Changelogs/Wiki:
 
-- **Fertilized Soil:**
-	> Always watered, he makes the crops grow faster.
-- **Growth Pedestal:**
-	> Makes all the crops insta grow in a 9x1x9 area;
-- **Advanced Bone Meal:**
-	- Same features that normal bone meal, but better.
-		> Makes crops grow to max age
-		> Bigger area of effect when used on grass.
+- **Release:** https://github.com/lazynessmind/Farming-Tools/releases
+- **Wiki:** https://github.com/lazynessmind/Farming-Tools/wiki
 
 ## Bugs or suggestions:
 
