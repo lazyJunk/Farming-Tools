@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -42,5 +43,10 @@ public class RegistryHandler {
                 ((IHasModel) block).registerModels();
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onRightClick(PlayerInteractEvent.RightClickBlock event){
+        FTRegistryHandler.registryHoeRightClickOnCrops(event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getPos());
     }
 }
