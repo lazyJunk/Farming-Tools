@@ -4,6 +4,7 @@ import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityFertilizedSoil;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -27,6 +28,7 @@ public class RegistryHandler {
         event.getRegistry().registerAll(FarmingToolsBlocks.BLOCKS.toArray(new Block[0]));
         GameRegistry.registerTileEntity(TileEntityFertilizedSoil.class, "farmingtools:poweredDirt");
         GameRegistry.registerTileEntity(TileEntityGrowthPedestal.class, "farmingtools:growthPedestal");
+        GameRegistry.registerTileEntity(TileEntityHarvester.class, "farmingtools:harvester");
     }
 
     @SubscribeEvent
