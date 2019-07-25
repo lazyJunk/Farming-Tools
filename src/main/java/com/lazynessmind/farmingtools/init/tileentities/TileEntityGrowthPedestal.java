@@ -1,6 +1,7 @@
 package com.lazynessmind.farmingtools.init.tileentities;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
+import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
@@ -65,11 +66,8 @@ public class TileEntityGrowthPedestal extends TileEntity implements ITickable {
     @Override
     public void update() {
         this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
-        for (int x = -range; x < range + 1; x++) {
-            for (int z = -range; z < range + 1; z++) {
-                BlockPos temp = new BlockPos(this.pos.getX() + x, this.pos.getY(), this.getPos().getZ() + z);
-                tickCrop(temp);
-            }
+        for (BlockPos pos : FarmUtils.checkInRange(range, this.getPos(), 3)) {
+            tickCrop(pos);
         }
     }
 

@@ -5,7 +5,8 @@ import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.util.FarmUtils;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -60,19 +61,9 @@ public class FTRegistryHandler {
                 if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                     if (player.getHeldItem(hand).getItem() instanceof ItemHoe) {
                         BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
-                        if (FarmUtils.canFarmWithHoe(crop, world, pos)) {
-                            if (crop instanceof BlockCarrot) {
-                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.CARROT));
-                            } else if (crop instanceof BlockPotato) {
-                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.POTATO));
-                            } else if (crop instanceof BlockBeetroot) {
-                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.BEETROOT));
-                            } else {
-                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.WHEAT));
-                            }
-                            if (!player.isCreative())
-                                player.getHeldItem(hand).damageItem(1, player);
-                        }
+                        FarmUtils.farmAndDrop(crop, world, pos, world.getBlockState(pos), true);
+                        world.setBlockState(pos, crop.getDefaultState());
+                        if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);
                     }
                 }
             }
