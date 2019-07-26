@@ -63,11 +63,12 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
     }
 
     public void harvestBlock(BlockPos pos) {
-        for (BlockPos poss : FarmUtils.checkInRange(9, pos, 1)) {
-            if (world.getBlockState(poss).getBlock() instanceof BlockCrops) {
-                BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
-                FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                System.out.println("Dropped: " + poss);
+        if (!world.isRemote) {
+            for (BlockPos poss : FarmUtils.checkInRange(9, pos, 1)) {
+                if (world.getBlockState(poss).getBlock() instanceof BlockCrops) {
+                    BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
+                    FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
+                }
             }
         }
     }
