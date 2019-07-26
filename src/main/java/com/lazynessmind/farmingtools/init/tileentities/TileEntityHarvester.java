@@ -2,25 +2,38 @@ package com.lazynessmind.farmingtools.init.tileentities;
 
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
 
 public class TileEntityHarvester extends TileEntity implements ITickable {
 
     private static final int range = 9;
+    private ItemStackHandler handler = new ItemStackHandler(1);
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound.setTag("Inventory", this.handler.serializeNBT());
         return super.writeToNBT(compound);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-
+        this.handler.deserializeNBT(compound.getCompoundTag("Inventory"));
         super.readFromNBT(compound);
     }
 
@@ -57,9 +70,25 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
     }
 
     @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return true;
+        return false;
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+    {
+        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (T) this.handler;
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
     public void update() {
-        if (!world.isBlockPowered(pos))
-            harvestBlock(getPos());
+        if (!world.isBlockPowered(pos)){
+            if(!this.handler.getStackInSlot(0).isEmpty()){
+                harvestBlock(getPos());
+            }
+        }
     }
 
     public void harvestBlock(BlockPos pos) {
@@ -68,8 +97,14 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
                 if (world.getBlockState(poss).getBlock() instanceof BlockCrops) {
                     BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
                     FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
+                    handler.getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
                 }
             }
         }
+    }
+
+
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 }

@@ -1,5 +1,6 @@
 package com.lazynessmind.farmingtools.handler;
 
+import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
@@ -20,6 +21,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class FTRegistryHandler {
@@ -27,6 +29,7 @@ public class FTRegistryHandler {
     public static void registry() {
         dispenserBehaviorRegistration();
         registryCustomRecipes();
+        NetworkRegistry.INSTANCE.registerGuiHandler(FarmingTools.instance, new GuiHandler());
     }
 
     private static void dispenserBehaviorRegistration() {
@@ -53,7 +56,6 @@ public class FTRegistryHandler {
                 'B', Items.POTIONITEM.getDefaultInstance().getItem()
         );
     }
-
 
     public static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
         if (!world.isRemote) {
