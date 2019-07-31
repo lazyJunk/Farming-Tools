@@ -2,26 +2,34 @@ package com.lazynessmind.farmingtools.init.tileentities;
 
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
 
 public class TileEntityPlanter extends TileEntity implements ITickable {
 
-    private int seedCount = 0;
-    private IBlockState crop = null;
+    private ItemStackHandler handler = new ItemStackHandler(1);
+    private IBlockState crop;
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setInteger("seed_count", seedCount);
+        compound.setTag("Items", this.handler.serializeNBT());
         return super.writeToNBT(compound);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        seedCount = compound.getInteger("seed_count");
+        this.handler.deserializeNBT(compound.getCompoundTag("Items"));
         super.readFromNBT(compound);
     }
 
@@ -58,44 +66,37 @@ public class TileEntityPlanter extends TileEntity implements ITickable {
     }
 
     @Override
-    public void update() {
-        plantCrop();
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return true;
+        return false;
     }
 
-    private void plantCrop() {
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (T) this.handler;
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public void update() {
+        if (!handler.getStackInSlot(0).isEmpty()) {
+            crop = ((IPlantable) handler.getStackInSlot(0).getItem()).getPlant(world, pos);
+        }
+        plantCrop(crop);
+    }
+
+    private void plantCrop(IBlockState crop) {
         if (!world.isRemote) {
             if (FarmUtils.canPlantCrop(getPos(), world)) {
-                if (getSeedCount() > 0) {
-                    if (crop != null) {
-                        world.setBlockState(pos.down(), crop);
-                        decreaseSeedCount(1);
-                    }
+                if (crop != null && !handler.getStackInSlot(0).isEmpty()) {
+                    world.setBlockState(pos.down(), crop);
+                    handler.extractItem(0, 1, false);
                 }
             }
         }
     }
 
-    public IBlockState getCrop() {
-        return crop;
-    }
-
-    public void setCrop(IBlockState crop) {
-        this.crop = crop;
-    }
-
-    public void decreaseSeedCount(int amount) {
-        this.seedCount -= amount;
-    }
-
-    public void increaseSeedCount(int amount) {
-        this.seedCount += amount;
-    }
-
-    public int getSeedCount() {
-        return seedCount;
-    }
-
-    public void setSeedCount(int seedCount) {
-        this.seedCount = seedCount;
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 }

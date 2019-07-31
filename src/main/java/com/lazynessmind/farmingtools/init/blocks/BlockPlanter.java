@@ -1,5 +1,7 @@
 package com.lazynessmind.farmingtools.init.blocks;
 
+import com.lazynessmind.farmingtools.FarmingTools;
+import com.lazynessmind.farmingtools.gui.FTGuis;
 import com.lazynessmind.farmingtools.init.tileentities.FTBlockTileEntity;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
@@ -29,14 +31,7 @@ public class BlockPlanter extends FTBlockTileEntity<TileEntityPlanter> {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (!worldIn.isRemote) {
-            ItemStack held = playerIn.getHeldItem(hand);
-            if (held.getItem() instanceof IPlantable) {
-                TileEntityPlanter planter = getTileEntity(worldIn, pos);
-                planter.increaseSeedCount(held.getCount());
-                planter.setCrop(((IPlantable) held.getItem()).getPlant(worldIn, pos));
-            }
-        }
+        playerIn.openGui(FarmingTools.instance, FTGuis.PLANTER, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
 
