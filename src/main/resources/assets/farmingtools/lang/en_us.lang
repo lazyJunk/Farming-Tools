@@ -3,6 +3,9 @@ item.advanced_bone_meal.name=Advanced Bone Meal
 tile.fertilized_soil.name=Fertilized Soil
 tile.growth_pedestal.name=Growth Pedestal
 tile.harvester.name=Harvester
+tile.planter.name=Planter
+
+enchantment.3x3harvest=3x3 Harvest
 
 itemGroup.ftItemsTab=Farming Tools Items
 itemGroup.ftBlocksTab=Farming Tools Blocks
