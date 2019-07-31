@@ -66,7 +66,7 @@ public class TileEntityGrowthPedestal extends TileEntity implements ITickable {
     @Override
     public void update() {
         this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
-        for (BlockPos pos : FarmUtils.checkInRange(range, this.getPos(), 3)) {
+        for (BlockPos pos : FarmUtils.checkInRange(range, this.getPos(), 3, false)) {
             tickCrop(pos);
         }
     }

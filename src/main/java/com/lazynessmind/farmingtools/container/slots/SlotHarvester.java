@@ -17,4 +17,6 @@ public class SlotHarvester extends SlotItemHandler {
     public boolean isItemValid(@Nonnull ItemStack stack) {
         return stack.getItem() instanceof ItemHoe;
     }
+
+
 }

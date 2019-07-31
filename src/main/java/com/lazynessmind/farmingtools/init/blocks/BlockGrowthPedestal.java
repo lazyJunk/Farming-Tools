@@ -26,7 +26,7 @@ public class BlockGrowthPedestal extends FTBlockTileEntity<TileEntityGrowthPedes
 
     public BlockGrowthPedestal(Material materialIn, String name) {
         super(materialIn, name);
-        setLightLevel(7F);
+        //setLightLevel(7F);
         setTickRandomly(true);
     }
 

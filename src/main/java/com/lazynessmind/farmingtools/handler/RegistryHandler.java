@@ -1,6 +1,7 @@
 package com.lazynessmind.farmingtools.handler;
 
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
+import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityFertilizedSoil;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
@@ -8,6 +9,8 @@ import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -34,6 +37,11 @@ public class RegistryHandler {
     }
 
     @SubscribeEvent
+    public static void onEnchantmentRegister(RegistryEvent.Register<Enchantment> event) {
+        event.getRegistry().registerAll(FarmingToolsEnchants.ENCHANTS.toArray(new Enchantment[0]));
+    }
+
+    @SubscribeEvent
     public static void onModelRegister(ModelRegistryEvent event) {
         for (Item item : FarmingToolsItems.ITEMS) {
             if (item instanceof IHasModel) {
@@ -50,7 +58,12 @@ public class RegistryHandler {
     }
 
     @SubscribeEvent
-    public static void onRightClick(PlayerInteractEvent.RightClickBlock event){
-        FTRegistryHandler.registryHoeRightClickOnCrops(event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getPos());
+    public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
+        if (EnchantmentHelper.getMaxEnchantmentLevel(FarmingToolsEnchants.HOEHARVEST, event.getEntityPlayer()) > 0) {
+            FTRegistryHandler.harvestWithEnchant(event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getPos());
+        } else {
+            FTRegistryHandler.registryHoeRightClickOnCrops(event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getPos());
+        }
     }
+
 }
