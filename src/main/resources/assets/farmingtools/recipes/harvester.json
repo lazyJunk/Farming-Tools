@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "farmingtools:harvester",
+    "count": 1
+  },
+  "pattern": [
+    " C ",
+    " B ",
+    "AAA"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:mossy_cobblestone"
+    },
+    "B": {
+      "item": "minecraft:emerald_block"
+    },
+    "C": {
+      "item": "minecraft:diamond_hoe"
+    }
+  }
+}
