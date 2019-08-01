@@ -98,9 +98,6 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
                     BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
                     if(FarmUtils.canFarm(crops, world, poss)){
                         FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                        if(hasHoeOnSlot()){
-                            handler.getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
-                        }
                     }
                 }
             }
