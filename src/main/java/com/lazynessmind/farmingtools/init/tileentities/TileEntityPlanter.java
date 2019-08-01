@@ -9,6 +9,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -87,10 +88,12 @@ public class TileEntityPlanter extends TileEntity implements ITickable {
 
     private void plantCrop(IBlockState crop) {
         if (!world.isRemote) {
-            if (FarmUtils.canPlantCrop(getPos(), world)) {
-                if (crop != null && !handler.getStackInSlot(0).isEmpty()) {
-                    world.setBlockState(pos.down(), crop);
-                    handler.extractItem(0, 1, false);
+            for (BlockPos pos : FarmUtils.checkInRange(4, getPos(), 1, false)) {
+                if (FarmUtils.canPlantCrop(pos, world)) {
+                    if (crop != null && !handler.getStackInSlot(0).isEmpty()) {
+                        world.setBlockState(pos, crop);
+                        handler.extractItem(0, 1, false);
+                    }
                 }
             }
         }
