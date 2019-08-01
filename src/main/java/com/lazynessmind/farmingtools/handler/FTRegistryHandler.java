@@ -59,18 +59,11 @@ public class FTRegistryHandler {
         );
     }
 
-    public static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
+    static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
         if (!world.isRemote) {
             if (player.getHeldItem(hand) != ItemStack.EMPTY && player.getActiveHand() == EnumHand.MAIN_HAND) {
                 if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
-                    if (EnchantmentHelper.getMaxEnchantmentLevel(FarmingToolsEnchants.HOEHARVEST, player) > 0) {
-                        BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
-                        for (BlockPos poss : FarmUtils.checkInRange(1, pos, 1, true)) {
-                            FarmUtils.farmAndDrop(crop, world, poss, world.getBlockState(poss), true);
-                            world.setBlockState(pos, crop.getDefaultState());
-                            if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);
-                        }
-                    } else if (player.getHeldItem(hand).getItem() instanceof ItemHoe) {
+                    if (player.getHeldItem(hand).getItem() instanceof ItemHoe) {
                         BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
                         FarmUtils.farmAndDrop(crop, world, pos, world.getBlockState(pos), true);
                         world.setBlockState(pos, crop.getDefaultState());
@@ -81,7 +74,7 @@ public class FTRegistryHandler {
         }
     }
 
-    public static void harvestWithEnchant(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
+     static void harvestWithEnchant(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
         if (!world.isRemote) {
             if (player.getHeldItem(hand) != ItemStack.EMPTY && player.getActiveHand() == EnumHand.MAIN_HAND) {
                 if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
