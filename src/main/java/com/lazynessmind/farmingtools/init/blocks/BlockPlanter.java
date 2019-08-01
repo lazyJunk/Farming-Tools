@@ -5,10 +5,13 @@ import com.lazynessmind.farmingtools.gui.FTGuis;
 import com.lazynessmind.farmingtools.init.tileentities.FTBlockTileEntity;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
+import com.lazynessmind.farmingtools.util.SpawnUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -16,7 +19,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IPlantable;
 
 import java.util.Random;
 
@@ -31,8 +33,16 @@ public class BlockPlanter extends FTBlockTileEntity<TileEntityPlanter> {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        playerIn.openGui(FarmingTools.instance, FTGuis.PLANTER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        if(playerIn.getHeldItem(hand) == ItemStack.EMPTY)
+            playerIn.openGui(FarmingTools.instance, FTGuis.PLANTER, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+    }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntityPlanter tileEntityPlanter = getTileEntity(worldIn, pos);
+        SpawnUtils.spawnItemAt(worldIn, pos, tileEntityPlanter.getHandler().getStackInSlot(0));
+        super.breakBlock(worldIn, pos, state);
     }
 
     @Override

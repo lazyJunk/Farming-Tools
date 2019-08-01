@@ -5,7 +5,9 @@ import com.lazynessmind.farmingtools.gui.FTGuis;
 import com.lazynessmind.farmingtools.handler.GuiHandler;
 import com.lazynessmind.farmingtools.init.tileentities.FTBlockTileEntity;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
+import com.lazynessmind.farmingtools.util.SpawnUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -40,6 +42,12 @@ public class BlockHarvester extends FTBlockTileEntity<TileEntityHarvester> {
         tooltip.add(TextFormatting.GREEN + "Range: 4x1x4.");
     }
 
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntityHarvester tileEntityHarvester = getTileEntity(worldIn, pos);
+        SpawnUtils.spawnItemAt(worldIn, pos, tileEntityHarvester.getHandler().getStackInSlot(0));
+        super.breakBlock(worldIn, pos, state);
+    }
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {

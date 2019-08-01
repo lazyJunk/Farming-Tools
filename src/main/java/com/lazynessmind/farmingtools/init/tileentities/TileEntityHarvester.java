@@ -111,4 +111,8 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
    public boolean hasHoeOnSlot(){
         return !this.handler.getStackInSlot(0).isEmpty();
    }
+
+    public ItemStackHandler getHandler() {
+        return handler;
+    }
 }
