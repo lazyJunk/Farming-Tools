@@ -25,10 +25,10 @@ public class FarmUtils {
     }
 
     public static void farmAndDrop(BlockCrops crops, World world, BlockPos pos, IBlockState access, boolean drop) {
-        if (canFarm(crops, world, pos) && drop) {
+        if (drop) {
             crops.dropBlockAsItem(world, pos, world.getBlockState(pos), 1);
             world.setBlockToAir(pos);
-        } else if (canFarm(crops, world, pos)) {
+        } else {
             world.setBlockToAir(pos);
         }
     }
