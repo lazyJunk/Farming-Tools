@@ -26,7 +26,11 @@ public class GuiHarvester extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String titleGui = "Harvester";
-        fontRenderer.drawString(titleGui, (this.xSize /2 - fontRenderer.getStringWidth(titleGui) /2) +3, 8, Color.RED.getRGB());
+        String hoeNeeded = "Where is the hoe?";
+        fontRenderer.drawString(titleGui, (this.xSize /2 - fontRenderer.getStringWidth(titleGui) /2) +3, 8, 4210752);
+        if(!tileEntityHarvester.hasHoeOnSlot()){
+            fontRenderer.drawString(hoeNeeded, (this.xSize /2 - fontRenderer.getStringWidth(hoeNeeded) /2) +3, 70, Color.RED.getRGB());
+        }
     }
 
     @Override
