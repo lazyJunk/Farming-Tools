@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = FarmingToolsConst.MODID, name = FarmingToolsConst.NAME, version = FarmingToolsConst.VERSION, guiFactory = FarmingToolsConst.GUI_FACTORY)
+@Mod(modid = FarmingToolsConst.MODID, name = FarmingToolsConst.NAME, version = FarmingToolsConst.VERSION, guiFactory = FarmingToolsConst.GUI_FACTORY, updateJSON = FarmingToolsConst.UPDATE_JSON)
 public class FarmingTools {
 
     @Mod.Instance

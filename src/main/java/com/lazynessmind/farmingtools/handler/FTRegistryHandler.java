@@ -1,12 +1,16 @@
 package com.lazynessmind.farmingtools.handler;
 
+import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
+import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.util.FarmUtils;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Bootstrap;
@@ -19,6 +23,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class FTRegistryHandler {
@@ -26,6 +31,7 @@ public class FTRegistryHandler {
     public static void registry() {
         dispenserBehaviorRegistration();
         registryCustomRecipes();
+        NetworkRegistry.INSTANCE.registerGuiHandler(FarmingTools.instance, new GuiHandler());
     }
 
     private static void dispenserBehaviorRegistration() {
@@ -53,25 +59,33 @@ public class FTRegistryHandler {
         );
     }
 
-
-    public static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
+    static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
         if (!world.isRemote) {
             if (player.getHeldItem(hand) != ItemStack.EMPTY && player.getActiveHand() == EnumHand.MAIN_HAND) {
                 if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                     if (player.getHeldItem(hand).getItem() instanceof ItemHoe) {
                         BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
-                        if (FarmUtils.canFarmWithHoe(crop, world, pos)) {
-                            if (crop instanceof BlockCarrot) {
-                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.CARROT));
-                            } else if (crop instanceof BlockPotato) {
-                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.POTATO));
-                            } else if (crop instanceof BlockBeetroot) {
-                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.BEETROOT));
-                            } else {
-                                FarmUtils.farmWithHoe(crop, world, pos, new ItemStack(Items.WHEAT));
-                            }
-                            if (!player.isCreative())
-                                player.getHeldItem(hand).damageItem(1, player);
+                        if(FarmUtils.canFarm(crop, world, pos)){
+                            FarmUtils.farmAndDrop(crop, world, pos, world.getBlockState(pos), true);
+                            world.setBlockState(pos, crop.getDefaultState());
+                            if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+     static void harvestWithEnchant(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
+        if (!world.isRemote) {
+            if (player.getHeldItem(hand) != ItemStack.EMPTY && player.getActiveHand() == EnumHand.MAIN_HAND) {
+                if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
+                    BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
+                    for (BlockPos poss : FarmUtils.checkInRange(1, pos, 1, true)) {
+                        if(FarmUtils.checkBlockInPos(crop, world, poss) && FarmUtils.canFarm(crop, world, poss)){
+                            FarmUtils.farmAndDrop(crop, world, poss, world.getBlockState(poss), true);
+                            world.setBlockState(poss, crop.getDefaultState());
+                            if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);
                         }
                     }
                 }
