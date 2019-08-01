@@ -26,7 +26,7 @@ public class BlockGrowthPedestal extends FTBlockTileEntity<TileEntityGrowthPedes
 
     public BlockGrowthPedestal(Material materialIn, String name) {
         super(materialIn, name);
-        //setLightLevel(7F);
+        setLightLevel(7F);
         setTickRandomly(true);
     }
 
@@ -34,6 +34,7 @@ public class BlockGrowthPedestal extends FTBlockTileEntity<TileEntityGrowthPedes
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         super.addInformation(stack, player, tooltip, advanced);
         tooltip.add(TextFormatting.RED + "Only work during day time.");
+        tooltip.add(TextFormatting.GREEN + "Range: 4x3x4.");
     }
 
     @Override
