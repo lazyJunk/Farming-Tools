@@ -65,9 +65,11 @@ public class FTRegistryHandler {
                 if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                     if (player.getHeldItem(hand).getItem() instanceof ItemHoe) {
                         BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
-                        FarmUtils.farmAndDrop(crop, world, pos, world.getBlockState(pos), true);
-                        world.setBlockState(pos, crop.getDefaultState());
-                        if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);
+                        if(FarmUtils.canFarm(crop, world, pos)){
+                            FarmUtils.farmAndDrop(crop, world, pos, world.getBlockState(pos), true);
+                            world.setBlockState(pos, crop.getDefaultState());
+                            if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);
+                        }
                     }
                 }
             }
@@ -80,7 +82,7 @@ public class FTRegistryHandler {
                 if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                     BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
                     for (BlockPos poss : FarmUtils.checkInRange(1, pos, 1, true)) {
-                        if(FarmUtils.checkBlockInPos(crop, world, poss)){
+                        if(FarmUtils.checkBlockInPos(crop, world, poss) && FarmUtils.canFarm(crop, world, poss)){
                             FarmUtils.farmAndDrop(crop, world, poss, world.getBlockState(poss), true);
                             world.setBlockState(poss, crop.getDefaultState());
                             if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);
