@@ -2,17 +2,17 @@ package com.lazynessmind.farmingtools.handler;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
-import com.lazynessmind.farmingtools.client.HarvesterSpecialRenderer;
+import com.lazynessmind.farmingtools.client.specialrenderer.HarvesterSpecialRenderer;
+import com.lazynessmind.farmingtools.client.specialrenderer.PlanterSpecialRenderer;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
-import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Bootstrap;
@@ -65,6 +65,7 @@ public class FTRegistryHandler {
 
     private static void bindSpecialRenderer(){
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHarvester.class, new HarvesterSpecialRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlanter.class, new PlanterSpecialRenderer());
     }
 
     static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
