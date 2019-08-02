@@ -2,15 +2,17 @@ package com.lazynessmind.farmingtools.handler;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
+import com.lazynessmind.farmingtools.client.specialrenderer.HarvesterSpecialRenderer;
+import com.lazynessmind.farmingtools.client.specialrenderer.PlanterSpecialRenderer;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
-import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Bootstrap;
@@ -23,6 +25,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -31,6 +34,7 @@ public class FTRegistryHandler {
     public static void registry() {
         dispenserBehaviorRegistration();
         registryCustomRecipes();
+        bindSpecialRenderer();
         NetworkRegistry.INSTANCE.registerGuiHandler(FarmingTools.instance, new GuiHandler());
     }
 
@@ -57,6 +61,11 @@ public class FTRegistryHandler {
                 'A', Blocks.DIRT,
                 'B', Items.POTIONITEM.getDefaultInstance().getItem()
         );
+    }
+
+    private static void bindSpecialRenderer(){
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHarvester.class, new HarvesterSpecialRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlanter.class, new PlanterSpecialRenderer());
     }
 
     static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
