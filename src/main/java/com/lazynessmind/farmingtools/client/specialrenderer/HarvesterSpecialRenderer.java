@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.client;
+package com.lazynessmind.farmingtools.client.specialrenderer;
 
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
 import net.minecraft.client.Minecraft;
