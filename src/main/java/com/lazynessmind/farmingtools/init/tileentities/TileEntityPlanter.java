@@ -1,6 +1,7 @@
 package com.lazynessmind.farmingtools.init.tileentities;
 
 import com.lazynessmind.farmingtools.util.FarmUtils;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,8 @@ public class TileEntityPlanter extends TileEntity implements ITickable {
 
     private ItemStackHandler handler = new ItemStackHandler(1);
     private IBlockState crop;
+    private int doWorkStartTime;
+    private int doWorkEndTime = 10;
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -85,6 +88,10 @@ public class TileEntityPlanter extends TileEntity implements ITickable {
         if (!handler.getStackInSlot(0).isEmpty()) {
             crop = ((IPlantable) handler.getStackInSlot(0).getItem()).getPlant(world, pos);
         }
+        if(doWorkStartTime < doWorkEndTime){
+            doWorkStartTime++;
+        }
+
         plantCrop(crop);
     }
 
@@ -93,8 +100,11 @@ public class TileEntityPlanter extends TileEntity implements ITickable {
             for (BlockPos pos : FarmUtils.checkInRange(4, getPos(), 1, false)) {
                 if (FarmUtils.canPlantCrop(pos, world)) {
                     if (crop != null && !handler.getStackInSlot(0).isEmpty()) {
-                        world.setBlockState(pos, crop);
-                        handler.extractItem(0, 1, false);
+                        if(doWork()){
+                            world.setBlockState(pos, crop);
+                            handler.extractItem(0, 1, false);
+                            doWorkStartTime = 0;
+                        }
                     }
                 }
             }
@@ -103,6 +113,10 @@ public class TileEntityPlanter extends TileEntity implements ITickable {
 
     public boolean isUsableByPlayer(EntityPlayer player) {
         return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    }
+
+    private boolean doWork(){
+        return doWorkStartTime >= doWorkEndTime;
     }
 
     public ItemStackHandler getHandler() {
