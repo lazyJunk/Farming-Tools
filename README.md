@@ -1,5 +1,7 @@
 # Welcome to Farming Tools Mod to Forge 1.12.2!
 
+[![CurseForge](http://cf.way2muchnoise.eu/full_331657_downloads.svg)](https://minecraft.curseforge.com/projects/farming-tools) [![CurseForge](http://cf.way2muchnoise.eu/versions/331657.svg)](https://minecraft.curseforge.com/projects/farming-tools)
+
 This mod add tools to faster and better farming in Minecraft.
 
 &#x1F534; Currently in **development**;
