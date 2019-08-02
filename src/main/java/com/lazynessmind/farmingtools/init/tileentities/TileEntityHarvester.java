@@ -2,12 +2,7 @@ package com.lazynessmind.farmingtools.init.tileentities;
 
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -25,6 +20,8 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
 
     private static final int range = 4;
     private ItemStackHandler handler = new ItemStackHandler(1);
+    private int doWorkStartTime;
+    private int doWorkEndTime = 150;
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -84,9 +81,13 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
 
     @Override
     public void update() {
+        if (doWorkStartTime < doWorkEndTime) {
+            doWorkStartTime++;
+        }
         if (!world.isBlockPowered(pos)) {
             if (!handler.getStackInSlot(0).isEmpty()) {
-                harvestBlock(getPos());
+                if(doWork())
+                    harvestBlock(getPos());
             }
         }
     }
@@ -96,8 +97,9 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
             for (BlockPos poss : FarmUtils.checkInRange(range, pos, 1, false)) {
                 if (world.getBlockState(poss).getBlock() instanceof BlockCrops) {
                     BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
-                    if(FarmUtils.canFarm(crops, world, poss)){
+                    if (FarmUtils.canFarm(crops, world, poss)) {
                         FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
+                        doWorkStartTime = 0;
                     }
                 }
             }
@@ -108,11 +110,15 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
         return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
-   public boolean hasHoeOnSlot(){
+    public boolean hasHoeOnSlot() {
         return !this.handler.getStackInSlot(0).isEmpty();
-   }
+    }
 
     public ItemStackHandler getHandler() {
         return handler;
+    }
+
+    private boolean doWork() {
+        return doWorkStartTime >= doWorkEndTime;
     }
 }
