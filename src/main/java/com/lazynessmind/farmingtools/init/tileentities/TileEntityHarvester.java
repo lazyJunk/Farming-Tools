@@ -25,6 +25,7 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
 
     private static final int range = 4;
     private ItemStackHandler handler = new ItemStackHandler(1);
+    public ItemStack stack = handler.getStackInSlot(0);
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -88,6 +89,9 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
             if (!handler.getStackInSlot(0).isEmpty()) {
                 harvestBlock(getPos());
             }
+        }
+        if(handler.getStackInSlot(0) != stack){
+            stack = handler.getStackInSlot(0);
         }
     }
 
