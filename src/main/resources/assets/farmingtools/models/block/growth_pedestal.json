@@ -4,7 +4,8 @@
         "cobblestone_mossy": "minecraft:blocks/cobblestone_mossy",
         "emerald_block": "minecraft:blocks/emerald_block",
         "anvil_base": "minecraft:blocks/anvil_base",
-        "bone_block_side": "minecraft:blocks/bone_block_side"
+        "bone_block_side": "minecraft:blocks/bone_block_side",
+        "particle": "minecraft:blocks/cobblestone"
     },
     "display": {
         "gui": {

@@ -1,11 +1,11 @@
 {
   "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
   "textures": {
-    "particle": "minecraft:blocks/cobblestone_mossy",
     "cobblestone_mossy": "minecraft:blocks/cobblestone_mossy",
     "emerald_block": "minecraft:blocks/emerald_block",
     "quartz_block_bottom": "minecraft:blocks/quartz_block_bottom",
-    "anvil_base": "minecraft:blocks/anvil_base"
+    "anvil_base": "minecraft:blocks/anvil_base",
+    "particle": "minecraft:blocks/cobblestone"
   },
   "display": {
     "gui": {
