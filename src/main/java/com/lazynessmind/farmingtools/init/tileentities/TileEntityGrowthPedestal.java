@@ -12,55 +12,22 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
-public class TileEntityGrowthPedestal extends TileEntity implements ITickable {
+public class TileEntityGrowthPedestal extends FTTileEntity implements ITickable {
 
     private int growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
     private int range = 4;
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeNBT(NBTTagCompound compound) {
         compound.setInteger("growth_speed", growthSpeed);
         compound.setInteger("range", range);
-        return super.writeToNBT(compound);
+        return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readNBT(NBTTagCompound compound) {
         growthSpeed = compound.getInteger("growth_speed");
         range = compound.getInteger("range");
-        super.readFromNBT(compound);
-    }
-
-    @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        int metadata = getBlockMetadata();
-        return new SPacketUpdateTileEntity(this.pos, metadata, nbt);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        this.readFromNBT(pkt.getNbtCompound());
-    }
-
-    @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return nbt;
-    }
-
-    @Override
-    public void handleUpdateTag(NBTTagCompound tag) {
-        this.readFromNBT(tag);
-    }
-
-    @Override
-    public NBTTagCompound getTileData() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return nbt;
     }
 
     @Override

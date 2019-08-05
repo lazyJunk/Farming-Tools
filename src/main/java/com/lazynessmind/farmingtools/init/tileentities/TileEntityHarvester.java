@@ -4,9 +4,6 @@ import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
@@ -16,55 +13,25 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 
-public class TileEntityHarvester extends TileEntity implements ITickable {
+public class TileEntityHarvester extends FTTileEntity implements ITickable {
 
-    private static final int range = 4;
+    public int range = 1;
     private ItemStackHandler handler = new ItemStackHandler(1);
     private int doWorkStartTime;
     private int doWorkEndTime = 150;
+    private boolean showEffectArea = false;
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeNBT(NBTTagCompound compound) {
         compound.setTag("Inventory", this.handler.serializeNBT());
-        return super.writeToNBT(compound);
+        compound.setInteger("Range", this.range);
+        return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readNBT(NBTTagCompound compound) {
         this.handler.deserializeNBT(compound.getCompoundTag("Inventory"));
-        super.readFromNBT(compound);
-    }
-
-    @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        int metadata = getBlockMetadata();
-        return new SPacketUpdateTileEntity(this.pos, metadata, nbt);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        this.readFromNBT(pkt.getNbtCompound());
-    }
-
-    @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return nbt;
-    }
-
-    @Override
-    public void handleUpdateTag(NBTTagCompound tag) {
-        this.readFromNBT(tag);
-    }
-
-    @Override
-    public NBTTagCompound getTileData() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return nbt;
+        this.range = compound.getInteger("Range");
     }
 
     @Override
@@ -86,7 +53,7 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
         }
         if (!world.isBlockPowered(pos)) {
             if (!handler.getStackInSlot(0).isEmpty()) {
-                if(doWork())
+                if (doWork())
                     harvestBlock(getPos());
             }
         }
@@ -120,5 +87,22 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
 
     private boolean doWork() {
         return doWorkStartTime >= doWorkEndTime;
+    }
+
+    public void setShowEffectArea(boolean showEffectArea) {
+        this.showEffectArea = showEffectArea;
+    }
+
+    public boolean showEffectArea() {
+        return showEffectArea;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+        markDirty();
+    }
+
+    public int getRange() {
+        return range;
     }
 }

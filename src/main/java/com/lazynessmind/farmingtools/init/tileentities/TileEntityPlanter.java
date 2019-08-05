@@ -20,7 +20,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 
-public class TileEntityPlanter extends TileEntity implements ITickable {
+public class TileEntityPlanter extends FTTileEntity implements ITickable {
 
     private ItemStackHandler handler = new ItemStackHandler(1);
     private IBlockState crop;
@@ -28,47 +28,14 @@ public class TileEntityPlanter extends TileEntity implements ITickable {
     private int doWorkEndTime = 10;
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeNBT(NBTTagCompound compound) {
         compound.setTag("Items", this.handler.serializeNBT());
-        return super.writeToNBT(compound);
+        return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readNBT(NBTTagCompound compound) {
         this.handler.deserializeNBT(compound.getCompoundTag("Items"));
-        super.readFromNBT(compound);
-    }
-
-    @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        int metadata = getBlockMetadata();
-        return new SPacketUpdateTileEntity(this.pos, metadata, nbt);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        this.readFromNBT(pkt.getNbtCompound());
-    }
-
-    @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return nbt;
-    }
-
-    @Override
-    public void handleUpdateTag(NBTTagCompound tag) {
-        this.readFromNBT(tag);
-    }
-
-    @Override
-    public NBTTagCompound getTileData() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return nbt;
     }
 
     @Override
