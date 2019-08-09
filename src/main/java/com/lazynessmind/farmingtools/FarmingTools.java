@@ -2,6 +2,7 @@ package com.lazynessmind.farmingtools;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.handler.FTRegistryHandler;
+import com.lazynessmind.farmingtools.network.FTNetworkHandler;
 import com.lazynessmind.farmingtools.proxy.CommonProxy;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsBlocksTab;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsItemsTab;
@@ -25,6 +26,7 @@ public class FarmingTools {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         FarmingToolsConfigs.preInit();
+        FTNetworkHandler.init();
     }
 
     @EventHandler
