@@ -72,6 +72,9 @@ public class BlockHarvester extends FTBlockTileEntity<TileEntityHarvester> {
         if (worldIn.getWorldInfo().getWorldTime() < 12500) {
             ParticleCreator.spawnParticle(EnumParticleTypes.PORTAL, worldIn, pos, 10, rand);
         }
+        if (getTileEntity(worldIn, pos).needRedstonePower()) {
+            ParticleCreator.spawnParticle(EnumParticleTypes.SPELL, worldIn, pos, 5, rand);
+        }
     }
 
     @Override
