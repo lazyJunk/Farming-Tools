@@ -5,15 +5,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
 public class TileEntityFertilizedSoil extends TileEntity implements ITickable {
 
-    private int growSpeed = FarmingToolsConfigs.fertilizedSoilSpeedVar;
+    private int growSpeed = FarmingToolsConfigs.fertilizedSoilSpeedVar / 2;
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -30,7 +28,7 @@ public class TileEntityFertilizedSoil extends TileEntity implements ITickable {
     @Override
     public void update() {
         //update when changed since the value is defined when first placed on world
-        this.growSpeed = FarmingToolsConfigs.fertilizedSoilSpeedVar;
+        this.growSpeed = FarmingToolsConfigs.fertilizedSoilSpeedVar / 2;
         tickCrop(this.pos.up());
     }
 
@@ -52,9 +50,5 @@ public class TileEntityFertilizedSoil extends TileEntity implements ITickable {
                 }
             }
         }
-    }
-
-    public int getGrowSpeed() {
-        return growSpeed;
     }
 }

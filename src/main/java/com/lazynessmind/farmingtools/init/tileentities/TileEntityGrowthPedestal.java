@@ -6,16 +6,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
 public class TileEntityGrowthPedestal extends FTTileEntity implements ITickable {
 
     private int growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
-    private int range = 4;
+    private int range = 3;
 
     @Override
     public void writeNBT(NBTTagCompound compound) {

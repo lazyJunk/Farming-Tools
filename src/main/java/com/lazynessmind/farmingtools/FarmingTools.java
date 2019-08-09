@@ -6,6 +6,7 @@ import com.lazynessmind.farmingtools.network.FTNetworkHandler;
 import com.lazynessmind.farmingtools.proxy.CommonProxy;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsBlocksTab;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsItemsTab;
+import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -35,7 +36,6 @@ public class FarmingTools {
         FarmingToolsConfigs.clientPreInit();
         FTRegistryHandler.registry();
     }
-
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {

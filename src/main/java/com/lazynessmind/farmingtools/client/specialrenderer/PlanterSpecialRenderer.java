@@ -31,7 +31,7 @@ public class PlanterSpecialRenderer extends TileEntitySpecialRenderer<TileEntity
             this.setLightmapDisabled(true);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            RenderUtils.renderBox(bufferbuilder, (x - te.range), y, (z - te.range), (x + te.range + 1), y + te.yRange, (z + te.range + 1), 255, 255, 255,2f, tessellator);
+            RenderUtils.renderBox(bufferbuilder, (x - te.range), y, (z - te.range), (x + te.range + 1), y+1, (z + te.range + 1), 255, 255, 255,2f, tessellator);
             this.setLightmapDisabled(false);
         }
 

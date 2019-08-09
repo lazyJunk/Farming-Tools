@@ -5,6 +5,9 @@ import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemSeedFood;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -23,8 +26,6 @@ public class TileEntityPlanter extends FTTileEntity implements ITickable, IRange
     private boolean showRangeArea = false;
     private boolean needRedstonePower = false;
     private ItemStackHandler handler = new ItemStackHandler(1);
-
-    public int yRange = 1;
     private IBlockState crop;
     private int doWorkStartTime;
     private int doWorkEndTime = 10;
@@ -64,33 +65,35 @@ public class TileEntityPlanter extends FTTileEntity implements ITickable, IRange
 
     @Override
     public void update() {
+        Item itemSlot = handler.getStackInSlot(0).getItem();
         if (!world.isRemote) {
             if (!handler.getStackInSlot(0).isEmpty()) {
-                crop = ((IPlantable) handler.getStackInSlot(0).getItem()).getPlant(world, pos);
+                if (itemSlot instanceof ItemSeeds || itemSlot instanceof ItemSeedFood) {
+                    crop = ((IPlantable) handler.getStackInSlot(0).getItem()).getPlant(world, pos);
+                }
             }
             if (doWorkStartTime < doWorkEndTime) {
                 doWorkStartTime++;
             }
         }
-
         plantCrop(crop);
     }
 
     private void plantCrop(IBlockState crop) {
         if (!world.isRemote) {
-            for (BlockPos pos : FarmUtils.checkInRange(range, getPos(), yRange, false)) {
+            for (BlockPos pos : FarmUtils.checkInXZRange(range, getPos(), false)) {
                 if (FarmUtils.canPlantCrop(pos, world)) {
                     if (crop != null && !handler.getStackInSlot(0).isEmpty()) {
-                        if(needRedstonePower()){
-                            if(world.isBlockPowered(pos)){
-                                if(doWork()){
+                        if (needRedstonePower()) {
+                            if (world.isBlockPowered(pos)) {
+                                if (doWork()) {
                                     world.setBlockState(pos, crop);
                                     handler.extractItem(0, 1, false);
                                     doWorkStartTime = 0;
                                 }
                             }
                         } else {
-                            if(doWork()){
+                            if (doWork()) {
                                 world.setBlockState(pos, crop);
                                 handler.extractItem(0, 1, false);
                                 doWorkStartTime = 0;
@@ -100,10 +103,6 @@ public class TileEntityPlanter extends FTTileEntity implements ITickable, IRange
                 }
             }
         }
-    }
-
-    public boolean isUsableByPlayer(EntityPlayer player) {
-        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     private boolean doWork() {

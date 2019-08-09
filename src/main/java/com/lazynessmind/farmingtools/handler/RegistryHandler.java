@@ -65,5 +65,4 @@ public class RegistryHandler {
             FTRegistryHandler.registryHoeRightClickOnCrops(event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getPos());
         }
     }
-
 }

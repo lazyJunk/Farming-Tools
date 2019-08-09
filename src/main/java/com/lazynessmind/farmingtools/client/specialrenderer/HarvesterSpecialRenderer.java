@@ -31,7 +31,7 @@ public class HarvesterSpecialRenderer extends TileEntitySpecialRenderer<TileEnti
             this.setLightmapDisabled(true);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            RenderUtils.renderBox(bufferbuilder, (x - te.range), y, (z - te.range), (x + te.range + 1), y + te.yRange, (z + te.range + 1), 255, 255, 255,2f, tessellator);
+            RenderUtils.renderBox(bufferbuilder, (x - te.range), (y -te.yRange), (z - te.range), (x + te.range + 1), (y + te.yRange), (z + te.range + 1), 255, 255, 255,2f, tessellator);
             this.setLightmapDisabled(false);
         }
 

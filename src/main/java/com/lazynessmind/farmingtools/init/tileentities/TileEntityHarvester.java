@@ -19,8 +19,8 @@ import javax.annotation.Nullable;
 public class TileEntityHarvester extends FTTileEntity implements ITickable, IRange, IRedPower {
 
     //Tile Data
-    public int range = 2;
-    public int yRange = 2;
+    public int range = 1;
+    public int yRange = 1;
     private boolean showRangeArea = false;
     private boolean needsRedstonePower = false;
     private ItemStackHandler handler = new ItemStackHandler(1);
@@ -72,10 +72,10 @@ public class TileEntityHarvester extends FTTileEntity implements ITickable, IRan
                 if (world.getBlockState(poss).getBlock() instanceof BlockCrops) {
                     BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
                     if (needRedstonePower()) {
-                        if (world.isBlockPowered(pos)) {
-                            if (FarmUtils.canFarm(crops, world, poss) &&hasHoeOnSlot()) {
+                        if (isPowered()) {
+                            if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
                                 FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                                if(handler.getStackInSlot(0).isItemStackDamageable()){
+                                if (handler.getStackInSlot(0).isItemStackDamageable()) {
                                     handler.getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
                                 }
                                 doWorkStartTime = 0;
@@ -84,7 +84,7 @@ public class TileEntityHarvester extends FTTileEntity implements ITickable, IRan
                     } else {
                         if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
                             FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                            if(handler.getStackInSlot(0).isItemStackDamageable()){
+                            if (handler.getStackInSlot(0).isItemStackDamageable()) {
                                 handler.getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
                             }
                             doWorkStartTime = 0;

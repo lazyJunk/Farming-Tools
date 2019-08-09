@@ -59,10 +59,10 @@ public class GuiBase extends GuiContainer {
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
-        if(button instanceof TwoStateButton){
-            TwoStateButton btn = (TwoStateButton)button;
-            if(btn.id == 901){
-                if(btn.isActive){
+        if (button instanceof TwoStateButton) {
+            TwoStateButton btn = (TwoStateButton) button;
+            if (btn.id == 901) {
+                if (btn.isActive) {
                     MessageShowArea packet = new MessageShowArea(tileEntityId, false, x, y, z);
                     FTNetworkHandler.sendPacketToServer(packet);
                     showEffectAreaButton.isActive = packet.state;
@@ -71,8 +71,8 @@ public class GuiBase extends GuiContainer {
                     FTNetworkHandler.sendPacketToServer(packet);
                     showEffectAreaButton.isActive = packet.state;
                 }
-            } else if(btn.id == 902){
-                if(btn.isActive){
+            } else if (btn.id == 902) {
+                if (btn.isActive) {
                     MessageRedstonePower packet = new MessageRedstonePower(tileEntityId, false, x, y, z);
                     FTNetworkHandler.sendPacketToServer(packet);
                     activeRedstone.isActive = packet.state;
