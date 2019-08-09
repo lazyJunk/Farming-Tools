@@ -53,7 +53,7 @@ public class MessageShowArea implements IMessage {
         buf.writeInt(y);
         buf.writeInt(z);
     }
-
+    //I dont know how this is working ... looooooool (09-08-2019)
     public static class Handler implements IMessageHandler<MessageShowArea, IMessage> {
 
         @Override
