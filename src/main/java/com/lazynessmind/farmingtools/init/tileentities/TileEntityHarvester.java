@@ -1,5 +1,7 @@
 package com.lazynessmind.farmingtools.init.tileentities;
 
+import com.lazynessmind.farmingtools.interfaces.IRange;
+import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,25 +15,32 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 
-public class TileEntityHarvester extends FTTileEntity implements ITickable {
+public class TileEntityHarvester extends FTTileEntity implements ITickable, IRange, IRedPower {
 
-    public int range = 1;
+    //Tile Data
+    public int range = 2;
+    public int yRange = 2;
+    private boolean showRangeArea = false;
+    private boolean needsRedstonePower = false;
     private ItemStackHandler handler = new ItemStackHandler(1);
+
     private int doWorkStartTime;
     private int doWorkEndTime = 150;
-    private boolean showEffectArea = false;
 
     @Override
-    public NBTTagCompound writeNBT(NBTTagCompound compound) {
+    public void writeNBT(NBTTagCompound compound) {
         compound.setTag("Inventory", this.handler.serializeNBT());
         compound.setInteger("Range", this.range);
-        return compound;
+        compound.setBoolean("ShowRangeArea", this.showRangeArea);
+        compound.setBoolean("NeedRedstonePower", this.needsRedstonePower);
     }
 
     @Override
     public void readNBT(NBTTagCompound compound) {
         this.handler.deserializeNBT(compound.getCompoundTag("Inventory"));
         this.range = compound.getInteger("Range");
+        this.showRangeArea = compound.getBoolean("ShowRangeArea");
+        this.needsRedstonePower = compound.getBoolean("NeedRedstonePower");
     }
 
     @Override
@@ -51,22 +60,28 @@ public class TileEntityHarvester extends FTTileEntity implements ITickable {
         if (doWorkStartTime < doWorkEndTime) {
             doWorkStartTime++;
         }
-        if (!world.isBlockPowered(pos)) {
-            if (!handler.getStackInSlot(0).isEmpty()) {
-                if (doWork())
-                    harvestBlock(getPos());
-            }
+        if (doWork()) {
+            harvestBlock(pos);
         }
     }
 
     private void harvestBlock(BlockPos pos) {
         if (!world.isRemote) {
-            for (BlockPos poss : FarmUtils.checkInRange(range, pos, 1, false)) {
+            for (BlockPos poss : FarmUtils.checkInRange(range, pos, yRange, false)) {
                 if (world.getBlockState(poss).getBlock() instanceof BlockCrops) {
                     BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
-                    if (FarmUtils.canFarm(crops, world, poss)) {
-                        FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                        doWorkStartTime = 0;
+                    if (needRedstonePower()) {
+                        if (world.isBlockPowered(pos)) {
+                            if (FarmUtils.canFarm(crops, world, poss)) {
+                                FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
+                                doWorkStartTime = 0;
+                            }
+                        }
+                    } else {
+                        if (FarmUtils.canFarm(crops, world, poss)) {
+                            FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
+                            doWorkStartTime = 0;
+                        }
                     }
                 }
             }
@@ -89,20 +104,27 @@ public class TileEntityHarvester extends FTTileEntity implements ITickable {
         return doWorkStartTime >= doWorkEndTime;
     }
 
-    public void setShowEffectArea(boolean showEffectArea) {
-        this.showEffectArea = showEffectArea;
+    private boolean isPowered() {
+        return world.isBlockPowered(pos);
     }
 
-    public boolean showEffectArea() {
-        return showEffectArea;
+    @Override
+    public boolean canShowRangeArea() {
+        return this.showRangeArea;
     }
 
-    public void setRange(int range) {
-        this.range = range;
-        markDirty();
+    @Override
+    public void showRangeArea(boolean state) {
+        this.showRangeArea = state;
     }
 
-    public int getRange() {
-        return range;
+    @Override
+    public boolean needRedstonePower() {
+        return this.needsRedstonePower;
+    }
+
+    @Override
+    public void setNeedRedstonePower(boolean state) {
+        this.needsRedstonePower = state;
     }
 }
