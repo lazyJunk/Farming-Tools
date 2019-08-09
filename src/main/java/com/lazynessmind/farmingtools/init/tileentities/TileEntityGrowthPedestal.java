@@ -18,10 +18,9 @@ public class TileEntityGrowthPedestal extends FTTileEntity implements ITickable 
     private int range = 4;
 
     @Override
-    public NBTTagCompound writeNBT(NBTTagCompound compound) {
+    public void writeNBT(NBTTagCompound compound) {
         compound.setInteger("growth_speed", growthSpeed);
         compound.setInteger("range", range);
-        return compound;
     }
 
     @Override
