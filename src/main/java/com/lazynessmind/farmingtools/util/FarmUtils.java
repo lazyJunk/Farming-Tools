@@ -44,6 +44,17 @@ public class FarmUtils {
         return positions;
     }
 
+    public static List<BlockPos> checkInXZRange(int range, BlockPos currentPos, boolean checkItself) {
+        List<BlockPos> positions = new ArrayList<>();
+        if (checkItself) positions.add(currentPos);
+        for (int x = -range; x < range + 1; x++) {
+            for (int z = -range; z < range + 1; z++) {
+                positions.add(new BlockPos(currentPos.getX() + x, currentPos.getY(), currentPos.getZ() + z));
+            }
+        }
+        return positions;
+    }
+
     public static boolean checkBlockInPos(Block checkBlock, World world, BlockPos pos) {
         return world.getBlockState(pos).getBlock() == checkBlock;
     }

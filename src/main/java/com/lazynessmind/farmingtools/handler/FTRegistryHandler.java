@@ -63,7 +63,7 @@ public class FTRegistryHandler {
         );
     }
 
-    private static void bindSpecialRenderer(){
+    private static void bindSpecialRenderer() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHarvester.class, new HarvesterSpecialRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlanter.class, new PlanterSpecialRenderer());
     }
@@ -74,7 +74,7 @@ public class FTRegistryHandler {
                 if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                     if (player.getHeldItem(hand).getItem() instanceof ItemHoe) {
                         BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
-                        if(FarmUtils.canFarm(crop, world, pos)){
+                        if (FarmUtils.canFarm(crop, world, pos)) {
                             FarmUtils.farmAndDrop(crop, world, pos, world.getBlockState(pos), true);
                             world.setBlockState(pos, crop.getDefaultState());
                             if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);
@@ -85,13 +85,13 @@ public class FTRegistryHandler {
         }
     }
 
-     static void harvestWithEnchant(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
+    static void harvestWithEnchant(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
         if (!world.isRemote) {
             if (player.getHeldItem(hand) != ItemStack.EMPTY && player.getActiveHand() == EnumHand.MAIN_HAND) {
                 if (world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                     BlockCrops crop = (BlockCrops) world.getBlockState(pos).getBlock();
                     for (BlockPos poss : FarmUtils.checkInRange(1, pos, 1, true)) {
-                        if(FarmUtils.checkBlockInPos(crop, world, poss) && FarmUtils.canFarm(crop, world, poss)){
+                        if (FarmUtils.checkBlockInPos(crop, world, poss) && FarmUtils.canFarm(crop, world, poss)) {
                             FarmUtils.farmAndDrop(crop, world, poss, world.getBlockState(poss), true);
                             world.setBlockState(poss, crop.getDefaultState());
                             if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);

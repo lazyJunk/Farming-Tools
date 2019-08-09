@@ -1,8 +1,11 @@
 package com.lazynessmind.farmingtools.client.specialrenderer;
 
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
+import com.lazynessmind.farmingtools.util.RenderUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -23,6 +26,14 @@ public class PlanterSpecialRenderer extends TileEntitySpecialRenderer<TileEntity
         }
 
         entityItem.setItem(te.getHandler().getStackInSlot(0));
+
+        if(te.canShowRangeArea()) {
+            this.setLightmapDisabled(true);
+            Tessellator tessellator = Tessellator.getInstance();
+            BufferBuilder bufferbuilder = tessellator.getBuffer();
+            RenderUtils.renderBox(bufferbuilder, (x - te.range), y, (z - te.range), (x + te.range + 1), y+1, (z + te.range + 1), 255, 255, 255,2f, tessellator);
+            this.setLightmapDisabled(false);
+        }
 
         GlStateManager.pushMatrix();
         {

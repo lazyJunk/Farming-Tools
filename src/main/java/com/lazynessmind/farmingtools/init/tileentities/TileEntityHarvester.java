@@ -1,12 +1,12 @@
 package com.lazynessmind.farmingtools.init.tileentities;
 
+import com.lazynessmind.farmingtools.interfaces.IRange;
+import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
@@ -16,55 +16,32 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 
-public class TileEntityHarvester extends TileEntity implements ITickable {
+public class TileEntityHarvester extends FTTileEntity implements ITickable, IRange, IRedPower {
 
-    private static final int range = 4;
+    //Tile Data
+    public int range = 1;
+    public int yRange = 1;
+    private boolean showRangeArea = false;
+    private boolean needsRedstonePower = false;
     private ItemStackHandler handler = new ItemStackHandler(1);
+
     private int doWorkStartTime;
     private int doWorkEndTime = 150;
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public void writeNBT(NBTTagCompound compound) {
         compound.setTag("Inventory", this.handler.serializeNBT());
-        return super.writeToNBT(compound);
+        compound.setInteger("Range", this.range);
+        compound.setBoolean("ShowRangeArea", this.showRangeArea);
+        compound.setBoolean("NeedRedstonePower", this.needsRedstonePower);
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readNBT(NBTTagCompound compound) {
         this.handler.deserializeNBT(compound.getCompoundTag("Inventory"));
-        super.readFromNBT(compound);
-    }
-
-    @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        int metadata = getBlockMetadata();
-        return new SPacketUpdateTileEntity(this.pos, metadata, nbt);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        this.readFromNBT(pkt.getNbtCompound());
-    }
-
-    @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return nbt;
-    }
-
-    @Override
-    public void handleUpdateTag(NBTTagCompound tag) {
-        this.readFromNBT(tag);
-    }
-
-    @Override
-    public NBTTagCompound getTileData() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return nbt;
+        this.range = compound.getInteger("Range");
+        this.showRangeArea = compound.getBoolean("ShowRangeArea");
+        this.needsRedstonePower = compound.getBoolean("NeedRedstonePower");
     }
 
     @Override
@@ -84,22 +61,34 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
         if (doWorkStartTime < doWorkEndTime) {
             doWorkStartTime++;
         }
-        if (!world.isBlockPowered(pos)) {
-            if (!handler.getStackInSlot(0).isEmpty()) {
-                if(doWork())
-                    harvestBlock(getPos());
-            }
+        if (doWork()) {
+            harvestBlock(pos);
         }
     }
 
     private void harvestBlock(BlockPos pos) {
         if (!world.isRemote) {
-            for (BlockPos poss : FarmUtils.checkInRange(range, pos, 1, false)) {
+            for (BlockPos poss : FarmUtils.checkInRange(range, pos, yRange, false)) {
                 if (world.getBlockState(poss).getBlock() instanceof BlockCrops) {
                     BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
-                    if (FarmUtils.canFarm(crops, world, poss)) {
-                        FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                        doWorkStartTime = 0;
+                    if (needRedstonePower()) {
+                        if (isPowered()) {
+                            if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
+                                FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
+                                if (handler.getStackInSlot(0).isItemStackDamageable()) {
+                                    handler.getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
+                                }
+                                doWorkStartTime = 0;
+                            }
+                        }
+                    } else {
+                        if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
+                            FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
+                            if (handler.getStackInSlot(0).isItemStackDamageable()) {
+                                handler.getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
+                            }
+                            doWorkStartTime = 0;
+                        }
                     }
                 }
             }
@@ -120,5 +109,29 @@ public class TileEntityHarvester extends TileEntity implements ITickable {
 
     private boolean doWork() {
         return doWorkStartTime >= doWorkEndTime;
+    }
+
+    private boolean isPowered() {
+        return world.isBlockPowered(pos);
+    }
+
+    @Override
+    public boolean canShowRangeArea() {
+        return this.showRangeArea;
+    }
+
+    @Override
+    public void showRangeArea(boolean state) {
+        this.showRangeArea = state;
+    }
+
+    @Override
+    public boolean needRedstonePower() {
+        return this.needsRedstonePower;
+    }
+
+    @Override
+    public void setNeedRedstonePower(boolean state) {
+        this.needsRedstonePower = state;
     }
 }

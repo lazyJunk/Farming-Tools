@@ -27,4 +27,8 @@ public abstract class FTBlockTileEntity<TE extends TileEntity> extends FTBlock {
 
     @Override
     public abstract TE createTileEntity(World world, IBlockState state);
+
+    public void scheduleUpdate(World world, BlockPos pos){
+        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+    }
 }

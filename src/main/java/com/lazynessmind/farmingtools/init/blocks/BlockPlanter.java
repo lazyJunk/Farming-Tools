@@ -9,9 +9,7 @@ import com.lazynessmind.farmingtools.util.SpawnUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -24,7 +22,7 @@ import java.util.Random;
 
 public class BlockPlanter extends FTBlockTileEntity<TileEntityPlanter> {
 
-    protected static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5625D, 0.9375D);
+    private static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5625D, 0.9375D);
 
     public BlockPlanter(Material material, String name) {
         super(material, name);
@@ -33,8 +31,11 @@ public class BlockPlanter extends FTBlockTileEntity<TileEntityPlanter> {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(playerIn.getHeldItem(hand) == ItemStack.EMPTY)
+        if (playerIn.getHeldItem(hand).getItem() instanceof ItemBlock) {
+            return false;
+        } else {
             playerIn.openGui(FarmingTools.instance, FTGuis.PLANTER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        }
         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
 
@@ -65,6 +66,9 @@ public class BlockPlanter extends FTBlockTileEntity<TileEntityPlanter> {
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (worldIn.getWorldInfo().getWorldTime() < 12500) {
             ParticleCreator.spawnParticle(EnumParticleTypes.PORTAL, worldIn, pos, 10, rand);
+        }
+        if (getTileEntity(worldIn, pos).needRedstonePower()) {
+            ParticleCreator.spawnParticle(EnumParticleTypes.SPELL, worldIn, pos, 5, rand);
         }
     }
 

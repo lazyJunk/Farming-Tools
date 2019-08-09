@@ -79,6 +79,7 @@ public class FarmingToolsConfigs {
 
         List<String> propertyOrderBlocks = new ArrayList<String>();
         propertyOrderBlocks.add(fertilizedSoilSpeed.getName());
+        propertyOrderBlocks.add(growthPedestalSpeed.getName());
         config.setCategoryPropertyOrder(CATEGORY_NAME_BLOCKS, propertyOrderBlocks);
 
         if (readFieldsFromConfig) {

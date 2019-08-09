@@ -2,9 +2,11 @@ package com.lazynessmind.farmingtools;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.handler.FTRegistryHandler;
+import com.lazynessmind.farmingtools.network.FTNetworkHandler;
 import com.lazynessmind.farmingtools.proxy.CommonProxy;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsBlocksTab;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsItemsTab;
+import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -25,6 +27,7 @@ public class FarmingTools {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         FarmingToolsConfigs.preInit();
+        FTNetworkHandler.init();
     }
 
     @EventHandler
@@ -33,7 +36,6 @@ public class FarmingTools {
         FarmingToolsConfigs.clientPreInit();
         FTRegistryHandler.registry();
     }
-
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
