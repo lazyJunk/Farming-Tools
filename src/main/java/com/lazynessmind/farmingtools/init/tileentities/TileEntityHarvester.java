@@ -4,6 +4,7 @@ import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -72,14 +73,20 @@ public class TileEntityHarvester extends FTTileEntity implements ITickable, IRan
                     BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
                     if (needRedstonePower()) {
                         if (world.isBlockPowered(pos)) {
-                            if (FarmUtils.canFarm(crops, world, poss)) {
+                            if (FarmUtils.canFarm(crops, world, poss) &&hasHoeOnSlot()) {
                                 FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
+                                if(handler.getStackInSlot(0).isItemStackDamageable()){
+                                    handler.getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
+                                }
                                 doWorkStartTime = 0;
                             }
                         }
                     } else {
-                        if (FarmUtils.canFarm(crops, world, poss)) {
+                        if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
                             FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
+                            if(handler.getStackInSlot(0).isItemStackDamageable()){
+                                handler.getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
+                            }
                             doWorkStartTime = 0;
                         }
                     }
