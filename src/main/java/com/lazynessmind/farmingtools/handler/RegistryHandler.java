@@ -8,12 +8,18 @@ import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
+import com.lazynessmind.farmingtools.util.ChatUtil;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -64,5 +70,10 @@ public class RegistryHandler {
         } else {
             FTRegistryHandler.registryHoeRightClickOnCrops(event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getPos());
         }
+    }
+
+    @SubscribeEvent
+    public static void onWorldLoaded(EntityJoinWorldEvent loadEvent) {
+        FTRegistryHandler.onWorldLoaded(loadEvent.getWorld(), loadEvent.getEntity());
     }
 }
