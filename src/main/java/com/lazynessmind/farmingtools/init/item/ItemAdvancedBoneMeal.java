@@ -2,6 +2,7 @@ package com.lazynessmind.farmingtools.init.item;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
+import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +19,7 @@ import net.minecraft.world.World;
 public class ItemAdvancedBoneMeal extends FTItem {
 
     public ItemAdvancedBoneMeal(String name) {
-        super(name);
+        super(name, RarityUtil.LEGENDARY);
         setMaxStackSize(64);
     }
 
