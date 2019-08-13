@@ -38,6 +38,7 @@ public class FTConfigGuiFactory implements IModGuiFactory {
             List<IConfigElement> list = new ArrayList<IConfigElement>();
             list.add(new DummyCategoryElement(I18n.format("gui.config.category.items"), "gui.config.category.items", CategoryEntryItems.class));
             list.add(new DummyCategoryElement(I18n.format("gui.config.category.blocks"), "gui.config.category.blocks", CategoryEntryBlocks.class));
+            list.add(new DummyCategoryElement(I18n.format("gui.config.category.features"), "gui.config.category.features", CategoryEntryFeatures.class));
             return list;
         }
 
@@ -72,6 +73,24 @@ public class FTConfigGuiFactory implements IModGuiFactory {
                 ConfigElement categoryBlocks = new ConfigElement(config.getCategory(FarmingToolsConfigs.CATEGORY_NAME_BLOCKS));
                 List<IConfigElement> propertiesOnScreen = categoryBlocks.getChildElements();
                 String windowTitle = I18n.format("gui.config.category.blocks");
+                return new GuiConfig(owningScreen, propertiesOnScreen, owningScreen.modID, this.configElement.requiresWorldRestart() || this.owningScreen.allRequireWorldRestart, this.configElement.requiresMcRestart() || this.owningScreen.allRequireMcRestart, windowTitle);
+            }
+
+        }
+
+        public static class CategoryEntryFeatures extends CategoryEntry {
+
+            public CategoryEntryFeatures(GuiConfig owningScreen, GuiConfigEntries owningEntryList,
+                                       IConfigElement configElement) {
+                super(owningScreen, owningEntryList, configElement);
+            }
+
+            @Override
+            protected GuiScreen buildChildScreen() {
+                Configuration config = FarmingToolsConfigs.getConfig();
+                ConfigElement categoryFeatures = new ConfigElement(config.getCategory(FarmingToolsConfigs.CATEGORY_NAME_FEATURE));
+                List<IConfigElement> propertiesOnScreen = categoryFeatures.getChildElements();
+                String windowTitle = I18n.format("gui.config.category.features");
                 return new GuiConfig(owningScreen, propertiesOnScreen, owningScreen.modID, this.configElement.requiresWorldRestart() || this.owningScreen.allRequireWorldRestart, this.configElement.requiresMcRestart() || this.owningScreen.allRequireMcRestart, windowTitle);
             }
 

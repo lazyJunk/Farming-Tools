@@ -20,6 +20,7 @@ public class FarmingToolsConfigs {
 
     public static final String CATEGORY_NAME_BLOCKS = "blocks";
     public static final String CATEGORY_NAME_ITEMS = "items";
+    public static final String CATEGORY_NAME_FEATURE = "feature";
 
     //Blocks/TileEntity
     public static int fertilizedSoilSpeedVar;
@@ -27,6 +28,9 @@ public class FarmingToolsConfigs {
 
     //Items
     public static int advancedBoneMealRange;
+
+    //Features
+    public static boolean showUpdateMessage;
 
     public static void preInit() {
         File configFile = new File(Loader.instance().getConfigDir(), "FarmingToolsConfigs.cfg");
@@ -61,6 +65,7 @@ public class FarmingToolsConfigs {
 
         setItemsConfigs(readFieldsFromConfig);
         setBlocksConfigs(readFieldsFromConfig);
+        setFeatureConfigs(readFieldsFromConfig);
 
         if (config.hasChanged())
             config.save();
@@ -107,6 +112,22 @@ public class FarmingToolsConfigs {
         }
 
         propertyAdvancedBoneMealRange.set(advancedBoneMealRange);
+    }
+
+    private static void setFeatureConfigs(boolean readFieldsFromConfig) {
+        Property showUpdateMessageProp = config.get(CATEGORY_NAME_FEATURE, "show_update_message", true);
+        showUpdateMessageProp.setLanguageKey("gui.config.features.showUpdateMessage.name");
+        showUpdateMessageProp.setComment(I18n.format("gui.config.features.showUpdateMessage.comment"));
+
+        List<String> propertyOrderFeatures = new ArrayList<String>();
+        propertyOrderFeatures.add(showUpdateMessageProp.getName());
+        config.setCategoryPropertyOrder(CATEGORY_NAME_ITEMS, propertyOrderFeatures);
+
+        if (readFieldsFromConfig) {
+            showUpdateMessage = showUpdateMessageProp.getBoolean();
+        }
+
+        showUpdateMessageProp.set(showUpdateMessage);
     }
 
     public static class ConfigEventHandler {
