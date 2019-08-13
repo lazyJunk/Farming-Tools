@@ -11,8 +11,12 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.config.HoverChecker;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiBase extends GuiContainer {
 
@@ -21,6 +25,7 @@ public class GuiBase extends GuiContainer {
     private int y;
     private int z;
     private String tileEntityId;
+    private HoverChecker areaChecker, redstoneChecker;
     private TwoStateButton showEffectAreaButton, activeRedstone;
 
     public GuiBase(Container container, InventoryPlayer inventoryPlayer, TileEntity tileEntity, String tileEntityId) {
@@ -44,7 +49,33 @@ public class GuiBase extends GuiContainer {
             activeRedstone = addButton(new TwoStateButton(902, this.guiLeft + 5, this.guiTop + 26, GuiTextures.Icon.REDSTONE));
             activeRedstone.isActive = ((IRedPower) tileEntity).needRedstonePower();
         }
+
+        areaChecker = new HoverChecker(showEffectAreaButton, 200);
+        redstoneChecker = new HoverChecker(activeRedstone, 200);
     }
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
+
+        if(areaChecker.checkHover(mouseX, mouseY)){
+            List<String> strings = new ArrayList<>();
+            strings.add("Show/Don't show range area!");
+            GuiUtils.drawHoveringText(strings, mouseX, mouseY, width, height, 200, fontRenderer);
+        }
+
+        if(redstoneChecker.checkHover(mouseX, mouseY)){
+            List<String> strings = new ArrayList<>();
+            strings.add("On/Off Redstone signal.");
+            strings.add("If On just works with redstone.");
+            GuiUtils.drawHoveringText(strings, mouseX, mouseY, width, height, 200, fontRenderer);
+        }
+
+        renderHoveredToolTip(mouseX, mouseY);
+
+
+    }
+
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
