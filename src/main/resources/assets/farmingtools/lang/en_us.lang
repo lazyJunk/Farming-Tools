@@ -1,4 +1,8 @@
 item.advanced_bone_meal.name=Advanced Bone Meal
+item.planter_iron.name=Planter Pedestal
+item.planter_diamond.name=Planter Pedestal
+item.planter_gold.name=Planter Pedestal
+item.planter_emerald.name=Planter Pedestal
 
 tile.fertilized_soil.name=Fertilized Soil
 tile.growth_pedestal.name=Growth Pedestal

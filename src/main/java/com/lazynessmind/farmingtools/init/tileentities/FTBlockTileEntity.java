@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 
 public abstract class FTBlockTileEntity<TE extends TileEntity> extends FTBlock {
 
-    public FTBlockTileEntity(Material material, String name) {
-        super(material, name);
+    public FTBlockTileEntity(Material material, String name, boolean creative) {
+        super(material, name, creative);
     }
 
     public abstract Class<TE> getTileEntityClass();

@@ -3,6 +3,7 @@ package com.lazynessmind.farmingtools.init.tileentities;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.util.FarmUtils;
+import com.lazynessmind.farmingtools.util.UpgradeUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -22,6 +23,7 @@ import javax.annotation.Nullable;
 public class TileEntityPlanter extends FTTileEntity implements ITickable, IRange, IRedPower {
 
     //Tile Data
+    private int type = 0;
     public int range = 1;
     private boolean showRangeArea = false;
     private boolean needRedstonePower = false;
@@ -38,6 +40,7 @@ public class TileEntityPlanter extends FTTileEntity implements ITickable, IRange
         compound.setBoolean("ShowRangeArea", this.showRangeArea);
         compound.setBoolean("NeedRedstonePower", this.needRedstonePower);
         compound.setInteger("Range", this.range);
+        compound.setInteger("Type", this.type);
     }
 
     @Override
@@ -48,6 +51,7 @@ public class TileEntityPlanter extends FTTileEntity implements ITickable, IRange
         this.showRangeArea = compound.getBoolean("ShowRangeArea");
         this.needRedstonePower = compound.getBoolean("NeedRedstonePower");
         this.range = compound.getInteger("Range");
+        this.type = compound.getInteger("Type");
     }
 
     @Override
@@ -65,6 +69,8 @@ public class TileEntityPlanter extends FTTileEntity implements ITickable, IRange
 
     @Override
     public void update() {
+        setType(getBlockMetadata());
+        setRange(UpgradeUtil.getRangeFromType(getBlockMetadata()));
         Item itemSlot = handler.getStackInSlot(0).getItem();
         if (!world.isRemote) {
             if (!handler.getStackInSlot(0).isEmpty()) {
@@ -111,6 +117,18 @@ public class TileEntityPlanter extends FTTileEntity implements ITickable, IRange
 
     public ItemStackHandler getHandler() {
         return handler;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
     }
 
     //IRange implementations

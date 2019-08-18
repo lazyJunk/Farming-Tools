@@ -14,15 +14,16 @@ public class FTBlock extends Block implements IHasModel {
 
     public String name;
 
-    public FTBlock(Material materialIn, String name) {
+    public FTBlock(Material materialIn, String name, boolean creative) {
         super(materialIn);
         this.name = name;
         setUnlocalizedName(name);
         setRegistryName(name);
-        setCreativeTab(FarmingTools.rndBlocksTab);
-
+        if(creative){
+            setCreativeTab(FarmingTools.rndBlocksTab);
+            FarmingToolsItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));;
+        }
         FarmingToolsBlocks.BLOCKS.add(this);
-        FarmingToolsItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
 
     @Override
