@@ -29,14 +29,18 @@ public class BlockHarvester extends FTBlockTileEntity<TileEntityHarvester> {
     private static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5625D, 0.9375D);
 
     public BlockHarvester(Material material, String name) {
-        super(material, name);
+        super(material, name, true);
         setTickRandomly(true);
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(TextFormatting.GREEN + "Range: 4x1x4.");
+        tooltip.add(TextFormatting.GREEN + "I need a hoe.");
+        if(advanced.isAdvanced()){
+            tooltip.add(" ");
+            tooltip.add(TextFormatting.GREEN + "Range: " + TextFormatting.WHITE + " 1x1x1");
+        }
     }
 
     @Override

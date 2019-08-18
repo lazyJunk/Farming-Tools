@@ -7,12 +7,10 @@ import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.EnumHelper;
 
 public class FTItem extends Item implements IHasModel {
 
     public RarityUtil rarityUtil;
-    public EnumRarity enumRarity;
 
     public FTItem(String name) {
         setRegistryName(name);
@@ -25,12 +23,11 @@ public class FTItem extends Item implements IHasModel {
     public FTItem(String name, RarityUtil rarityUtil) {
         this(name);
         this.rarityUtil = rarityUtil;
-        this.enumRarity = EnumHelper.addRarity(rarityUtil.id, rarityUtil.textFormatting, "legendary");
     }
 
     @Override
     public EnumRarity getRarity(ItemStack stack) {
-        return this.enumRarity;
+        return this.rarityUtil.rarity;
     }
 
     @Override

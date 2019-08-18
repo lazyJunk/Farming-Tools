@@ -5,6 +5,7 @@ import com.lazynessmind.farmingtools.util.ParticleCreator;
 import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDye;
@@ -14,13 +15,24 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemAdvancedBoneMeal extends FTItem {
 
     public ItemAdvancedBoneMeal(String name) {
         super(name, RarityUtil.LEGENDARY);
         setMaxStackSize(64);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(TextFormatting.GREEN + "Better than normal bone meal.");
+        tooltip.add(TextFormatting.GREEN + "But do the same thing as bone meal.");
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.lazynessmind.farmingtools.util;
 
+import net.minecraft.item.EnumRarity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.common.util.EnumHelper;
 
 /*
 * lazynessmind
@@ -10,17 +13,15 @@ import net.minecraft.util.text.TextFormatting;
 
 public enum RarityUtil {
 
-    COMMON(TextFormatting.WHITE, "common"),
-    UNCOMMON(TextFormatting.GREEN, "uncommon"),
-    RARE(TextFormatting.BLUE, "rare"),
-    EPIC(TextFormatting.DARK_PURPLE, "epic"),
-    LEGENDARY(TextFormatting.GOLD, "legendary");
+    COMMON(EnumHelper.addRarity("common", TextFormatting.WHITE, "CommonRarity")),
+    UNCOMMON(EnumHelper.addRarity("uncommon", TextFormatting.GREEN, "UncommonRarity")),
+    RARE(EnumHelper.addRarity("rare", TextFormatting.BLUE, "RareRarity")),
+    EPIC(EnumHelper.addRarity("epic", TextFormatting.DARK_PURPLE, "PurpleRarity")),
+    LEGENDARY(EnumHelper.addRarity("legendary", TextFormatting.GOLD, "LegendaryRarity"));
 
-    public TextFormatting textFormatting;
-    public String id;
+    public EnumRarity rarity;
 
-    RarityUtil(TextFormatting textFormatting, String id){
-        this.textFormatting = textFormatting;
-        this.id = id;
+    RarityUtil(EnumRarity rarity){
+        this.rarity = rarity;
     }
 }

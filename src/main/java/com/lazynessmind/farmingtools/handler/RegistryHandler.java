@@ -1,5 +1,6 @@
 package com.lazynessmind.farmingtools.handler;
 
+import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
@@ -14,6 +15,8 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -59,6 +62,7 @@ public class RegistryHandler {
         for (Block block : FarmingToolsBlocks.BLOCKS) {
             if (block instanceof IHasModel) {
                 ((IHasModel) block).registerModels();
+                ((IHasModel) block).registerModels(block.getMetaFromState(block.getDefaultState()));
             }
         }
     }
