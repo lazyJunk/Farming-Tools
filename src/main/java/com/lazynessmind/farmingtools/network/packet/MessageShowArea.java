@@ -1,11 +1,8 @@
 package com.lazynessmind.farmingtools.network.packet;
 
-import com.lazynessmind.farmingtools.init.blocks.BlockPlanter;
 import com.lazynessmind.farmingtools.init.blocks.FTBlock;
 import com.lazynessmind.farmingtools.init.tileentities.FTBlockTileEntity;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.interfaces.IRange;
-import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;

@@ -24,7 +24,6 @@ public class GuiPlanter extends GuiBase {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String titleGui = "Planter";
         fontRenderer.drawString(titleGui, (this.xSize / 2 - fontRenderer.getStringWidth(titleGui) / 2) + 3, 8, 4210752);
-        fontRenderer.drawString("Type: " + UpgradeUtil.getNameFromType(planter.getType()), (this.xSize / 2 - fontRenderer.getStringWidth(titleGui) / 2) + 3, 20, 4210752);
     }
 
     @Override

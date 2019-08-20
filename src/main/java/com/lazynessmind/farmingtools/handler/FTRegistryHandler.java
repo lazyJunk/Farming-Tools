@@ -17,7 +17,6 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Bootstrap;
 import net.minecraft.init.Items;
@@ -31,7 +30,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeVersion;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -114,7 +112,7 @@ public class FTRegistryHandler {
             if(!world.isRemote){
                 if(entity instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer)entity;
-                    if(ForgeVersion.getStatus() == ForgeVersion.Status.UP_TO_DATE){
+                    if(ForgeVersion.getStatus() == ForgeVersion.Status.OUTDATED){
                         ChatUtil.chatMessage(player, TextFormatting.BOLD + "[Farming Tools]" + TextFormatting.RED + " Current version is outdated! " + TextFormatting.WHITE + "Check the mod page to update. :)");
                     }
                 }

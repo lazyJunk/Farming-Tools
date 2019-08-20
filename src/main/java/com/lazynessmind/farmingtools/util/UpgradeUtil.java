@@ -1,5 +1,9 @@
 package com.lazynessmind.farmingtools.util;
 
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
+import net.minecraft.tileentity.TileEntity;
+
 public class UpgradeUtil {
 
     public static String getNameFromType(int type){
@@ -28,5 +32,19 @@ public class UpgradeUtil {
                 return 4;
         }
         return 666;
+    }
+
+    public static int getMaxCooldownFromType(int type){
+        switch (type){
+            case 0:
+                return 200;
+            case 1:
+                return 150;
+            case 2:
+                return 100;
+            case 3:
+                return 50;
+        }
+        return 69;
     }
 }

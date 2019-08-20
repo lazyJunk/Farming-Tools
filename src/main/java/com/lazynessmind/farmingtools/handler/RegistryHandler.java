@@ -1,6 +1,5 @@
 package com.lazynessmind.farmingtools.handler;
 
-import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
@@ -9,18 +8,11 @@ import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
-import com.lazynessmind.farmingtools.util.ChatUtil;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
