@@ -1,5 +1,6 @@
 package com.lazynessmind.farmingtools.handler;
 
+import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
@@ -12,11 +13,13 @@ import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -71,5 +74,12 @@ public class RegistryHandler {
     @SubscribeEvent
     public static void onWorldLoaded(EntityJoinWorldEvent loadEvent) {
         FTRegistryHandler.onWorldLoaded(loadEvent.getWorld(), loadEvent.getEntity());
+    }
+
+    public static Item setItemName(Item parItem, String parItemName)
+    {
+        parItem.setRegistryName(parItemName);
+        parItem.setUnlocalizedName(parItemName);
+        return parItem;
     }
 }
