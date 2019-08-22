@@ -5,7 +5,7 @@
   },
   "pattern": [
     " C ",
-    " B ",
+    "DBD",
     "AAA"
   ],
   "type": "minecraft:crafting_shaped",
