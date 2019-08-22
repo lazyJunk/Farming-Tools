@@ -1,9 +1,19 @@
 package com.lazynessmind.farmingtools.init.tileentities;
 
+import com.lazynessmind.farmingtools.init.FarmingToolsCapabilities;
+import com.lazynessmind.farmingtools.init.capabilities.Worker;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nullable;
+
+@SuppressWarnings("unchecked cast")
 public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPower {
 
     private boolean showRange, redPower;
@@ -11,19 +21,26 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
     private int range, yRange;
     private int type;
 
-    public TileEntityPedestal(boolean showRange, boolean redPower, int maxCooldown, int range, int yRange) {
+    private ItemStackHandler handler;
+    private Worker worker;
+
+    public TileEntityPedestal(boolean showRange, boolean redPower, int maxCooldown, int range, int yRange, int numSlots) {
         this.showRange = showRange;
         this.redPower = redPower;
         this.maxCooldown = maxCooldown;
         this.range = range;
         this.yRange = yRange;
-        this.type = type;
+        this.type = 0;
+
+        this.handler = new ItemStackHandler(numSlots);
+        this.worker = new Worker(maxCooldown);
     }
 
     @Override
     public void writeNBT(NBTTagCompound compound) {
         super.writeNBT(compound);
 
+        compound.setTag("Items", this.handler.serializeNBT());
         compound.setBoolean("ShowRange", this.showRange);
         compound.setBoolean("NeedRedstone", this.redPower);
         compound.setInteger("Cooldown", this.cooldown);
@@ -37,6 +54,7 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
     public void readNBT(NBTTagCompound compound) {
         super.readNBT(compound);
 
+        this.handler.deserializeNBT(compound.getCompoundTag("Items"));
         this.showRange = compound.getBoolean("ShowRange");
         this.redPower = compound.getBoolean("NeedRedstone");
         this.cooldown = compound.getInteger("Cooldown");
@@ -44,6 +62,19 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         this.range = compound.getInteger("Range");
         this.yRange = compound.getInteger("yRange");
         this.type = compound.getInteger("Type");
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == FarmingToolsCapabilities.CAPABILITY_WORKER;
+    }
+
+    @Nullable
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (T) this.handler;
+        if (capability == FarmingToolsCapabilities.CAPABILITY_WORKER) return (T) this.worker;
+        return super.getCapability(capability, facing);
     }
 
     @Override
@@ -65,29 +96,6 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
     @Override
     public void setNeedRedstonePower(boolean state) {
         this.redPower = state;
-        markDirty();
-    }
-
-    public void work(Runnable workDone) {
-        if (this.cooldown < maxCooldown) {
-            this.cooldown++;
-        } else if (this.cooldown == maxCooldown) {
-            this.cooldown = 0;
-            workDone.run();
-        }
-    }
-
-    //GETTERSETTERS
-    public int getCooldown() {
-        return cooldown;
-    }
-
-    public int getMaxCooldown() {
-        return maxCooldown;
-    }
-
-    public void setMaxCooldown(int maxCooldown) {
-        this.maxCooldown = maxCooldown;
         markDirty();
     }
 
@@ -115,5 +123,17 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
 
     public int getType() {
         return type;
+    }
+
+    public ItemStackHandler getHandler() {
+        return handler;
+    }
+
+    public Worker getWorker() {
+        return worker;
+    }
+
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 }

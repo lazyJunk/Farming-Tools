@@ -39,7 +39,7 @@ public class PlanterSpecialRenderer extends TileEntitySpecialRenderer<TileEntity
         {
             GlStateManager.translate(x, y, z);
             GlStateManager.scale(0.5f, 0.5f, 0.5f);
-            GlStateManager.translate(1f, 1.1f, 1f);
+            GlStateManager.translate(1f, 1.5f, 1f);
             GlStateManager.rotate(yaw, 0f, 0.1f, 0f);
             Minecraft.getMinecraft().getRenderManager().renderEntity(entityItem, 0, 0, 0, yaw, 0f, false);
         }

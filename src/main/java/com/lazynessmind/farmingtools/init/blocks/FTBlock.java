@@ -4,7 +4,9 @@ import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
+import com.lazynessmind.farmingtools.init.item.FTItemBlock;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
+import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -14,14 +16,16 @@ public class FTBlock extends Block implements IHasModel {
 
     public String name;
 
-    public FTBlock(Material materialIn, String name, boolean creative) {
+    public FTBlock(Material materialIn, String name, boolean creative, boolean hasItemBlock) {
         super(materialIn);
         this.name = name;
         setUnlocalizedName(name);
         setRegistryName(name);
         if(creative){
             setCreativeTab(FarmingTools.rndBlocksTab);
-            FarmingToolsItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));;
+        }
+        if(!hasItemBlock){
+            FarmingToolsItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
         }
         FarmingToolsBlocks.BLOCKS.add(this);
     }

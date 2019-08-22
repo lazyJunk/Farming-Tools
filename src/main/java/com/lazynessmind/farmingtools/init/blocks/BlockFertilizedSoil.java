@@ -26,7 +26,7 @@ public class BlockFertilizedSoil extends FTBlockTileEntity<TileEntityFertilizedS
     private static final AxisAlignedBB COPIED_FARMLAND_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.9375D, 1.0D);
 
     public BlockFertilizedSoil(Material materialIn, String name) {
-        super(materialIn, name, true);
+        super(materialIn, name, true, false);
         setTickRandomly(true);
         setHardness(0.5f);
         setHarvestLevel("wood", 0);

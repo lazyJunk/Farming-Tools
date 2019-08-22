@@ -3,10 +3,10 @@ item.planter_iron.name=Planter Pedestal
 item.planter_diamond.name=Planter Pedestal
 item.planter_gold.name=Planter Pedestal
 item.planter_emerald.name=Planter Pedestal
-item.upgrade_iron.name=Iron Type Upgrade
-item.upgrade_diamond.name=Diamond Type Upgrade
-item.upgrade_gold.name=Gold Type Upgrade
-item.upgrade_emerald.name=Emerald Type Upgrade
+item.type_upgrade_iron.name=Iron Type Upgrade
+item.type_upgrade_diamond.name=Diamond Type Upgrade
+item.type_upgrade_gold.name=Gold Type Upgrade
+item.type_upgrade_emerald.name=Emerald Type Upgrade
 
 tile.fertilized_soil.name=Fertilized Soil
 tile.growth_pedestal.name=Growth Pedestal

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "farmingtools:items/upgrade_diamond"
+    "layer0": "farmingtools:items/type_upgrade_iron"
   }
 }
