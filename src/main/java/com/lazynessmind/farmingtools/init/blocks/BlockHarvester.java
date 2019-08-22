@@ -20,7 +20,6 @@ public class BlockHarvester extends BlockPedestal<TileEntityHarvester> {
 
     public BlockHarvester(Material material, String name) {
         super(material, name);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(this.getMetaProperty(), Integer.valueOf(0)));
         setTickRandomly(true);
     }
 
@@ -32,8 +31,7 @@ public class BlockHarvester extends BlockPedestal<TileEntityHarvester> {
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        TileEntityHarvester tileEntityHarvester = getTileEntity(worldIn, pos);
-        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileEntityHarvester.getHandler().getStackInSlot(0));
+        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), getTileEntity(worldIn, pos).getHandler().getStackInSlot(0));
     }
 
     @Override

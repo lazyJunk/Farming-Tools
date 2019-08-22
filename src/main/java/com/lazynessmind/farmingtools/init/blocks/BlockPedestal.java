@@ -2,12 +2,10 @@ package com.lazynessmind.farmingtools.init.blocks;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
-import com.lazynessmind.farmingtools.init.item.FTItemBlock;
 import com.lazynessmind.farmingtools.init.item.ItemBlockPedestal;
 import com.lazynessmind.farmingtools.init.tileentities.FTBlockTileEntity;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
 import com.lazynessmind.farmingtools.util.Enum;
-import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -26,20 +24,20 @@ import net.minecraft.world.World;
 public class BlockPedestal<T extends TileEntityPedestal> extends FTBlockTileEntity<T> {
 
     public static final PropertyInteger META = PropertyInteger.create("meta", 0, 3);
-    private static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5625D, 0.9375D);
+    private static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.6875D, 0.9375D);
 
     public BlockPedestal(Material material, String name) {
         super(material, name, true, true);
         this.setDefaultState(this.blockState.getBaseState().withProperty(this.getMetaProperty(), Integer.valueOf(0)));
         setTickRandomly(true);
-        setHardness(3.0f);
-        setHarvestLevel("stone", 0);
+        setHardness(1.0f);
+        setHarvestLevel("wood", 0);
         FarmingToolsItems.ITEMS.add(new ItemBlockPedestal(this).setRegistryName(this.getRegistryName()));
     }
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for(int i = 0; i < Enum.Type.values().length; i++){
+        for (int i = 0; i < Enum.Type.values().length; i++) {
             items.add(new ItemStack(this, 1, i));
         }
     }
@@ -77,7 +75,7 @@ public class BlockPedestal<T extends TileEntityPedestal> extends FTBlockTileEnti
     }
 
     protected BlockStateContainer createBlockState() {
-       return new BlockStateContainer(this, new PropertyInteger[] { META });
+        return new BlockStateContainer(this, new PropertyInteger[]{META});
     }
 
     @Override
