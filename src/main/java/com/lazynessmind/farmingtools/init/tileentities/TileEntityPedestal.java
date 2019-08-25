@@ -41,6 +41,7 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         super.writeNBT(compound);
 
         compound.setTag("Items", this.handler.serializeNBT());
+        compound.setTag("Worker", this.worker.serializeNBT());
         compound.setBoolean("ShowRange", this.showRange);
         compound.setBoolean("NeedRedstone", this.redPower);
         compound.setInteger("Cooldown", this.cooldown);
@@ -55,6 +56,7 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         super.readNBT(compound);
 
         this.handler.deserializeNBT(compound.getCompoundTag("Items"));
+        this.worker.deserializeNBT(compound.getCompoundTag("Worker"));
         this.showRange = compound.getBoolean("ShowRange");
         this.redPower = compound.getBoolean("NeedRedstone");
         this.cooldown = compound.getInteger("Cooldown");
@@ -133,7 +135,5 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         return worker;
     }
 
-    public boolean isUsableByPlayer(EntityPlayer player) {
-        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
-    }
+
 }

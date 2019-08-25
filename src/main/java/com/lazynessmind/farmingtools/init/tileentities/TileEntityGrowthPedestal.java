@@ -12,27 +12,19 @@ import net.minecraft.util.math.BlockPos;
 
 public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITickable {
 
-    private int growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
+    private int growthSpeed;
 
     public TileEntityGrowthPedestal() {
-        super(false, false, UpgradeUtil.getMaxCooldownFromType(0), UpgradeUtil.getRangeFromType(0), 3, 0);
+        super(false, false, 0, UpgradeUtil.getRangeFromType(0), 3, 1);
 
-        getWorker().setDoWork(()->{
-            growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
-        });
-
-        getWorker().setWorkDone(()->{
-            for (BlockPos pos : FarmUtils.checkInRange(getRange(), this.getPos(), getVerticalRange(), false)) {
-                tickCrop(pos);
-            }
-        });
+        this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
     }
 
     @Override
     public void writeNBT(NBTTagCompound compound) {
         super.writeNBT(compound);
 
-        compound.setInteger("growth_speed", growthSpeed);
+        compound.setInteger("growth_speed", this.growthSpeed);
     }
 
     @Override
@@ -44,23 +36,21 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
 
     @Override
     public void update() {
+        this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
         setType(getBlockMetadata());
         setRange(UpgradeUtil.getRangeFromType(getBlockMetadata()));
-        getWorker().doWork();
+        tickCrop();
         this.markDirty();
     }
 
-    // Update the crop depending on the currentSpeed;
-    private void tickCrop(BlockPos pos) {
-        IBlockState cropState = this.world.getBlockState(pos);
-        Block crop = cropState.getBlock();
-        if (!world.isRemote) {
-            if (crop instanceof BlockCrops) {
-                if (crop.getTickRandomly()) {
-                    if (this.world.getBlockState(pos) == cropState) {
-                        for (int i = 0; i < this.growthSpeed; i++) {
-                            crop.updateTick(this.world, pos, cropState, this.world.rand);
-                        }
+    private void tickCrop() {
+        for (BlockPos blockPos : FarmUtils.checkInRange(getRange(), pos, getVerticalRange(), false)) {
+            if (!world.isRemote) {
+                IBlockState cropState = world.getBlockState(blockPos);
+                Block crop = cropState.getBlock();
+                if (crop instanceof BlockCrops) {
+                    if (crop.getTickRandomly()) {
+                        crop.updateTick(world, blockPos, cropState, world.rand);
                     }
                 }
             }

@@ -75,11 +75,4 @@ public class RegistryHandler {
     public static void onWorldLoaded(EntityJoinWorldEvent loadEvent) {
         FTRegistryHandler.onWorldLoaded(loadEvent.getWorld(), loadEvent.getEntity());
     }
-
-    public static Item setItemName(Item parItem, String parItemName)
-    {
-        parItem.setRegistryName(parItemName);
-        parItem.setUnlocalizedName(parItemName);
-        return parItem;
-    }
 }
