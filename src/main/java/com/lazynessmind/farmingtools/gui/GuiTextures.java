@@ -13,7 +13,8 @@ public class GuiTextures {
     @SideOnly(Side.CLIENT)
     public enum Icon {
         BB(0, 32, 12, 12),
-        REDSTONE(12, 32, 12, 12);
+        REDSTONE(12, 32, 12, 12),
+        INFO(24, 32, 12, 12);
 
         private final int x;
         private final int y;

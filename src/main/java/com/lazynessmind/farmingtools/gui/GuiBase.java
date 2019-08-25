@@ -1,6 +1,8 @@
 package com.lazynessmind.farmingtools.gui;
 
+import com.lazynessmind.farmingtools.gui.button.HoverButton;
 import com.lazynessmind.farmingtools.gui.button.TwoStateButton;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.network.FTNetworkHandler;
@@ -24,9 +26,11 @@ public class GuiBase extends GuiContainer {
     private int x;
     private int y;
     private int z;
+    private int guiRight, guiBottom;
     private String tileEntityId;
-    private HoverChecker areaChecker, redstoneChecker;
+    private HoverChecker areaChecker, redstoneChecker, infoChecker;
     private TwoStateButton showEffectAreaButton, activeRedstone;
+    private HoverButton info;
 
     public GuiBase(Container container, InventoryPlayer inventoryPlayer, TileEntity tileEntity, String tileEntityId) {
         super(container);
@@ -40,40 +44,48 @@ public class GuiBase extends GuiContainer {
     @Override
     public void initGui() {
         super.initGui();
+        this.xSize = 196;
+        this.guiRight = (this.width/2) + (this.xSize/2);
+        this.guiBottom = (this.height/2) + (this.ySize/2);
+        info = addButton(new HoverButton(903, guiRight - 18, guiTop + 2, GuiTextures.Icon.INFO));
         if (tileEntity instanceof IRange) {
             showEffectAreaButton = addButton(new TwoStateButton(901, this.guiLeft + 5, this.guiTop + 5, GuiTextures.Icon.BB));
             showEffectAreaButton.isActive = ((IRange) tileEntity).canShowRangeArea();
-
         }
         if (tileEntity instanceof IRedPower) {
             activeRedstone = addButton(new TwoStateButton(902, this.guiLeft + 5, this.guiTop + 26, GuiTextures.Icon.REDSTONE));
             activeRedstone.isActive = ((IRedPower) tileEntity).needRedstonePower();
         }
 
+
         areaChecker = new HoverChecker(showEffectAreaButton, 200);
         redstoneChecker = new HoverChecker(activeRedstone, 200);
+        infoChecker = new HoverChecker(info, 100);
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        if(areaChecker.checkHover(mouseX, mouseY)){
+        if (areaChecker.checkHover(mouseX, mouseY)) {
             List<String> strings = new ArrayList<>();
             strings.add("Show/Don't show range area!");
             GuiUtils.drawHoveringText(strings, mouseX, mouseY, width, height, 200, fontRenderer);
         }
 
-        if(redstoneChecker.checkHover(mouseX, mouseY)){
+        if (redstoneChecker.checkHover(mouseX, mouseY)) {
             List<String> strings = new ArrayList<>();
             strings.add("On/Off Redstone signal.");
             strings.add("If On just works with redstone.");
             GuiUtils.drawHoveringText(strings, mouseX, mouseY, width, height, 200, fontRenderer);
         }
 
+        if (infoChecker.checkHover(mouseX, mouseY)) {
+            if(tileEntity instanceof TileEntityPedestal){
+                GuiUtils.drawHoveringText(((TileEntityPedestal) tileEntity).getProperties(), mouseX, mouseY, width, height, 200, fontRenderer);
+            }
+        }
         renderHoveredToolTip(mouseX, mouseY);
-
-
     }
 
 

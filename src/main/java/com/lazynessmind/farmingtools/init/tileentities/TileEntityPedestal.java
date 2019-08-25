@@ -4,14 +4,18 @@ import com.lazynessmind.farmingtools.init.FarmingToolsCapabilities;
 import com.lazynessmind.farmingtools.init.capabilities.Worker;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
+import com.lazynessmind.farmingtools.util.UpgradeUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("unchecked cast")
 public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPower {
@@ -135,5 +139,19 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         return worker;
     }
 
-
+    public List<String> getProperties(){
+        List<String> temp = new ArrayList<>();
+        String type = TextFormatting.YELLOW + UpgradeUtil.getNameFromType(getType());
+        String redRes = needRedstonePower() ? TextFormatting.GREEN + "On" : TextFormatting.RED + "Off";
+        String rangeRes = canShowRangeArea() ? TextFormatting.GREEN + "On" : TextFormatting.RED + "Off";
+        String range = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getRangeFromType(getType()));
+        String vRange = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getVerticalRangeFromPedestal(getType()));
+        String currentSpeed = TextFormatting.YELLOW + String.valueOf(getWorker().getMaxWork());
+        temp.add("Type: " + type);
+        temp.add("Redstone: " + redRes);
+        temp.add("Show Range: " + rangeRes);
+        temp.add("Range: " + range);
+        temp.add("Cooldown: " + currentSpeed);
+        return temp;
+    }
 }

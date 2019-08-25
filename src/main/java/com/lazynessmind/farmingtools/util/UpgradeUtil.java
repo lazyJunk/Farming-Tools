@@ -34,6 +34,17 @@ public class UpgradeUtil {
         return 666;
     }
 
+    public static int getVerticalRangeFromPedestal(int id){
+        switch (id){
+            case 0:
+                return 3;
+            case 1:
+            case 2:
+                return 1;
+        }
+        return 666;
+    }
+
     public static int getMaxCooldownFromType(int type){
         switch (type){
             case 0:
