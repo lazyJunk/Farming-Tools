@@ -2,12 +2,14 @@ package com.lazynessmind.farmingtools.handler;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
+import com.lazynessmind.farmingtools.client.specialrenderer.GrowthPedestalSpecialRenderer;
 import com.lazynessmind.farmingtools.client.specialrenderer.HarvesterSpecialRenderer;
 import com.lazynessmind.farmingtools.client.specialrenderer.PlanterSpecialRenderer;
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.util.ChatUtil;
@@ -71,6 +73,7 @@ public class FTRegistryHandler {
     private static void bindSpecialRenderer() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHarvester.class, new HarvesterSpecialRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlanter.class, new PlanterSpecialRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGrowthPedestal.class, new GrowthPedestalSpecialRenderer());
     }
 
     static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
