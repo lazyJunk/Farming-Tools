@@ -47,7 +47,6 @@ public class TwoStateButton extends GuiButton {
 
             this.drawTexturedModalRect(this.x, this.y, base.getX(), base.getY(), this.width, this.height);
             this.drawTexturedModalRect(this.x + 12, this.y + 2, icon.getX(), icon.getY(), icon.getW(), icon.getH());
-
         }
     }
 

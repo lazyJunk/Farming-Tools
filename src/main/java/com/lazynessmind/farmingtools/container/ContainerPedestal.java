@@ -1,27 +1,34 @@
 package com.lazynessmind.farmingtools.container;
 
+import com.lazynessmind.farmingtools.container.slots.SlotFuel;
 import com.lazynessmind.farmingtools.container.slots.SlotPlanter;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerPlanter extends Container {
+public class ContainerPedestal extends Container {
 
-    private final TileEntityPlanter tileEntityPlanter;
+    public TileEntityPedestal te;
 
-    public ContainerPlanter(InventoryPlayer inventoryPlayer, TileEntityPlanter planter) {
-        this.tileEntityPlanter = planter;
-        IItemHandler handler = planter.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+    public ContainerPedestal(InventoryPlayer inventoryPlayer, TileEntityPedestal te, SlotItemHandler mainItemSlot) {
+        this.te = te;
+        IItemHandler fuelHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.SOUTH);
 
-        this.addSlotToContainer(new SlotPlanter(handler, 0, 80, 33));
+        this.addSlotToContainer(mainItemSlot);
+
+        if(this.te.getFuelMode() == 0){
+            this.addSlotToContainer(new SlotFuel(fuelHandler, 0, 150, 8));
+        }
 
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 9; x++) {
@@ -35,8 +42,10 @@ public class ContainerPlanter extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return tileEntityPlanter.isUsableByPlayer(playerIn);
+        return te.isUsableByPlayer(playerIn);
     }
+
+
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
@@ -92,6 +101,4 @@ public class ContainerPlanter extends Container {
         }
         return itemstack;
     }
-
-
 }

@@ -5,7 +5,7 @@
   },
   "pattern": [
     " C ",
-    " B ",
+    "DBD",
     "AAA"
   ],
   "type": "minecraft:crafting_shaped",
@@ -18,6 +18,10 @@
     },
     "C": {
       "item": "minecraft:diamond_hoe"
+    },
+    "D": {
+      "item": "farmingtools:type_upgrade",
+      "data": 0
     }
   }
 }

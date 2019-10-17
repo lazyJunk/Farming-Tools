@@ -2,17 +2,22 @@ package com.lazynessmind.farmingtools.handler;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
+import com.lazynessmind.farmingtools.client.specialrenderer.GrowthPedestalSpecialRenderer;
 import com.lazynessmind.farmingtools.client.specialrenderer.HarvesterSpecialRenderer;
 import com.lazynessmind.farmingtools.client.specialrenderer.PlanterSpecialRenderer;
+import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
+import com.lazynessmind.farmingtools.util.ChatUtil;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Bootstrap;
@@ -24,7 +29,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -66,6 +73,7 @@ public class FTRegistryHandler {
     private static void bindSpecialRenderer() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHarvester.class, new HarvesterSpecialRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlanter.class, new PlanterSpecialRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGrowthPedestal.class, new GrowthPedestalSpecialRenderer());
     }
 
     static void registryHoeRightClickOnCrops(EntityPlayer player, EnumHand hand, World world, BlockPos pos) {
@@ -96,6 +104,19 @@ public class FTRegistryHandler {
                             world.setBlockState(poss, crop.getDefaultState());
                             if (!player.isCreative()) player.getHeldItem(hand).damageItem(1, player);
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    static void onWorldLoaded(World world, Entity entity){
+        if(FarmingToolsConfigs.showUpdateMessage){
+            if(!world.isRemote){
+                if(entity instanceof EntityPlayer) {
+                    EntityPlayer player = (EntityPlayer)entity;
+                    if(ForgeVersion.getStatus() == ForgeVersion.Status.OUTDATED){
+                        ChatUtil.chatMessage(player, TextFormatting.BOLD + "[Farming Tools]" + TextFormatting.RED + " Current version is outdated! " + TextFormatting.WHITE + "Check the mod page to update. :)");
                     }
                 }
             }

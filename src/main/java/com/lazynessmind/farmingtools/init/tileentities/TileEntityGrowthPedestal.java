@@ -1,7 +1,9 @@
 package com.lazynessmind.farmingtools.init.tileentities;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
+import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.util.FarmUtils;
+import com.lazynessmind.farmingtools.util.UpgradeUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
@@ -9,45 +11,47 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
-public class TileEntityGrowthPedestal extends FTTileEntity implements ITickable {
+public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITickable {
 
-    private int growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
-    private int range = 3;
+    private int growthSpeed;
+
+    public TileEntityGrowthPedestal() {
+        super(false, false, 0, UpgradeUtil.getRangeFromType(0), 3, 2, FarmingToolsItems.ADVANCED_BONE_MEAL);
+
+        this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
+    }
 
     @Override
     public void writeNBT(NBTTagCompound compound) {
-        compound.setInteger("growth_speed", growthSpeed);
-        compound.setInteger("range", range);
+        super.writeNBT(compound);
+
+        compound.setInteger("growth_speed", this.growthSpeed);
     }
 
     @Override
     public void readNBT(NBTTagCompound compound) {
+        super.readNBT(compound);
+
         growthSpeed = compound.getInteger("growth_speed");
-        range = compound.getInteger("range");
     }
 
     @Override
     public void update() {
         this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
-        for (BlockPos pos : FarmUtils.checkInRange(range, this.getPos(), 3, false)) {
-            tickCrop(pos);
-        }
+        setType(getBlockMetadata());
+        setRange(UpgradeUtil.getRangeFromType(getBlockMetadata()));
+        tickCrop();
+        this.markDirty();
     }
 
-    // Update the crop depending on the currentSpeed;
-    private void tickCrop(BlockPos pos) {
-        IBlockState cropState = this.world.getBlockState(pos);
-        Block crop = cropState.getBlock();
-        if (!world.isRemote) {
-            if (crop instanceof BlockCrops) {
-                if (crop.getTickRandomly()) {
-                    if (this.world.getBlockState(pos) == cropState) {
-                        for (int i = 0; i < this.growthSpeed; i++) {
-                            crop.updateTick(this.world, pos, cropState, this.world.rand);
-                            crop.updateTick(this.world, pos, cropState, this.world.rand);
-                            crop.updateTick(this.world, pos, cropState, this.world.rand);
-                            crop.updateTick(this.world, pos, cropState, this.world.rand);
-                        }
+    private void tickCrop() {
+        for (BlockPos blockPos : FarmUtils.checkInRange(getRange(), pos, getVerticalRange(), false)) {
+            if (!world.isRemote) {
+                IBlockState cropState = world.getBlockState(blockPos);
+                Block crop = cropState.getBlock();
+                if (crop instanceof BlockCrops) {
+                    if (crop.getTickRandomly()) {
+                        crop.updateTick(world, blockPos, cropState, world.rand);
                     }
                 }
             }

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "farmingtools:type_upgrade",
+    "count": 1,
+    "data": 0
+  },
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "item": "minecraft:iron_hoe"
+    }
+  }
+}

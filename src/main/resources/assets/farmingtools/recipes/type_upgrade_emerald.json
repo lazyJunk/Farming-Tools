@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "farmingtools:type_upgrade",
+    "count": 1,
+    "data": 3
+  },
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:emerald"
+    },
+    "B": {
+      "item": "farmingtools:type_upgrade",
+      "data" : 2
+    }
+  }
+}

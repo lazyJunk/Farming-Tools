@@ -1,11 +1,8 @@
 package com.lazynessmind.farmingtools.network.packet;
 
-import com.lazynessmind.farmingtools.init.blocks.BlockPlanter;
 import com.lazynessmind.farmingtools.init.blocks.FTBlock;
 import com.lazynessmind.farmingtools.init.tileentities.FTBlockTileEntity;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.interfaces.IRange;
-import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -26,7 +23,10 @@ public class MessageShowArea implements IMessage {
     private int z;
 
     public MessageShowArea() {
+
     }
+
+
 
     public MessageShowArea(String tileEntity, boolean state, int x, int y, int z) {
         this.state = state;
@@ -53,27 +53,24 @@ public class MessageShowArea implements IMessage {
         buf.writeInt(y);
         buf.writeInt(z);
     }
+
     //I dont know how this is working ... looooooool (09-08-2019)
     public static class Handler implements IMessageHandler<MessageShowArea, IMessage> {
-
         @Override
         public IMessage onMessage(MessageShowArea message, MessageContext ctx) {
             EntityPlayerMP player = ctx.getServerHandler().player;
-            player.getServer().addScheduledTask(new Runnable() {
-                @Override
-                public void run() {
-                    BlockPos pos = new BlockPos(message.x, message.y, message.z);
-                    World world = player.world;
-                    if(world.getBlockState(pos).getBlock() == FTBlock.getBlockFromName(message.tileEntityId)) {
-                        Block temp = FTBlock.getBlockFromName(message.tileEntityId);
-                        if (temp instanceof FTBlockTileEntity) {
-                            TileEntity blockTileEntity = ((FTBlockTileEntity) temp).getTileEntity(world, pos);
-                            if(blockTileEntity instanceof IRange){
-                                ((IRange) blockTileEntity).showRangeArea(message.state);
-                                ((FTBlockTileEntity) temp).scheduleUpdate(world, pos);
-                            }
-
+            player.getServer().addScheduledTask(() -> {
+                BlockPos pos = new BlockPos(message.x, message.y, message.z);
+                World world = player.world;
+                if (world.getBlockState(pos).getBlock() == FTBlock.getBlockFromName(message.tileEntityId)) {
+                    Block temp = FTBlock.getBlockFromName(message.tileEntityId);
+                    if (temp instanceof FTBlockTileEntity) {
+                        TileEntity blockTileEntity = ((FTBlockTileEntity) temp).getTileEntity(world, pos);
+                        if (blockTileEntity instanceof IRange) {
+                            ((IRange) blockTileEntity).showRangeArea(message.state);
+                            ((FTBlockTileEntity) temp).scheduleUpdate(world, pos);
                         }
+
                     }
                 }
             });

@@ -26,7 +26,7 @@ public class BlockFertilizedSoil extends FTBlockTileEntity<TileEntityFertilizedS
     private static final AxisAlignedBB COPIED_FARMLAND_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.9375D, 1.0D);
 
     public BlockFertilizedSoil(Material materialIn, String name) {
-        super(materialIn, name);
+        super(materialIn, name, true, false);
         setTickRandomly(true);
         setHardness(0.5f);
         setHarvestLevel("wood", 0);
@@ -35,14 +35,17 @@ public class BlockFertilizedSoil extends FTBlockTileEntity<TileEntityFertilizedS
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(TextFormatting.RED + "Only work during day time.");
+        tooltip.add(TextFormatting.GREEN + "Only work during day time.");
+        tooltip.add(TextFormatting.GREEN + "Water isn't a problem.");
     }
 
     @Override
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         super.randomDisplayTick(stateIn, worldIn, pos, rand);
-        if(worldIn.getWorldInfo().getWorldTime() < 12500){
-            ParticleCreator.spawnParticle(EnumParticleTypes.WATER_SPLASH, worldIn, pos, 10, rand);
+        if (worldIn.getWorldInfo().getWorldTime() < 12500) {
+            if (rand.nextBoolean() && rand.nextInt(8) == 0) {
+                ParticleCreator.spawnParticle(EnumParticleTypes.WATER_SPLASH, worldIn, pos, 7, rand);
+            }
         }
     }
 
