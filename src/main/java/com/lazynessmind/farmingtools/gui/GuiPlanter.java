@@ -1,8 +1,8 @@
 package com.lazynessmind.farmingtools.gui;
 
-import com.lazynessmind.farmingtools.container.ContainerPlanter;
+import com.lazynessmind.farmingtools.container.ContainerPedestal;
+import com.lazynessmind.farmingtools.container.slots.SlotPlanter;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
-import com.lazynessmind.farmingtools.util.UpgradeUtil;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 
@@ -11,7 +11,7 @@ public class GuiPlanter extends GuiBase {
     private TileEntityPlanter planter;
 
     public GuiPlanter(InventoryPlayer inventoryPlayer, TileEntityPlanter tileEntityPlanter) {
-        super(new ContainerPlanter(inventoryPlayer, tileEntityPlanter), inventoryPlayer, tileEntityPlanter, "farmingtools:planter");
+        super(new ContainerPedestal(inventoryPlayer, tileEntityPlanter, new SlotPlanter(tileEntityPlanter.getMainHandler(), 0, 80, 33)), inventoryPlayer, tileEntityPlanter, "farmingtools:planter");
         this.planter = tileEntityPlanter;
     }
 
@@ -22,8 +22,6 @@ public class GuiPlanter extends GuiBase {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String titleGui = "Planter";
-        fontRenderer.drawString(titleGui, (this.xSize / 2 - fontRenderer.getStringWidth(titleGui) / 2) + 3, 8, 4210752);
     }
 
     @Override

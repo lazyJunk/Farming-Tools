@@ -1,6 +1,7 @@
 package com.lazynessmind.farmingtools.init.tileentities;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
+import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import com.lazynessmind.farmingtools.util.UpgradeUtil;
 import net.minecraft.block.Block;
@@ -15,7 +16,7 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
     private int growthSpeed;
 
     public TileEntityGrowthPedestal() {
-        super(false, false, 0, UpgradeUtil.getRangeFromType(0), 3, 1);
+        super(false, false, 0, UpgradeUtil.getRangeFromType(0), 3, 2, FarmingToolsItems.ADVANCED_BONE_MEAL);
 
         this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
     }

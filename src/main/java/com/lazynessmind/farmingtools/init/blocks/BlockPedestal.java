@@ -6,6 +6,7 @@ import com.lazynessmind.farmingtools.init.item.ItemBlockPedestal;
 import com.lazynessmind.farmingtools.init.tileentities.FTBlockTileEntity;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
 import com.lazynessmind.farmingtools.util.Enum;
+import com.lazynessmind.farmingtools.util.ParticleCreator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -15,11 +16,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockPedestal<T extends TileEntityPedestal> extends FTBlockTileEntity<T> {
 
@@ -81,6 +85,25 @@ public class BlockPedestal<T extends TileEntityPedestal> extends FTBlockTileEnti
     @Override
     public int damageDropped(IBlockState state) {
         return (int) (getMetaFromState(state));
+    }
+
+    @Override
+    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        if (worldIn.getWorldInfo().getWorldTime() < 12500) {
+            if(worldIn.rand.nextBoolean()) ParticleCreator.spawnParticle(EnumParticleTypes.PORTAL, worldIn, pos, 7, rand);
+        } else if (getTileEntity(worldIn, pos).needRedstonePower()) {
+            if(worldIn.rand.nextBoolean()){
+                int i = ((Integer)stateIn.getValue(META)).intValue();
+                double d0 = (double)pos.getX() + 0.5D + ((double)rand.nextFloat() - 0.5D) * 0.2D;
+                double d1 = (double)((float)pos.getY() + 0.9735D);
+                double d2 = (double)pos.getZ() + 0.5D + ((double)rand.nextFloat() - 0.5D) * 0.2D;
+                float f = (float)i / 15.0F;
+                float f1 = f * 0.6F + 0.4F;
+                float f2 = Math.max(0.0F, f * f * 0.7F - 0.5F);
+                float f3 = Math.max(0.0F, f * f * 0.6F - 0.7F);
+                worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, (double)f1, (double)f2, (double)f3);
+            }
+        }
     }
 
     @Override

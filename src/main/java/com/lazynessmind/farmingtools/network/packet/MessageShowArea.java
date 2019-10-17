@@ -23,7 +23,10 @@ public class MessageShowArea implements IMessage {
     private int z;
 
     public MessageShowArea() {
+
     }
+
+
 
     public MessageShowArea(String tileEntity, boolean state, int x, int y, int z) {
         this.state = state;

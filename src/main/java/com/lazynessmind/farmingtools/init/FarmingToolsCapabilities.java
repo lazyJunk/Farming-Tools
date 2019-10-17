@@ -1,6 +1,6 @@
 package com.lazynessmind.farmingtools.init;
 
-import com.lazynessmind.farmingtools.init.capabilities.IWork;
+import com.lazynessmind.farmingtools.interfaces.IWork;
 import com.lazynessmind.farmingtools.init.capabilities.Worker;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;

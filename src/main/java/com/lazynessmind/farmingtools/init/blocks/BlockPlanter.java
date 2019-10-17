@@ -31,17 +31,7 @@ public class BlockPlanter extends BlockPedestal<TileEntityPlanter> {
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), getTileEntity(worldIn, pos).getHandler().getStackInSlot(0));
-    }
-
-    @Override
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        if (worldIn.getWorldInfo().getWorldTime() < 12500) {
-            ParticleCreator.spawnParticle(EnumParticleTypes.PORTAL, worldIn, pos, 10, rand);
-        }
-        if (getTileEntity(worldIn, pos).needRedstonePower()) {
-            ParticleCreator.spawnParticle(EnumParticleTypes.SPELL, worldIn, pos, 5, rand);
-        }
+        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), getTileEntity(worldIn, pos).getMainHandler().getStackInSlot(0));
     }
 
     @Override

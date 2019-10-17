@@ -19,7 +19,6 @@ compileJava {
 }
 
 repositories {
-
 }
 
 minecraft {
@@ -36,7 +35,6 @@ minecraft {
 }
 
 dependencies {
-
 }
 
 processResources {

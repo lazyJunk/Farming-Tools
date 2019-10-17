@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init.capabilities;
+package com.lazynessmind.farmingtools.interfaces;
 
 import net.minecraft.tileentity.TileEntity;
 

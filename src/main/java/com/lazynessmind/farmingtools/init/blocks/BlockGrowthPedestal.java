@@ -30,13 +30,6 @@ public class BlockGrowthPedestal extends BlockPedestal<TileEntityGrowthPedestal>
     }
 
     @Override
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        if (worldIn.getWorldInfo().getWorldTime() < 12500) {
-            ParticleCreator.spawnParticle(EnumParticleTypes.PORTAL, worldIn, pos, 10, rand);
-        }
-    }
-
-    @Override
     public Class<TileEntityGrowthPedestal> getTileEntityClass() {
         return TileEntityGrowthPedestal.class;
     }

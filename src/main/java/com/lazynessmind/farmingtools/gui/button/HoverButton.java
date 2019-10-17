@@ -12,6 +12,7 @@ public class HoverButton extends GuiButton {
     public HoverButton(int buttonId, int x, int y, GuiTextures.Icon btnIcon) {
         super(buttonId, x, y, "");
         this.icon = btnIcon;
+        this.enabled = false;
     }
 
     @Override

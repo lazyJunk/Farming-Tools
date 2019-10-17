@@ -22,7 +22,7 @@ public class PedestalSpecialRenderer<T extends TileEntityPedestal> extends TileE
             yaw = 0f;
         }
 
-        entityItem.setItem(te.getHandler().getStackInSlot(0));
+        entityItem.setItem(te.getMainHandler().getStackInSlot(0));
 
         GlStateManager.pushMatrix();
         {

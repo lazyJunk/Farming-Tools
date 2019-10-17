@@ -1,6 +1,7 @@
 package com.lazynessmind.farmingtools.container;
 
 import com.lazynessmind.farmingtools.container.slots.SlotGrowthPedestal;
+import com.lazynessmind.farmingtools.container.slots.SlotPlanter;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +21,10 @@ public class ContainerGrowthPedestal extends Container {
         IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
         this.addSlotToContainer(new SlotGrowthPedestal(handler, 0, 80, 33));
+
+        if(te.getFuelMode() == 0){
+            this.addSlotToContainer(new SlotGrowthPedestal(handler, 1, 76-18, 7));
+        }
 
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 9; x++) {
