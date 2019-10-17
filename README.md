@@ -1,4 +1,6 @@
-# Welcome to Farming Tools Mod to Forge 1.12.2!
+# Discontinued!
+
+### Welcome to Farming Tools Mod to Forge 1.12.2!
 
 [![CurseForge](http://cf.way2muchnoise.eu/full_331657_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/farming-tools) [![CurseForge](http://cf.way2muchnoise.eu/versions/331657.svg)](https://www.curseforge.com/minecraft/mc-mods/farming-tools)
 
