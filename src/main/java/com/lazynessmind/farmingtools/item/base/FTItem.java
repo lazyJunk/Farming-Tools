@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init.item;
+package com.lazynessmind.farmingtools.item.base;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;

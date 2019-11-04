@@ -1,7 +1,7 @@
 package com.lazynessmind.farmingtools.init;
 
-import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
-import com.lazynessmind.farmingtools.init.item.ItemTypeUpgrade;
+import com.lazynessmind.farmingtools.item.ItemAdvancedBoneMeal;
+import com.lazynessmind.farmingtools.item.ItemTypeUpgrade;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;

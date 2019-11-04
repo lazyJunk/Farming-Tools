@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init.item;
+package com.lazynessmind.farmingtools.item.base;
 
 import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.Block;

@@ -1,11 +1,11 @@
-package com.lazynessmind.farmingtools.init.item;
+package com.lazynessmind.farmingtools.item;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
+import com.lazynessmind.farmingtools.item.base.FTItem;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
 import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

@@ -8,7 +8,7 @@ import com.lazynessmind.farmingtools.client.specialrenderer.PlanterSpecialRender
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
-import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
+import com.lazynessmind.farmingtools.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityPlanter;

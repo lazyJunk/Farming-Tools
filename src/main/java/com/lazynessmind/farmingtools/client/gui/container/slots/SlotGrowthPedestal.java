@@ -1,6 +1,6 @@
 package com.lazynessmind.farmingtools.client.gui.container.slots;
 
-import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
+import com.lazynessmind.farmingtools.item.ItemAdvancedBoneMeal;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;

@@ -1,5 +1,6 @@
-package com.lazynessmind.farmingtools.init.item;
+package com.lazynessmind.farmingtools.item;
 
+import com.lazynessmind.farmingtools.item.base.FTItemBlock;
 import com.lazynessmind.farmingtools.util.RarityUtil;
 import com.lazynessmind.farmingtools.util.UpgradeUtil;
 import net.minecraft.block.Block;
@@ -11,7 +12,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemBlockPedestal extends FTItemBlock{
+public class ItemBlockPedestal extends FTItemBlock {
 
     public ItemBlockPedestal(Block block) {
         super(block, true, RarityUtil.UNCOMMON);

@@ -1,8 +1,9 @@
-package com.lazynessmind.farmingtools.init.item;
+package com.lazynessmind.farmingtools.item;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.block.base.BlockPedestal;
 import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
+import com.lazynessmind.farmingtools.item.base.FTItem;
 import com.lazynessmind.farmingtools.util.Enum;
 import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.Block;
