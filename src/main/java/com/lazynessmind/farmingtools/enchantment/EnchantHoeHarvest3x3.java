@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init.enchants;
+package com.lazynessmind.farmingtools.enchantment;
 
 import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import net.minecraft.enchantment.Enchantment;

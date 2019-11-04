@@ -1,7 +1,5 @@
 package com.lazynessmind.farmingtools.block.tileentities.base;
 
-import com.lazynessmind.farmingtools.init.FarmingToolsCapabilities;
-import com.lazynessmind.farmingtools.init.capabilities.Worker;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.util.UpgradeUtil;

@@ -1,6 +1,6 @@
 package com.lazynessmind.farmingtools.init;
 
-import com.lazynessmind.farmingtools.init.enchants.EnchantHoeHarvest3x3;
+import com.lazynessmind.farmingtools.enchantment.EnchantHoeHarvest3x3;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.ItemHoe;

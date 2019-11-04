@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init.capabilities;
+package com.lazynessmind.farmingtools.capability;
 
 import com.lazynessmind.farmingtools.interfaces.IWork;
 import net.minecraft.nbt.NBTTagCompound;
