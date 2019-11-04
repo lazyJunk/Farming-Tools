@@ -1,9 +1,7 @@
-package com.lazynessmind.farmingtools.gui;
+package com.lazynessmind.farmingtools.client.gui;
 
-import com.lazynessmind.farmingtools.container.slots.SlotPlanter;
-import com.lazynessmind.farmingtools.gui.button.HoverButton;
-import com.lazynessmind.farmingtools.gui.button.SlotButton;
-import com.lazynessmind.farmingtools.gui.button.TwoStateButton;
+import com.lazynessmind.farmingtools.client.gui.button.HoverButton;
+import com.lazynessmind.farmingtools.client.gui.button.TwoStateButton;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
@@ -11,7 +9,6 @@ import com.lazynessmind.farmingtools.network.FTNetworkHandler;
 import com.lazynessmind.farmingtools.network.packet.MessageRedstonePower;
 import com.lazynessmind.farmingtools.network.packet.MessageShowArea;
 import com.lazynessmind.farmingtools.util.UpgradeUtil;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -36,7 +33,6 @@ public class GuiBase extends GuiContainer {
     private HoverChecker areaChecker, redstoneChecker, infoChecker, fuelSlot;
     private TwoStateButton showEffectAreaButton, activeRedstone;
     private HoverButton info;
-    private SlotButton button;
 
     public GuiBase(Container container, InventoryPlayer inventoryPlayer, TileEntity tileEntity, String tileEntityId) {
         super(container);
@@ -55,12 +51,6 @@ public class GuiBase extends GuiContainer {
         this.guiBottom = (this.height/2) + (this.ySize/2);
         info = addButton(new HoverButton(903, guiRight - 18, guiTop + 2, GuiTextures.Icon.INFO));
 
-        if(tileEntity instanceof TileEntityPedestal){
-            if(((TileEntityPedestal) tileEntity).getFuelMode() == 0){
-                button =  addButton(new SlotButton(904, guiLeft+149, guiTop+7, GuiTextures.Icon.FUEL));
-            }
-        }
-
         if (tileEntity instanceof IRange) {
             showEffectAreaButton = addButton(new TwoStateButton(901, this.guiLeft + 5, this.guiTop + 5, GuiTextures.Icon.BB));
             showEffectAreaButton.isActive = ((IRange) tileEntity).canShowRangeArea();
@@ -74,9 +64,6 @@ public class GuiBase extends GuiContainer {
         areaChecker = new HoverChecker(showEffectAreaButton, 200);
         redstoneChecker = new HoverChecker(activeRedstone, 200);
         infoChecker = new HoverChecker(info, 100);
-        if(button != null){
-            fuelSlot = new HoverChecker(button, 100);
-        }
     }
 
     @Override
@@ -106,28 +93,14 @@ public class GuiBase extends GuiContainer {
                 String range = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getRangeFromType(pedestal.getType()));
                 String vRange = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getVerticalRangeFromPedestal(pedestal.getType()));
                 String currentSpeed = TextFormatting.YELLOW + String.valueOf(pedestal.getWorker().getMaxWork());
-                String fuelMode = TextFormatting.YELLOW + String.valueOf(pedestal.getFuelMode());
-                String currentFuel = TextFormatting.YELLOW + String.valueOf(pedestal.getFuel());
                 temp.add("Type: " + type);
                 temp.add("Redstone: " + redRes);
                 temp.add("Show Range: " + rangeRes);
                 temp.add("Range: " + range);
                 temp.add("Vertical Range: " + vRange);
                 temp.add("Cooldown: " + currentSpeed);
-                temp.add("Fuel Mode: " + fuelMode);
-                temp.add("Current Fuel: " + currentFuel);
                 //GuiUtils.drawHoveringText(((TileEntityPedestal) tileEntity).getProperties(), mouseX, mouseY, width, height, 200, fontRenderer);
                 GuiUtils.drawHoveringText(temp, mouseX, mouseY, width, height, 200, fontRenderer);
-            }
-        }
-
-        if(fuelSlot != null)
-        if (fuelSlot.checkHover(mouseX, mouseY)) {
-            if(tileEntity instanceof TileEntityPedestal){
-                List<String> strings = new ArrayList<>();
-                strings.add("Current mode: " + TextFormatting.YELLOW + "Flammable materials");
-                strings.add(TextFormatting.ITALIC + "" + TextFormatting.WHITE + "Coal, Coal Block, Charcoal");
-                GuiUtils.drawHoveringText(strings, mouseX, mouseY, width, height, 200, fontRenderer);
             }
         }
         renderHoveredToolTip(mouseX, mouseY);

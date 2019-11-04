@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 public class TileEntityHarvester extends TileEntityPedestal implements ITickable {
 
     public TileEntityHarvester() {
-        super(false, false, UpgradeUtil.getMaxCooldownFromType(0), UpgradeUtil.getRangeFromType(0), 1, 1, Items.DIAMOND_HOE);
+        super(false, false, UpgradeUtil.getMaxCooldownFromType(0), UpgradeUtil.getRangeFromType(0), 1, Items.DIAMOND_HOE);
 
         getWorker().setDoWork(this::updateCooldownCap);
         getWorker().setWorkDone(() -> {

@@ -1,17 +1,16 @@
-package com.lazynessmind.farmingtools.gui;
+package com.lazynessmind.farmingtools.client.gui;
 
-import com.lazynessmind.farmingtools.container.ContainerGrowthPedestal;
+import com.lazynessmind.farmingtools.client.gui.container.ContainerPedestal;
+import com.lazynessmind.farmingtools.client.gui.container.slots.SlotGrowthPedestal;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiGrowthPedestal extends GuiBase {
 
-    private TileEntityGrowthPedestal te;
 
-    public GuiGrowthPedestal(InventoryPlayer inventoryPlayer, TileEntityGrowthPedestal te) {
-        super(new ContainerGrowthPedestal(inventoryPlayer, te), inventoryPlayer, te, "farmingtools:growth_pedestal");
-        this.te = te;
+    public GuiGrowthPedestal(InventoryPlayer inventoryPlayer, TileEntityGrowthPedestal tileEntityGrowthPedestal) {
+        super(new ContainerPedestal(inventoryPlayer, tileEntityGrowthPedestal, new SlotGrowthPedestal(tileEntityGrowthPedestal.getMainHandler(), 0, 80, 33)), inventoryPlayer, tileEntityGrowthPedestal, "farmingtools:growth_pedestal");
     }
 
     @Override

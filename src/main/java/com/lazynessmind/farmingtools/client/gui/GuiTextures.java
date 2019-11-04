@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.gui;
+package com.lazynessmind.farmingtools.client.gui;
 
 import com.lazynessmind.farmingtools.FarmingToolsConst;
 import net.minecraft.util.ResourceLocation;

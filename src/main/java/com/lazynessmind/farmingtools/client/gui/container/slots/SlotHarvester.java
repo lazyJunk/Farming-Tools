@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.container.slots;
+package com.lazynessmind.farmingtools.client.gui.container.slots;
 
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;

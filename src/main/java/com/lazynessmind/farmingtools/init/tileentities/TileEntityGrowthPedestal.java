@@ -16,7 +16,7 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
     private int growthSpeed;
 
     public TileEntityGrowthPedestal() {
-        super(false, false, 0, UpgradeUtil.getRangeFromType(0), 3, 2, FarmingToolsItems.ADVANCED_BONE_MEAL);
+        super(false, false, 0, UpgradeUtil.getRangeFromType(0), 3, FarmingToolsItems.ADVANCED_BONE_MEAL);
 
         this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
     }

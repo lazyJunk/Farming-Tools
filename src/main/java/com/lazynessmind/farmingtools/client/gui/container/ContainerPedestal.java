@@ -1,31 +1,28 @@
-package com.lazynessmind.farmingtools.container;
+package com.lazynessmind.farmingtools.client.gui.container;
 
-import com.lazynessmind.farmingtools.container.slots.SlotGrowthPedestal;
-import com.lazynessmind.farmingtools.container.slots.SlotPlanter;
-import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
+import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
+import net.minecraft.item.*;
+import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerGrowthPedestal extends Container {
+public class ContainerPedestal extends Container {
 
-    private final TileEntityGrowthPedestal te;
+    public TileEntityPedestal pedestal;
+    public SlotItemHandler mainItemSlot;
 
-    public ContainerGrowthPedestal(InventoryPlayer inventoryPlayer, TileEntityGrowthPedestal te) {
-        this.te = te;
-        IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+    public ContainerPedestal(InventoryPlayer inventoryPlayer, TileEntityPedestal pedestal, SlotItemHandler mainItemSlot) {
+        this.pedestal = pedestal;
+        this.mainItemSlot = mainItemSlot;
 
-        this.addSlotToContainer(new SlotGrowthPedestal(handler, 0, 80, 33));
+        this.addSlotToContainer(mainItemSlot);
 
-        if(te.getFuelMode() == 0){
-            this.addSlotToContainer(new SlotGrowthPedestal(handler, 1, 76-18, 7));
-        }
+        setPlayerInv(inventoryPlayer);
+    }
 
+    public void setPlayerInv(InventoryPlayer inventoryPlayer) {
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 9; x++) {
                 this.addSlotToContainer(new Slot(inventoryPlayer, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
@@ -37,6 +34,12 @@ public class ContainerGrowthPedestal extends Container {
     }
 
     @Override
+    public boolean canInteractWith(EntityPlayer playerIn) {
+        return pedestal.isUsableByPlayer(playerIn);
+    }
+
+
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = (Slot) this.inventorySlots.get(index);
@@ -46,7 +49,7 @@ public class ContainerGrowthPedestal extends Container {
             itemstack = itemstack1.copy();
 
             if (index != 0) {
-                if (itemstack1.getItem() instanceof ItemAdvancedBoneMeal) {
+                if (mainItemSlot.isItemValid(itemstack1)) {
                     if (!this.mergeItemStack(itemstack1, 0, 0 + 1, false)) {
                         return ItemStack.EMPTY;
                     }
@@ -74,10 +77,5 @@ public class ContainerGrowthPedestal extends Container {
             slot.onTake(playerIn, itemstack1);
         }
         return itemstack;
-    }
-
-    @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
-        return te.isUsableByPlayer(playerIn);
     }
 }

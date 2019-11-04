@@ -1,6 +1,7 @@
-package com.lazynessmind.farmingtools.gui;
+package com.lazynessmind.farmingtools.client.gui;
 
-import com.lazynessmind.farmingtools.container.ContainerHarvester;
+import com.lazynessmind.farmingtools.client.gui.container.ContainerPedestal;
+import com.lazynessmind.farmingtools.client.gui.container.slots.SlotHarvester;
 import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -12,7 +13,7 @@ public class GuiHarvester extends GuiBase {
     private TileEntityHarvester tileEntityHarvester;
 
     public GuiHarvester(InventoryPlayer inventoryPlayer, TileEntityHarvester tileEntityHarvester) {
-        super(new ContainerHarvester(inventoryPlayer, tileEntityHarvester), inventoryPlayer, tileEntityHarvester, "farmingtools:harvester");
+        super(new ContainerPedestal(inventoryPlayer, tileEntityHarvester, new SlotHarvester(tileEntityHarvester.getMainHandler(), 0, 80, 33)), inventoryPlayer, tileEntityHarvester, "farmingtools:harvester");
         this.tileEntityHarvester = tileEntityHarvester;
     }
 

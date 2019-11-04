@@ -16,19 +16,17 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
     private IBlockState crop;
 
     public TileEntityPlanter() {
-        super(false, false, UpgradeUtil.getMaxCooldownFromType(0), UpgradeUtil.getRangeFromType(0), 1, 2, Items.BEETROOT_SEEDS);
+        super(false, false, UpgradeUtil.getMaxCooldownFromType(0), UpgradeUtil.getRangeFromType(0), 1, Items.BEETROOT_SEEDS);
 
         getWorker().setDoWork(this::updateCooldownCap);
         getWorker().setWorkDone(() -> {
-            Item itemSlot = getMainHandler().getStackInSlot(0).getItem();
-            if (!getMainHandler().getStackInSlot(0).isEmpty()) {
+            Item itemSlot = mainSlot().getItem();
+            if (!mainSlot().isEmpty()) {
                 if (itemSlot instanceof ItemSeeds || itemSlot instanceof ItemSeedFood) {
-                    crop = ((IPlantable) getMainHandler().getStackInSlot(0).getItem()).getPlant(world, pos);
+                    crop = ((IPlantable) mainSlot().getItem()).getPlant(world, pos);
                 }
             }
-            if(getFuel() > 0){
-                plantCrop(crop);
-            }
+            plantCrop(crop);
         });
     }
 
@@ -52,17 +50,19 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
     private void plantCrop(IBlockState crop) {
         for (BlockPos pos : FarmUtils.checkInXZRange(getRange(), getPos(), false)) {
             if (FarmUtils.canPlantCrop(pos, world)) {
-                if (crop != null && !getMainHandler().getStackInSlot(0).isEmpty()) {
+                if (crop != null && !mainSlot().isEmpty()) {
                     if (needRedstonePower()) {
                         if (world.isBlockPowered(pos)) {
                             world.setBlockState(pos, crop);
-                            getMainHandler().extractItem(0, 1, false);
-                            removeFromFuel(1);
+                            getMainHandler().extractItem(1, 1, false);
+
                         }
                     } else {
                         world.setBlockState(pos, crop);
-                        getMainHandler().extractItem(0, 1, false);
-                        removeFromFuel(1);
+
+                        getMainHandler().extractItem(1, 1, false);
+
+
                     }
                 }
             }

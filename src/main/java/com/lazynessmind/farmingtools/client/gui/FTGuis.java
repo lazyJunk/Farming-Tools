@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.gui;
+package com.lazynessmind.farmingtools.client.gui;
 
 public class FTGuis {
 
