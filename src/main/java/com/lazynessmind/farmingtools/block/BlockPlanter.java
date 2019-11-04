@@ -15,8 +15,8 @@ import net.minecraft.world.World;
 
 public class BlockPlanter extends BlockPedestal<TileEntityPlanter> {
 
-    public BlockPlanter(Material material, String name) {
-        super(material, name);
+    public BlockPlanter(String name) {
+        super(Material.IRON, name);
         setTickRandomly(true);
     }
 

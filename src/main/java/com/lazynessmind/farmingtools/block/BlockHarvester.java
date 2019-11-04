@@ -15,8 +15,8 @@ import net.minecraft.world.World;
 
 public class BlockHarvester extends BlockPedestal<TileEntityHarvester> {
 
-    public BlockHarvester(Material material, String name) {
-        super(material, name);
+    public BlockHarvester(String name) {
+        super(Material.IRON, name);
         setTickRandomly(true);
     }
 

@@ -15,7 +15,7 @@ public class FarmingToolsBlocks {
     public static final List<Block> BLOCKS = new ArrayList<>();
 
     public static final Block FERTILIZED_SOIL = new BlockFertilizedSoil("fertilized_soil");
-    public static final Block GROWTH_PEDESTAL = new BlockGrowthPedestal(Material.GROUND, "growth_pedestal");
-    public static final Block HARVESTER = new BlockHarvester(Material.GROUND, "harvester");
-    public static final Block PLANTER = new BlockPlanter(Material.GROUND, "planter");
+    public static final Block GROWTH_PEDESTAL = new BlockGrowthPedestal("growth_pedestal");
+    public static final Block HARVESTER = new BlockHarvester("harvester");
+    public static final Block PLANTER = new BlockPlanter("planter");
 }

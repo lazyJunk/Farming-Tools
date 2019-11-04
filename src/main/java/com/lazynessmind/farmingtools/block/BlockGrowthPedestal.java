@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 
 public class BlockGrowthPedestal extends BlockPedestal<TileEntityGrowthPedestal> {
 
-    public BlockGrowthPedestal(Material material, String name) {
-        super(material, name);
+    public BlockGrowthPedestal(String name) {
+        super(Material.IRON, name);
         setTickRandomly(true);
         setLightLevel(7f);
     }
