@@ -28,7 +28,7 @@ public class BlockHarvester extends BlockPedestal<TileEntityHarvester> {
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), getTileEntity(worldIn, pos).getMainHandler().getStackInSlot(0));
+        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), getTileEntity(worldIn, pos).mainSlot());
     }
 
     @Override

@@ -7,6 +7,6 @@ public class PlanterSpecialRenderer extends PedestalSpecialRenderer<TileEntityPl
     @Override
     public void render(TileEntityPlanter te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         renderItemOnTop(te, x, y, z);
-        renderRangeArea(te, x, y, z);
+        renderRangeArea(te, x, y, z, 0, 0, 255);
     }
 }

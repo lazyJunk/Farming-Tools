@@ -24,7 +24,7 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
     }
 
     private void harvestBlock(BlockPos pos) {
-        if (!world.isRemote) {
+        if (!world.isRemote && !mainSlot().isEmpty()) {
             for (BlockPos poss : FarmUtils.checkInRange(getRange(), pos, getVerticalRange(), false)) {
                 if (world.getBlockState(poss).getBlock() instanceof BlockCrops) {
                     BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
