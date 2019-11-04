@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init.tileentities;
+package com.lazynessmind.farmingtools.block.tileentities;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import net.minecraft.block.Block;

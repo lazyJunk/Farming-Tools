@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.handler;
+package com.lazynessmind.farmingtools.registry;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
@@ -9,9 +9,9 @@ import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.init.item.ItemAdvancedBoneMeal;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.util.ChatUtil;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;

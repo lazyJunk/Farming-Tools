@@ -1,6 +1,6 @@
-package com.lazynessmind.farmingtools.init.tileentities;
+package com.lazynessmind.farmingtools.block.tileentities.base;
 
-import com.lazynessmind.farmingtools.init.blocks.FTBlock;
+import com.lazynessmind.farmingtools.block.base.FTBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;

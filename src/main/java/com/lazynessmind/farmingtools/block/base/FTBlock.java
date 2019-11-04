@@ -1,12 +1,10 @@
-package com.lazynessmind.farmingtools.init.blocks;
+package com.lazynessmind.farmingtools.block.base;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
-import com.lazynessmind.farmingtools.init.item.FTItemBlock;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
-import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;

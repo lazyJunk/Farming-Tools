@@ -1,6 +1,6 @@
 package com.lazynessmind.farmingtools.client.specialrenderer;
 
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
+import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.util.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;

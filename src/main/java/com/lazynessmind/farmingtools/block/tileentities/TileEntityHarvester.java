@@ -1,5 +1,6 @@
-package com.lazynessmind.farmingtools.init.tileentities;
+package com.lazynessmind.farmingtools.block.tileentities;
 
+import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import com.lazynessmind.farmingtools.util.UpgradeUtil;
 import net.minecraft.block.BlockCrops;
@@ -11,25 +12,14 @@ import net.minecraft.util.math.BlockPos;
 public class TileEntityHarvester extends TileEntityPedestal implements ITickable {
 
     public TileEntityHarvester() {
-        super(false, false, UpgradeUtil.getMaxCooldownFromType(0), UpgradeUtil.getRangeFromType(0), 1, Items.DIAMOND_HOE);
-
-        getWorker().setDoWork(this::updateCooldownCap);
-        getWorker().setWorkDone(() -> {
-            harvestBlock(pos);
-        });
-    }
-
-    private void updateCooldownCap() {
-        int cap = getWorker().getMaxWork();
-        cap -= Math.pow(UpgradeUtil.getMaxCooldownFromType(getType()), 2) % cap;
-        getWorker().setMaxCooldown(cap);
+        super(false, false, UpgradeUtil.getMaxCooldownFromType(0), UpgradeUtil.getRangeFromType(0), 3, Items.DIAMOND_HOE);
     }
 
     @Override
     public void update() {
         setType(getBlockMetadata());
         setRange(UpgradeUtil.getRangeFromType(getBlockMetadata()));
-        getWorker().doWork();
+        harvestBlock(pos);
         this.markDirty();
     }
 
@@ -42,16 +32,17 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
                         if (world.isBlockPowered(pos)) {
                             if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
                                 FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                                if (getMainHandler().getStackInSlot(0).isItemStackDamageable()) {
+                                if (mainSlot().isItemStackDamageable()) {
+                                    mainSlot().damageItem(1, Minecraft.getMinecraft().player);
                                 }
-                                getMainHandler().getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
+
                             }
                         }
                     } else {
                         if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
                             FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                            if (getMainHandler().getStackInSlot(0).isItemStackDamageable()) {
-                                getMainHandler().getStackInSlot(0).damageItem(1, Minecraft.getMinecraft().player);
+                            if (mainSlot().isItemStackDamageable()) {
+                                mainSlot().damageItem(1, Minecraft.getMinecraft().player);
                             }
                         }
                     }
@@ -61,6 +52,6 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
     }
 
     public boolean hasHoeOnSlot() {
-        return !getMainHandler().getStackInSlot(0).isEmpty();
+        return !mainSlot().isEmpty();
     }
 }

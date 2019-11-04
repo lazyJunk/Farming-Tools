@@ -1,7 +1,6 @@
 package com.lazynessmind.farmingtools.client.specialrenderer;
 
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;
 
 public class HarvesterSpecialRenderer extends PedestalSpecialRenderer<TileEntityHarvester> {
 

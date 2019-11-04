@@ -1,5 +1,6 @@
-package com.lazynessmind.farmingtools.init.tileentities;
+package com.lazynessmind.farmingtools.block.tileentities;
 
+import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import com.lazynessmind.farmingtools.util.UpgradeUtil;
 import net.minecraft.block.state.IBlockState;
@@ -17,9 +18,14 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
 
     public TileEntityPlanter() {
         super(false, false, UpgradeUtil.getMaxCooldownFromType(0), UpgradeUtil.getRangeFromType(0), 1, Items.BEETROOT_SEEDS);
+    }
 
-        getWorker().setDoWork(this::updateCooldownCap);
-        getWorker().setWorkDone(() -> {
+
+    @Override
+    public void update() {
+        if (!world.isRemote) {
+            setType(getBlockMetadata());
+            setRange(UpgradeUtil.getRangeFromType(getBlockMetadata()));
             Item itemSlot = mainSlot().getItem();
             if (!mainSlot().isEmpty()) {
                 if (itemSlot instanceof ItemSeeds || itemSlot instanceof ItemSeedFood) {
@@ -27,21 +33,6 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
                 }
             }
             plantCrop(crop);
-        });
-    }
-
-    private void updateCooldownCap() {
-        int cap = getWorker().getMaxWork();
-        cap -= Math.pow(UpgradeUtil.getMaxCooldownFromType(getType()), 2) % cap;
-        getWorker().setMaxCooldown(cap);
-    }
-
-    @Override
-    public void update() {
-        if (!world.isRemote) {
-            setType(getBlockMetadata());
-            setRange(UpgradeUtil.getRangeFromType(getBlockMetadata()));
-            getWorker().doWork();
             updateTile();
             this.markDirty();
         }
@@ -50,19 +41,15 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
     private void plantCrop(IBlockState crop) {
         for (BlockPos pos : FarmUtils.checkInXZRange(getRange(), getPos(), false)) {
             if (FarmUtils.canPlantCrop(pos, world)) {
-                if (crop != null && !mainSlot().isEmpty()) {
+                if (crop != null && !mainSlot().isEmpty() && mainSlot().getItem() instanceof ItemSeedFood || mainSlot().getItem() instanceof ItemSeeds) {
                     if (needRedstonePower()) {
                         if (world.isBlockPowered(pos)) {
                             world.setBlockState(pos, crop);
-                            getMainHandler().extractItem(1, 1, false);
-
+                            getMainHandler().extractItem(0, 1, false);
                         }
                     } else {
                         world.setBlockState(pos, crop);
-
-                        getMainHandler().extractItem(1, 1, false);
-
-
+                        getMainHandler().extractItem(0, 1, false);
                     }
                 }
             }

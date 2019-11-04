@@ -1,7 +1,7 @@
-package com.lazynessmind.farmingtools.init.blocks;
+package com.lazynessmind.farmingtools.block;
 
-import com.lazynessmind.farmingtools.init.tileentities.FTBlockTileEntity;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityFertilizedSoil;
+import com.lazynessmind.farmingtools.block.tileentities.base.FTBlockTileEntity;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityFertilizedSoil;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -25,8 +25,8 @@ public class BlockFertilizedSoil extends FTBlockTileEntity<TileEntityFertilizedS
     //Copied base AABB from minecraft farmland
     private static final AxisAlignedBB COPIED_FARMLAND_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.9375D, 1.0D);
 
-    public BlockFertilizedSoil(Material materialIn, String name) {
-        super(materialIn, name, true, false);
+    public BlockFertilizedSoil(String name) {
+        super(Material.GROUND, name, true, false);
         setTickRandomly(true);
         setHardness(0.5f);
         setHarvestLevel("wood", 0);

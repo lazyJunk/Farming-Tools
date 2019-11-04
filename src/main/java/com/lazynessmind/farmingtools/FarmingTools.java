@@ -1,13 +1,12 @@
 package com.lazynessmind.farmingtools;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
-import com.lazynessmind.farmingtools.handler.FTRegistryHandler;
+import com.lazynessmind.farmingtools.registry.FTRegistryHandler;
 import com.lazynessmind.farmingtools.init.FarmingToolsCapabilities;
 import com.lazynessmind.farmingtools.network.FTNetworkHandler;
 import com.lazynessmind.farmingtools.proxy.CommonProxy;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsBlocksTab;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsItemsTab;
-import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;

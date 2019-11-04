@@ -2,7 +2,7 @@ package com.lazynessmind.farmingtools.client.gui;
 
 import com.lazynessmind.farmingtools.client.gui.container.ContainerPedestal;
 import com.lazynessmind.farmingtools.client.gui.container.slots.SlotHarvester;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 

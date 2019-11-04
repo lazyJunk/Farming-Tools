@@ -1,5 +1,6 @@
-package com.lazynessmind.farmingtools.init.tileentities;
+package com.lazynessmind.farmingtools.block.tileentities;
 
+import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.util.FarmUtils;
@@ -15,8 +16,10 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
 
     private int growthSpeed;
 
+    private int time = 100, timer;
+
     public TileEntityGrowthPedestal() {
-        super(false, false, 0, UpgradeUtil.getRangeFromType(0), 3, FarmingToolsItems.ADVANCED_BONE_MEAL);
+        super(false, false, 0, UpgradeUtil.getRangeFromType(0), 2, FarmingToolsItems.ADVANCED_BONE_MEAL);
 
         this.growthSpeed = FarmingToolsConfigs.growthPedestalSpeedVar;
     }
@@ -45,15 +48,23 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
     }
 
     private void tickCrop() {
-        for (BlockPos blockPos : FarmUtils.checkInRange(getRange(), pos, getVerticalRange(), false)) {
-            if (!world.isRemote) {
-                IBlockState cropState = world.getBlockState(blockPos);
-                Block crop = cropState.getBlock();
-                if (crop instanceof BlockCrops) {
-                    if (crop.getTickRandomly()) {
-                        crop.updateTick(world, blockPos, cropState, world.rand);
+        if (mainSlot().getCount() != 0 && mainSlot().getItem() == FarmingToolsItems.ADVANCED_BONE_MEAL) {
+            for (BlockPos blockPos : FarmUtils.checkInRange(getRange(), pos, getVerticalRange(), false)) {
+                if (!world.isRemote) {
+                    IBlockState cropState = world.getBlockState(blockPos);
+                    Block crop = cropState.getBlock();
+                    if (crop instanceof BlockCrops) {
+                        if (crop.getTickRandomly()) {
+                            crop.updateTick(world, blockPos, cropState, world.rand);
+                        }
                     }
                 }
+            }
+            if (timer < time) {
+                timer++;
+            } else if (timer == time) {
+                timer = 0;
+                getMainHandler().extractItem(0, 1, false);
             }
         }
     }

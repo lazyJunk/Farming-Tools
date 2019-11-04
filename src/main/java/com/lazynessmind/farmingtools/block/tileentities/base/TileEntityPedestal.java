@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init.tileentities;
+package com.lazynessmind.farmingtools.block.tileentities.base;
 
 import com.lazynessmind.farmingtools.init.FarmingToolsCapabilities;
 import com.lazynessmind.farmingtools.init.capabilities.Worker;
@@ -26,7 +26,6 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
     private int type;
 
     private ItemStackHandler itemStackHandler;
-    private Worker worker;
 
     public TileEntityPedestal(boolean showRange, boolean redPower, int maxCooldown, int range, int yRange, Item item) {
         this.showRange = showRange;
@@ -36,8 +35,6 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         this.type = 0;
 
         this.itemStackHandler = new ItemStackHandler(1);
-
-        this.worker = new Worker(maxCooldown);
     }
 
     @Override
@@ -45,7 +42,6 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         super.writeNBT(compound);
 
         compound.setTag("Items", this.itemStackHandler.serializeNBT());
-        compound.setTag("Worker", this.worker.serializeNBT());
         compound.setBoolean("ShowRange", this.showRange);
         compound.setBoolean("NeedRedstone", this.redPower);
         compound.setInteger("Range", this.range);
@@ -58,7 +54,6 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         super.readNBT(compound);
 
         this.itemStackHandler.deserializeNBT(compound.getCompoundTag("Items"));
-        this.worker.deserializeNBT(compound.getCompoundTag("Worker"));
         this.showRange = compound.getBoolean("ShowRange");
         this.redPower = compound.getBoolean("NeedRedstone");
         this.range = compound.getInteger("Range");
@@ -68,16 +63,17 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
 
     @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == FarmingToolsCapabilities.CAPABILITY_WORKER;
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
     }
 
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return (T) this.itemStackHandler;
+            if(facing == EnumFacing.WEST || facing == EnumFacing.EAST || facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH){
+                return (T) this.itemStackHandler;
+            }
         }
-        if (capability == FarmingToolsCapabilities.CAPABILITY_WORKER) return (T) this.worker;
         return super.getCapability(capability, facing);
     }
 
@@ -142,10 +138,6 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         return getMainHandler().getStackInSlot(0);
     }
 
-    public Worker getWorker() {
-        return worker;
-    }
-
     public List<String> getProperties() {
         List<String> temp = new ArrayList<>();
         String type = TextFormatting.YELLOW + UpgradeUtil.getNameFromType(getType());
@@ -153,13 +145,11 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         String rangeRes = canShowRangeArea() ? TextFormatting.GREEN + "On" : TextFormatting.RED + "Off";
         String range = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getRangeFromType(getType()));
         String vRange = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getVerticalRangeFromPedestal(getType()));
-        String currentSpeed = TextFormatting.YELLOW + String.valueOf(getWorker().getMaxWork());
         temp.add("Type: " + type);
         temp.add("Redstone: " + redRes);
         temp.add("Show Range: " + rangeRes);
         temp.add("Range: " + range);
         temp.add("Vertical Range: " + vRange);
-        temp.add("Cooldown: " + currentSpeed);
         return temp;
     }
 }

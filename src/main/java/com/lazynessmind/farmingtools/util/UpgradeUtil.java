@@ -1,9 +1,5 @@
 package com.lazynessmind.farmingtools.util;
 
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
-import net.minecraft.tileentity.TileEntity;
-
 public class UpgradeUtil {
 
     public static String getNameFromType(int type){

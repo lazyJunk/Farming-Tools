@@ -1,8 +1,9 @@
-package com.lazynessmind.farmingtools.init.blocks;
+package com.lazynessmind.farmingtools.block;
 
 import com.lazynessmind.farmingtools.FarmingTools;
+import com.lazynessmind.farmingtools.block.base.BlockPedestal;
 import com.lazynessmind.farmingtools.client.gui.FTGuis;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

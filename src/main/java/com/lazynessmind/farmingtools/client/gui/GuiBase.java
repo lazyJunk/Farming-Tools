@@ -2,7 +2,7 @@ package com.lazynessmind.farmingtools.client.gui;
 
 import com.lazynessmind.farmingtools.client.gui.button.HoverButton;
 import com.lazynessmind.farmingtools.client.gui.button.TwoStateButton;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
+import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.network.FTNetworkHandler;
@@ -30,7 +30,7 @@ public class GuiBase extends GuiContainer {
     private int z;
     private int guiRight, guiBottom;
     private String tileEntityId;
-    private HoverChecker areaChecker, redstoneChecker, infoChecker, fuelSlot;
+    private HoverChecker areaChecker, redstoneChecker, infoChecker;
     private TwoStateButton showEffectAreaButton, activeRedstone;
     private HoverButton info;
 
@@ -92,13 +92,11 @@ public class GuiBase extends GuiContainer {
                 String rangeRes = pedestal.canShowRangeArea() ? TextFormatting.GREEN + "On" : TextFormatting.RED + "Off";
                 String range = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getRangeFromType(pedestal.getType()));
                 String vRange = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getVerticalRangeFromPedestal(pedestal.getType()));
-                String currentSpeed = TextFormatting.YELLOW + String.valueOf(pedestal.getWorker().getMaxWork());
                 temp.add("Type: " + type);
                 temp.add("Redstone: " + redRes);
                 temp.add("Show Range: " + rangeRes);
                 temp.add("Range: " + range);
                 temp.add("Vertical Range: " + vRange);
-                temp.add("Cooldown: " + currentSpeed);
                 //GuiUtils.drawHoveringText(((TileEntityPedestal) tileEntity).getProperties(), mouseX, mouseY, width, height, 200, fontRenderer);
                 GuiUtils.drawHoveringText(temp, mouseX, mouseY, width, height, 200, fontRenderer);
             }

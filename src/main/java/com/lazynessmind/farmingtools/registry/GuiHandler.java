@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.handler;
+package com.lazynessmind.farmingtools.registry;
 
 import com.lazynessmind.farmingtools.client.gui.container.ContainerPedestal;
 import com.lazynessmind.farmingtools.client.gui.container.slots.SlotGrowthPedestal;
@@ -8,9 +8,9 @@ import com.lazynessmind.farmingtools.client.gui.FTGuis;
 import com.lazynessmind.farmingtools.client.gui.GuiGrowthPedestal;
 import com.lazynessmind.farmingtools.client.gui.GuiHarvester;
 import com.lazynessmind.farmingtools.client.gui.GuiPlanter;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityPlanter;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

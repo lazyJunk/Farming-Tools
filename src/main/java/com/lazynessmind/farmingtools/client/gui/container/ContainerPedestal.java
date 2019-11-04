@@ -1,6 +1,6 @@
 package com.lazynessmind.farmingtools.client.gui.container;
 
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPedestal;
+import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

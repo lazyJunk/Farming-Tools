@@ -1,25 +1,22 @@
-package com.lazynessmind.farmingtools.handler;
+package com.lazynessmind.farmingtools.registry;
 
-import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityFertilizedSoil;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityGrowthPedestal;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityHarvester;
-import com.lazynessmind.farmingtools.init.tileentities.TileEntityPlanter;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityFertilizedSoil;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
