@@ -1,6 +1,9 @@
 package com.lazynessmind.farmingtools.util;
 
-public class UpgradeUtil {
+import com.lazynessmind.farmingtools.FarmingTools;
+import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
+
+public class TypeUtil {
 
     public static String getNameFromType(int type){
         switch (type){
@@ -16,20 +19,6 @@ public class UpgradeUtil {
         return "I don´t know... Something is wrong!";
     }
 
-    public static int getRangeFromType(int type){
-        switch (type){
-            case 0:
-                return 1;
-            case 1:
-                return 2;
-            case 2:
-                return 3;
-            case 3:
-                return 4;
-        }
-        return 666;
-    }
-
     public static int getVerticalRangeFromPedestal(int id){
         switch (id){
             case 0:
@@ -41,7 +30,7 @@ public class UpgradeUtil {
         return 666;
     }
 
-    public static int getMaxCooldownFromType(int type){
+    public static int getTimeBetweenFromType(int type){
         switch (type){
             case 0:
                 return 200;
@@ -53,5 +42,17 @@ public class UpgradeUtil {
                 return 50;
         }
         return 69;
+    }
+
+    public static int getHorizontalRangeFromType(int type){
+        switch(type){
+            case 0:
+                return 1;
+            case 1:
+                return 2;
+            case 3:
+                return 3;
+        }
+        return 99;
     }
 }
