@@ -28,7 +28,9 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
                 timer++;
             } else if (timer >= getTimeBetween()) {
                 timer = 0;
-                tickCrop();
+                if(world.isAreaLoaded(pos, 10)){
+                    tickCrop();
+                }
             }
         }
         this.markDirty();

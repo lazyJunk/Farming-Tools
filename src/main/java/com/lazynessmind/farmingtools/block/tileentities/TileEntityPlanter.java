@@ -37,23 +37,25 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
                 timer++;
             } else if(timer >= getTimeBetween()){
                 timer = 0;
-                plantCrop(crop);
+                if(world.isAreaLoaded(pos, 10)){
+                    plantCrop(crop);
+                }
             }
             this.markDirty();
         }
     }
 
     private void plantCrop(IBlockState crop) {
-        for (BlockPos pos : FarmUtils.checkInXZRange(getRange(), getPos(), false)) {
-            if (FarmUtils.canPlantCrop(pos, world)) {
+        for (BlockPos poss : FarmUtils.checkInXZRange(getRange(), getPos(), false)) {
+            if (FarmUtils.canPlantCrop(poss, world)) {
                 if (crop != null && !mainSlot().isEmpty() && mainSlot().getItem() instanceof ItemSeedFood || mainSlot().getItem() instanceof ItemSeeds) {
                     if (needRedstonePower()) {
                         if (world.isBlockPowered(pos)) {
-                            world.setBlockState(pos, crop);
+                            world.setBlockState(poss, crop);
                             if(!Minecraft.getMinecraft().player.isCreative()) getMainHandler().extractItem(0, 1, false);
                         }
                     } else {
-                        world.setBlockState(pos, crop);
+                        world.setBlockState(poss, crop);
                         if(!Minecraft.getMinecraft().player.isCreative()) getMainHandler().extractItem(0, 1, false);
                     }
                 }

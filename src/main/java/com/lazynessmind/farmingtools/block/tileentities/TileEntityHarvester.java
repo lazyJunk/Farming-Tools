@@ -26,7 +26,9 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
                 timer++;
             } else if (timer >= getTimeBetween()) {
                 timer = 0;
-                harvestBlock(pos);
+                if(world.isAreaLoaded(pos, 10)) {
+                    harvestBlock(pos);
+                }
             }
         }
         this.markDirty();
