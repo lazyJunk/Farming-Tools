@@ -38,8 +38,16 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
             for (BlockPos blockPos : FarmUtils.checkInRange(getRange(), pos, 1, false)) {
                 if (world.getBlockState(blockPos).getBlock() instanceof BlockCrops) {
                     BlockCrops crops = (BlockCrops) world.getBlockState(blockPos).getBlock();
-                    if (!FarmUtils.canFarm(crops, world, blockPos)) {
-                        world.setBlockState(blockPos, crops.getStateFromMeta(crops.getMaxAge()), 3);
+                    if (needRedstonePower()) {
+                        if (world.isBlockPowered(pos)) {
+                            if (!FarmUtils.canFarm(crops, world, blockPos)) {
+                                world.setBlockState(blockPos, crops.getStateFromMeta(crops.getMaxAge()), 3);
+                            }
+                        }
+                    } else {
+                        if (!FarmUtils.canFarm(crops, world, blockPos)) {
+                            world.setBlockState(blockPos, crops.getStateFromMeta(crops.getMaxAge()), 3);
+                        }
                     }
                 }
             }
