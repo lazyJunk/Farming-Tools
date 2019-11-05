@@ -7,8 +7,8 @@ public class Enum {
     public enum Type implements IStringSerializable {
 
         IRON(0, "iron"),
-        DIAMOND(1, "diamond"),
-        GOLD(2, "gold"),
+        GOLD(1, "gold"),
+        DIAMOND(2, "diamond"),
         EMERALD(3, "emerald");
 
         public int meta;
