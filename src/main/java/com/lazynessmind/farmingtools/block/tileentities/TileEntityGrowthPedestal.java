@@ -4,9 +4,7 @@ import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import com.lazynessmind.farmingtools.util.TypeUtil;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
