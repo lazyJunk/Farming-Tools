@@ -3,6 +3,7 @@ package com.lazynessmind.farmingtools.block;
 import com.lazynessmind.farmingtools.block.tileentities.base.FTBlockTileEntity;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityFertilizedSoil;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -29,6 +30,7 @@ public class BlockFertilizedSoil extends FTBlockTileEntity<TileEntityFertilizedS
         super(Material.GROUND, name, true, false);
         setTickRandomly(true);
         setHardness(0.5f);
+        setSoundType(SoundType.GROUND);
         setHarvestLevel("wood", 0);
     }
 
