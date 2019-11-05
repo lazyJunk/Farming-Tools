@@ -2,19 +2,15 @@ package com.lazynessmind.farmingtools.block.tileentities.base;
 
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
-import com.lazynessmind.farmingtools.util.UpgradeUtil;
-import net.minecraft.item.Item;
+import com.lazynessmind.farmingtools.util.TypeUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @SuppressWarnings("unchecked cast")
 public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPower {
@@ -22,13 +18,15 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
     private boolean showRange, redPower;
     private int range, yRange;
     private int type;
+    private double timeBetween;
 
     private ItemStackHandler itemStackHandler;
 
-    public TileEntityPedestal(boolean showRange, boolean redPower, int maxCooldown, int range, int yRange, Item item) {
+    public TileEntityPedestal(boolean showRange, boolean redPower, int yRange) {
         this.showRange = showRange;
         this.redPower = redPower;
-        this.range = range;
+        this.range = TypeUtil.getHorizontalRangeFromType(0);
+        this.timeBetween = TypeUtil.getTimeBetweenFromType(0);
         this.yRange = yRange;
         this.type = 0;
 
@@ -45,6 +43,7 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         compound.setInteger("Range", this.range);
         compound.setInteger("yRange", this.yRange);
         compound.setInteger("Type", this.type);
+        compound.setDouble("TimeBetween", this.timeBetween);
     }
 
     @Override
@@ -57,6 +56,7 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         this.range = compound.getInteger("Range");
         this.yRange = compound.getInteger("yRange");
         this.type = compound.getInteger("Type");
+        this.timeBetween = compound.getDouble("RandomChange");
     }
 
     @Override
@@ -68,7 +68,7 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            if(facing == EnumFacing.WEST || facing == EnumFacing.EAST || facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH){
+            if (facing == EnumFacing.WEST || facing == EnumFacing.EAST || facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH) {
                 return (T) this.itemStackHandler;
             }
         }
@@ -115,11 +115,6 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         return yRange;
     }
 
-    public void setVerticalRange(int yRange) {
-        this.yRange = yRange;
-        markDirty();
-    }
-
     public void setType(int type) {
         this.type = type;
     }
@@ -128,26 +123,19 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         return type;
     }
 
+    public double getTimeBetween() {
+        return timeBetween;
+    }
+
+    public void setTimeBetween(double timeBetween) {
+        this.timeBetween = timeBetween;
+    }
+
     public ItemStackHandler getMainHandler() {
         return this.itemStackHandler;
     }
 
     public ItemStack mainSlot() {
         return getMainHandler().getStackInSlot(0);
-    }
-
-    public List<String> getProperties() {
-        List<String> temp = new ArrayList<>();
-        String type = TextFormatting.YELLOW + UpgradeUtil.getNameFromType(getType());
-        String redRes = needRedstonePower() ? TextFormatting.GREEN + "On" : TextFormatting.RED + "Off";
-        String rangeRes = canShowRangeArea() ? TextFormatting.GREEN + "On" : TextFormatting.RED + "Off";
-        String range = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getRangeFromType(getType()));
-        String vRange = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getVerticalRangeFromPedestal(getType()));
-        temp.add("Type: " + type);
-        temp.add("Redstone: " + redRes);
-        temp.add("Show Range: " + rangeRes);
-        temp.add("Range: " + range);
-        temp.add("Vertical Range: " + vRange);
-        return temp;
     }
 }
