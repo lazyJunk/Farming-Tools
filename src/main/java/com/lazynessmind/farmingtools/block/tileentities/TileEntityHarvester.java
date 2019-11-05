@@ -41,16 +41,20 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
                         if (world.isBlockPowered(pos)) {
                             if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
                                 FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                                if (mainSlot().isItemStackDamageable()) {
-                                    mainSlot().damageItem(1, Minecraft.getMinecraft().player);
+                                if(!Minecraft.getMinecraft().player.isCreative()){
+                                    if (mainSlot().isItemStackDamageable()) {
+                                        mainSlot().damageItem(1, Minecraft.getMinecraft().player);
+                                    }
                                 }
                             }
                         }
                     } else {
                         if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
                             FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                            if (mainSlot().isItemStackDamageable()) {
-                                mainSlot().damageItem(1, Minecraft.getMinecraft().player);
+                            if(!Minecraft.getMinecraft().player.isCreative()){
+                                if (mainSlot().isItemStackDamageable()) {
+                                    mainSlot().damageItem(1, Minecraft.getMinecraft().player);
+                                }
                             }
                         }
                     }

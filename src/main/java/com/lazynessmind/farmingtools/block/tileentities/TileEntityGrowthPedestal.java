@@ -5,8 +5,10 @@ import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import com.lazynessmind.farmingtools.util.TypeUtil;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import scala.collection.parallel.ParIterableLike;
 
 public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITickable {
 
@@ -27,7 +29,6 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
             } else if (timer >= getTimeBetween()) {
                 timer = 0;
                 tickCrop();
-                getMainHandler().extractItem(0, 1, false);
             }
         }
         this.markDirty();
@@ -42,11 +43,13 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
                         if (world.isBlockPowered(pos)) {
                             if (!FarmUtils.canFarm(crops, world, blockPos)) {
                                 world.setBlockState(blockPos, crops.getStateFromMeta(crops.getMaxAge()), 3);
+                                if(!Minecraft.getMinecraft().player.isCreative()) getMainHandler().extractItem(0, 1, false);
                             }
                         }
                     } else {
                         if (!FarmUtils.canFarm(crops, world, blockPos)) {
                             world.setBlockState(blockPos, crops.getStateFromMeta(crops.getMaxAge()), 3);
+                            if(!Minecraft.getMinecraft().player.isCreative()) getMainHandler().extractItem(0, 1, false);
                         }
                     }
                 }

@@ -4,6 +4,7 @@ import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import com.lazynessmind.farmingtools.util.TypeUtil;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemSeeds;
@@ -49,11 +50,11 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
                     if (needRedstonePower()) {
                         if (world.isBlockPowered(pos)) {
                             world.setBlockState(pos, crop);
-                            getMainHandler().extractItem(0, 1, false);
+                            if(!Minecraft.getMinecraft().player.isCreative()) getMainHandler().extractItem(0, 1, false);
                         }
                     } else {
                         world.setBlockState(pos, crop);
-                        getMainHandler().extractItem(0, 1, false);
+                        if(!Minecraft.getMinecraft().player.isCreative()) getMainHandler().extractItem(0, 1, false);
                     }
                 }
             }
