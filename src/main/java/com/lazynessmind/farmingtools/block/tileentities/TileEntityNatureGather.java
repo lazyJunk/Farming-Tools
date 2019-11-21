@@ -34,7 +34,9 @@ public class TileEntityNatureGather extends FTTileEntity implements ITickable {
 
                 if (isAllowedBlock(poss)) {
                     this.world.setBlockState(poss, Blocks.AIR.getDefaultState(), 3);
-                    this.world.playSound(Minecraft.getMinecraft().player, poss, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1f, 1f);
+                    if (this.world.getBlockState(pos.down()) != Blocks.WOOL.getDefaultState()) {
+                        this.world.playSound(Minecraft.getMinecraft().player, poss, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1f, 1f);
+                    }
                 }
             }
         }
@@ -79,7 +81,7 @@ public class TileEntityNatureGather extends FTTileEntity implements ITickable {
 
     public static void decreaseChangeToDestroy(double amount) {
         double newValue = currentAmount - amount;
-        if(newValue <= amount) changeToDestroyBlocks -= amount;
+        if (newValue <= amount) changeToDestroyBlocks -= amount;
         else changeToDestroyBlocks = 0;
     }
 }
