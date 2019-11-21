@@ -12,8 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod.EventBusSubscriber
@@ -63,5 +65,10 @@ public class RegistryHandler {
         } else {
             FTRegistryHandler.registryHoeRightClickOnCrops(event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getPos());
         }
+    }
+
+    @SubscribeEvent
+    public static void onWorldExit(PlayerEvent.PlayerLoggedOutEvent event){
+        TileEntityNatureGather.resetChangeToDestroy();
     }
 }

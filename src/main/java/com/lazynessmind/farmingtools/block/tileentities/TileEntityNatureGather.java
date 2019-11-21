@@ -65,6 +65,10 @@ public class TileEntityNatureGather extends FTTileEntity implements ITickable {
         currentAmount = 0;
     }
 
+    public static void resetChangeToDestroy() {
+        changeToDestroyBlocks = 0;
+    }
+
     public static double getChangeToDestroy() {
         return changeToDestroyBlocks;
     }
@@ -74,6 +78,8 @@ public class TileEntityNatureGather extends FTTileEntity implements ITickable {
     }
 
     public static void decreaseChangeToDestroy(double amount) {
-        changeToDestroyBlocks -= amount;
+        double newValue = currentAmount - amount;
+        if(newValue <= amount) changeToDestroyBlocks -= amount;
+        else changeToDestroyBlocks = 0;
     }
 }
