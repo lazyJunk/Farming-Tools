@@ -19,6 +19,7 @@ compileJava {
 }
 
 repositories {
+    maven { url 'https://maven.blamejared.com' }
 }
 
 minecraft {
@@ -35,6 +36,7 @@ minecraft {
 }
 
 dependencies {
+    compile "vazkii.patchouli:Patchouli:1.0-21.110"
 }
 
 processResources {
