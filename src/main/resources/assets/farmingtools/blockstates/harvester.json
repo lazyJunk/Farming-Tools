@@ -1,8 +1,8 @@
 {
   "variants": {
     "meta=0": { "model": "farmingtools:harvester_iron" },
-    "meta=1": { "model": "farmingtools:harvester_diamond" },
-    "meta=2": { "model": "farmingtools:harvester_gold" },
+    "meta=1": { "model": "farmingtools:harvester_gold" },
+    "meta=2": { "model": "farmingtools:harvester_diamond" },
     "meta=3": { "model": "farmingtools:harvester_emerald" }
   }
 }

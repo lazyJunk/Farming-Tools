@@ -1,8 +1,8 @@
 {
   "variants": {
     "meta=0": { "model": "farmingtools:planter_iron" },
-    "meta=1": { "model": "farmingtools:planter_diamond" },
-    "meta=2": { "model": "farmingtools:planter_gold" },
+    "meta=1": { "model": "farmingtools:planter_gold" },
+    "meta=2": { "model": "farmingtools:planter_diamond" },
     "meta=3": { "model": "farmingtools:planter_emerald" }
   }
 }
