@@ -2,7 +2,6 @@ package com.lazynessmind.farmingtools.item;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.item.base.FTItem;
-import com.lazynessmind.farmingtools.util.NaturePower;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
 import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.*;

@@ -6,8 +6,6 @@ import com.lazynessmind.farmingtools.network.FTNetworkHandler;
 import com.lazynessmind.farmingtools.proxy.CommonProxy;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsBlocksTab;
 import com.lazynessmind.farmingtools.tabs.FarmingToolsItemsTab;
-import com.lazynessmind.farmingtools.util.NaturePower;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
