@@ -1,10 +1,11 @@
 package com.lazynessmind.farmingtools.block.base;
 
 import com.lazynessmind.farmingtools.FarmingTools;
-import com.lazynessmind.farmingtools.init.FarmingToolsItems;
-import com.lazynessmind.farmingtools.item.ItemBlockPedestal;
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityNatureGather;
 import com.lazynessmind.farmingtools.block.tileentities.base.FTBlockTileEntity;
 import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
+import com.lazynessmind.farmingtools.init.FarmingToolsItems;
+import com.lazynessmind.farmingtools.item.ItemBlockPedestal;
 import com.lazynessmind.farmingtools.util.Enum;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
 import net.minecraft.block.material.Material;
@@ -90,18 +91,19 @@ public class BlockPedestal<T extends TileEntityPedestal> extends FTBlockTileEnti
     @Override
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (worldIn.getWorldInfo().getWorldTime() < 12500) {
-            if(worldIn.rand.nextBoolean()) ParticleCreator.spawnParticle(EnumParticleTypes.PORTAL, worldIn, pos, 7, rand);
+            if (worldIn.rand.nextBoolean())
+                ParticleCreator.spawnParticle(EnumParticleTypes.PORTAL, worldIn, pos, 7, rand);
         } else if (getTileEntity(worldIn, pos).needRedstonePower()) {
-            if(worldIn.rand.nextBoolean()){
-                int i = ((Integer)stateIn.getValue(META)).intValue();
-                double d0 = (double)pos.getX() + 0.5D + ((double)rand.nextFloat() - 0.5D) * 0.2D;
-                double d1 = (double)((float)pos.getY() + 0.9735D);
-                double d2 = (double)pos.getZ() + 0.5D + ((double)rand.nextFloat() - 0.5D) * 0.2D;
-                float f = (float)i / 15.0F;
+            if (worldIn.rand.nextBoolean()) {
+                int i = ((Integer) stateIn.getValue(META)).intValue();
+                double d0 = (double) pos.getX() + 0.5D + ((double) rand.nextFloat() - 0.5D) * 0.2D;
+                double d1 = (double) ((float) pos.getY() + 0.9735D);
+                double d2 = (double) pos.getZ() + 0.5D + ((double) rand.nextFloat() - 0.5D) * 0.2D;
+                float f = (float) i / 15.0F;
                 float f1 = f * 0.6F + 0.4F;
                 float f2 = Math.max(0.0F, f * f * 0.7F - 0.5F);
                 float f3 = Math.max(0.0F, f * f * 0.6F - 0.7F);
-                worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, (double)f1, (double)f2, (double)f3);
+                worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, (double) f1, (double) f2, (double) f3);
             }
         }
     }

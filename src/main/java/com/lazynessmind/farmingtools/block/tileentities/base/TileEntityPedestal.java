@@ -1,5 +1,6 @@
 package com.lazynessmind.farmingtools.block.tileentities.base;
 
+import com.lazynessmind.farmingtools.block.tileentities.TileEntityNatureGather;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.util.TypeUtil;
@@ -19,6 +20,7 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
     private int range, yRange;
     private int type;
     private double timeBetween;
+    protected boolean doWork = false;
 
     private ItemStackHandler itemStackHandler;
 
@@ -31,6 +33,9 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         this.type = 0;
 
         this.itemStackHandler = new ItemStackHandler(1);
+
+        // ? For some reason that i can't understand, i need to /2 because is *2, it´s 8am and didn't sleep yet.
+        TileEntityNatureGather.increaseChangeToDestroy(0.15);
     }
 
     @Override
@@ -73,11 +78,6 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
             }
         }
         return super.getCapability(capability, facing);
-    }
-
-    public void updateTile() {
-        markDirty();
-        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
     }
 
     @Override
