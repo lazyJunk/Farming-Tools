@@ -1,12 +1,9 @@
 package com.lazynessmind.farmingtools.util;
 
-import com.lazynessmind.farmingtools.FarmingTools;
-import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
-
 public class TypeUtil {
 
-    public static String getNameFromType(int type){
-        switch (type){
+    public static String getNameFromType(int type) {
+        switch (type) {
             case 0:
                 return "Iron";
             case 1:
@@ -19,8 +16,8 @@ public class TypeUtil {
         return "I don´t know... Something is wrong!";
     }
 
-    public static int getVerticalRangeFromPedestal(int id){
-        switch (id){
+    public static int getVerticalRangeFromPedestal(int id) {
+        switch (id) {
             case 0:
                 return 3;
             case 1:
@@ -30,8 +27,8 @@ public class TypeUtil {
         return 666;
     }
 
-    public static int getTimeBetweenFromType(int type){
-        switch (type){
+    public static int getTimeBetweenFromType(int type) {
+        switch (type) {
             case 0:
                 return 200;
             case 1:
@@ -44,8 +41,8 @@ public class TypeUtil {
         return 69;
     }
 
-    public static int getHorizontalRangeFromType(int type){
-        switch(type){
+    public static int getHorizontalRangeFromType(int type) {
+        switch (type) {
             case 0:
                 return 1;
             case 1:
@@ -54,5 +51,19 @@ public class TypeUtil {
                 return 3;
         }
         return 99;
+    }
+
+    public static int powerSpendFromType(int type) {
+        switch (type) {
+            case 0:
+                return 100;
+            case 1:
+                return 200;
+            case 2:
+                return 300;
+            case 3:
+                return 400;
+        }
+        return Integer.MAX_VALUE;
     }
 }
