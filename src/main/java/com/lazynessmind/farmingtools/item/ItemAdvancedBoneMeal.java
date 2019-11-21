@@ -51,10 +51,6 @@ public class ItemAdvancedBoneMeal extends FTItem {
             }
         }
 
-        if(player.isSneaking()){
-            System.out.println("CurrentNaturePower: " + NaturePower.getData(player));
-        }
-
         if (worldIn.getBlockState(pos).getBlock() instanceof BlockCrops) {
             BlockCrops crops = (BlockCrops) worldIn.getBlockState(pos).getBlock();
             grow(worldIn, pos, crops, crops.getMaxAge(), player, hand);

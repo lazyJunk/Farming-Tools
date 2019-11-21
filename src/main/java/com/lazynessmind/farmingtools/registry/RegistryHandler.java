@@ -67,13 +67,4 @@ public class RegistryHandler {
             FTRegistryHandler.registryHoeRightClickOnCrops(event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getPos());
         }
     }
-
-    @SubscribeEvent
-    public static void onWorldLoaded(EntityJoinWorldEvent loadEvent) {
-        FTRegistryHandler.onWorldLoaded(loadEvent.getWorld(), loadEvent.getEntity());
-        if (loadEvent.getEntity() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) loadEvent.getEntity();
-            NaturePower.injectDataIntoPlayer(player);
-        }
-    }
 }
