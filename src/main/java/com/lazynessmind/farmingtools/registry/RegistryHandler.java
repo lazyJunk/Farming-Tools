@@ -1,16 +1,15 @@
 package com.lazynessmind.farmingtools.registry;
 
+import com.lazynessmind.farmingtools.block.tileentities.*;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
-import com.lazynessmind.farmingtools.block.tileentities.TileEntityFertilizedSoil;
-import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
-import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;
-import com.lazynessmind.farmingtools.block.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
+import com.lazynessmind.farmingtools.util.NaturePower;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -35,6 +34,7 @@ public class RegistryHandler {
         GameRegistry.registerTileEntity(TileEntityGrowthPedestal.class, "farmingtools:growthPedestal");
         GameRegistry.registerTileEntity(TileEntityHarvester.class, "farmingtools:harvester");
         GameRegistry.registerTileEntity(TileEntityPlanter.class, "farmingtools:planter");
+        GameRegistry.registerTileEntity(TileEntityNatureGather.class, "farmingtools:nature_gather");
     }
 
     @SubscribeEvent
@@ -71,5 +71,9 @@ public class RegistryHandler {
     @SubscribeEvent
     public static void onWorldLoaded(EntityJoinWorldEvent loadEvent) {
         FTRegistryHandler.onWorldLoaded(loadEvent.getWorld(), loadEvent.getEntity());
+        if (loadEvent.getEntity() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) loadEvent.getEntity();
+            NaturePower.injectDataIntoPlayer(player);
+        }
     }
 }

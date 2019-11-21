@@ -35,7 +35,7 @@ public class FarmUtils {
         List<BlockPos> positions = new ArrayList<>();
         if (checkItself) positions.add(currentPos);
         for (int x = -range; x < range + 1; x++) {
-            for (int y = -yRange; y < yRange; y++) {
+            for (int y = -yRange; y < yRange + 1; y++) {
                 for (int z = -range; z < range + 1; z++) {
                     positions.add(new BlockPos(currentPos.getX() + x, currentPos.getY() + y, currentPos.getZ() + z));
                 }

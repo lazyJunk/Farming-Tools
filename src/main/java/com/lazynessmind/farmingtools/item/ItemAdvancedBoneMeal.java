@@ -2,6 +2,7 @@ package com.lazynessmind.farmingtools.item;
 
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
 import com.lazynessmind.farmingtools.item.base.FTItem;
+import com.lazynessmind.farmingtools.util.NaturePower;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
 import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.block.*;
@@ -48,6 +49,10 @@ public class ItemAdvancedBoneMeal extends FTItem {
                 doBoneMealEffectOnGround(player.getHeldItem(hand), worldIn, pos);
                 return EnumActionResult.SUCCESS;
             }
+        }
+
+        if(player.isSneaking()){
+            System.out.println("CurrentNaturePower: " + NaturePower.getData(player));
         }
 
         if (worldIn.getBlockState(pos).getBlock() instanceof BlockCrops) {

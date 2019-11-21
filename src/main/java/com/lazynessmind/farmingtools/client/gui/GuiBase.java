@@ -8,7 +8,7 @@ import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.network.FTNetworkHandler;
 import com.lazynessmind.farmingtools.network.packet.MessageRedstonePower;
 import com.lazynessmind.farmingtools.network.packet.MessageShowArea;
-import com.lazynessmind.farmingtools.util.UpgradeUtil;
+import com.lazynessmind.farmingtools.util.TypeUtil;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -87,15 +87,13 @@ public class GuiBase extends GuiContainer {
             if(tileEntity instanceof TileEntityPedestal){
                 TileEntityPedestal pedestal = (TileEntityPedestal)tileEntity;
                 List<String> temp = new ArrayList<>();
-                String type = TextFormatting.YELLOW + UpgradeUtil.getNameFromType(pedestal.getType());
+                String type = TextFormatting.YELLOW + TypeUtil.getNameFromType(pedestal.getType());
                 String redRes = pedestal.needRedstonePower() ? TextFormatting.GREEN + "On" : TextFormatting.RED + "Off";
                 String rangeRes = pedestal.canShowRangeArea() ? TextFormatting.GREEN + "On" : TextFormatting.RED + "Off";
-                String range = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getRangeFromType(pedestal.getType()));
-                String vRange = TextFormatting.YELLOW + String.valueOf(UpgradeUtil.getVerticalRangeFromPedestal(pedestal.getType()));
+                String vRange = TextFormatting.YELLOW + String.valueOf(TypeUtil.getVerticalRangeFromPedestal(pedestal.getType()));
                 temp.add("Type: " + type);
                 temp.add("Redstone: " + redRes);
                 temp.add("Show Range: " + rangeRes);
-                temp.add("Range: " + range);
                 temp.add("Vertical Range: " + vRange);
                 //GuiUtils.drawHoveringText(((TileEntityPedestal) tileEntity).getProperties(), mouseX, mouseY, width, height, 200, fontRenderer);
                 GuiUtils.drawHoveringText(temp, mouseX, mouseY, width, height, 200, fontRenderer);

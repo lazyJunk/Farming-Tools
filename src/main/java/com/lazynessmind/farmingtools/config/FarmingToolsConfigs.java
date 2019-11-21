@@ -103,6 +103,7 @@ public class FarmingToolsConfigs {
         propertyAdvancedBoneMealRange.setMinValue(1);
         propertyAdvancedBoneMealRange.setMaxValue(100);
 
+
         List<String> propertyOrderItems = new ArrayList<String>();
         propertyOrderItems.add(propertyAdvancedBoneMealRange.getName());
         config.setCategoryPropertyOrder(CATEGORY_NAME_ITEMS, propertyOrderItems);

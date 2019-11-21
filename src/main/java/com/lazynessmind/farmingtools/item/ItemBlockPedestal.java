@@ -2,7 +2,7 @@ package com.lazynessmind.farmingtools.item;
 
 import com.lazynessmind.farmingtools.item.base.FTItemBlock;
 import com.lazynessmind.farmingtools.util.RarityUtil;
-import com.lazynessmind.farmingtools.util.UpgradeUtil;
+import com.lazynessmind.farmingtools.util.TypeUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
@@ -22,8 +22,8 @@ public class ItemBlockPedestal extends FTItemBlock {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add("");
-        tooltip.add(TextFormatting.WHITE + "Type: " + TextFormatting.GREEN + UpgradeUtil.getNameFromType(stack.getMetadata()));
-        tooltip.add(TextFormatting.WHITE + "Base cooldown: " + TextFormatting.GREEN + UpgradeUtil.getMaxCooldownFromType(stack.getMetadata()));
-        tooltip.add(TextFormatting.WHITE + "Base range: " + TextFormatting.GREEN + UpgradeUtil.getRangeFromType(stack.getMetadata()));
+        tooltip.add(TextFormatting.WHITE + "Type: " + TextFormatting.GREEN + TypeUtil.getNameFromType(stack.getMetadata()));
+        tooltip.add(TextFormatting.WHITE + "Base cooldown: " + TextFormatting.GREEN + TypeUtil.getTimeBetweenFromType(stack.getMetadata()));
+        tooltip.add(TextFormatting.WHITE + "Base range: " + TextFormatting.GREEN + 1);
     }
 }

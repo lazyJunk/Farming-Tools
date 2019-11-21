@@ -40,7 +40,7 @@ public class PedestalSpecialRenderer<T extends TileEntityPedestal> extends TileE
             this.setLightmapDisabled(true);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            RenderUtils.renderBox(bufferbuilder, (x - te.getRange()), (y - te.getVerticalRange()), (z - te.getRange()), (x + te.getRange() + 1), (y + te.getVerticalRange()), (z + te.getRange() + 1), 255, 255, 255, 2f, tessellator);
+            RenderUtils.renderBox(bufferbuilder, (x - te.getRange()), (y - te.getVerticalRange()), (z - te.getRange()), (x + te.getRange() + 1), (y + te.getVerticalRange() + 1), (z + te.getRange() + 1), 255, 255, 255, 2f, tessellator);
             this.setLightmapDisabled(false);
         }
     }

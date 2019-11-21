@@ -1,9 +1,6 @@
 package com.lazynessmind.farmingtools.init;
 
-import com.lazynessmind.farmingtools.block.BlockFertilizedSoil;
-import com.lazynessmind.farmingtools.block.BlockGrowthPedestal;
-import com.lazynessmind.farmingtools.block.BlockHarvester;
-import com.lazynessmind.farmingtools.block.BlockPlanter;
+import com.lazynessmind.farmingtools.block.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -18,4 +15,5 @@ public class FarmingToolsBlocks {
     public static final Block GROWTH_PEDESTAL = new BlockGrowthPedestal("growth_pedestal");
     public static final Block HARVESTER = new BlockHarvester("harvester");
     public static final Block PLANTER = new BlockPlanter("planter");
+    public static final Block NATURE_GATHER = new BlockNatureGather("nature_gather");
 }
