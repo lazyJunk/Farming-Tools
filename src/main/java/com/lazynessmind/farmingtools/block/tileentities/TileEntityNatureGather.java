@@ -1,7 +1,6 @@
 package com.lazynessmind.farmingtools.block.tileentities;
 
 import com.lazynessmind.farmingtools.block.tileentities.base.FTTileEntity;
-import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import com.lazynessmind.farmingtools.util.MathUtil;
 import net.minecraft.block.Block;
@@ -11,7 +10,6 @@ import net.minecraft.block.BlockLog;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -20,34 +18,19 @@ import java.util.List;
 
 public class TileEntityNatureGather extends FTTileEntity implements ITickable {
 
-    private long currentAmount;
+    private static int currentAmount;
     private int range = 10;
-    private double changeToDestroyBlocks = 0.03; //! TODO: Add config
 
-    @Override
-    public void writeNBT(NBTTagCompound compound) {
-        super.writeNBT(compound);
-        compound.setLong("Amount", currentAmount);
-        compound.setInteger("Range", range);
-        compound.setDouble("ChangeToDestroy", changeToDestroyBlocks);
-    }
-
-    @Override
-    public void readNBT(NBTTagCompound compound) {
-        super.readNBT(compound);
-        this.currentAmount = compound.getLong("Amount");
-        this.range = compound.getInteger("Range");
-        this.changeToDestroyBlocks = compound.getDouble("ChangeToDestroy");
-    }
+    //* This value is changed when the power is being used
+    private static double changeToDestroyBlocks = 0;
 
     @Override
     public void update() {
         if (!this.world.isRemote) {
-            this.currentAmount = this.getNaturePower();
-            if (this.world.rand.nextDouble() < this.changeToDestroyBlocks) {
+            currentAmount = this.getNaturePower();
+            if (this.world.rand.nextDouble() < changeToDestroyBlocks) {
                 List<BlockPos> possInRange = FarmUtils.checkInRangeFromGround(this.range, this.pos, this.range, false);
                 BlockPos poss = possInRange.get(MathUtil.random(0, possInRange.size() - 1));
-                Block blockAtPos = this.world.getBlockState(poss).getBlock();
 
                 if (isAllowedBlock(poss)) {
                     this.world.setBlockState(poss, Blocks.AIR.getDefaultState(), 3);
@@ -72,5 +55,25 @@ public class TileEntityNatureGather extends FTTileEntity implements ITickable {
         return this.world.getBlockState(pos).getBlock() instanceof BlockBush
                 || this.world.getBlockState(pos).getBlock() instanceof BlockLeaves
                 || this.world.getBlockState(pos).getBlock() instanceof BlockLog;
+    }
+
+    public static int getCurrentNaturePower() {
+        return currentAmount;
+    }
+
+    public static void resetCurrentAmount() {
+        currentAmount = 0;
+    }
+
+    public static double getChangeToDestroy() {
+        return changeToDestroyBlocks;
+    }
+
+    public static void increaseChangeToDestroy(double amount) {
+        changeToDestroyBlocks += amount;
+    }
+
+    public static void decreaseChangeToDestroy(double amount) {
+        changeToDestroyBlocks -= amount;
     }
 }
