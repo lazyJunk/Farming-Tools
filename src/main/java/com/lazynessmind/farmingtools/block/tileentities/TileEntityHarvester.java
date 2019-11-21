@@ -21,13 +21,16 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
         setType(getBlockMetadata());
         setRange(TypeUtil.getHorizontalRangeFromType(getType()));
         setTimeBetween(TypeUtil.getTimeBetweenFromType(getType()));
+        this.doWork = TileEntityNatureGather.getCurrentNaturePower() >= TypeUtil.powerSpendFromType(this.getType());
         if (!world.isRemote) {
-            if (timer < getTimeBetween()) {
-                timer++;
-            } else if (timer >= getTimeBetween()) {
-                timer = 0;
-                if(world.isAreaLoaded(pos, 10)) {
-                    harvestBlock(pos);
+            if (this.doWork) {
+                if (timer < getTimeBetween()) {
+                    timer++;
+                } else if (timer >= getTimeBetween()) {
+                    timer = 0;
+                    if (world.isAreaLoaded(pos, 10)) {
+                        harvestBlock(pos);
+                    }
                 }
             }
         }
@@ -43,7 +46,7 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
                         if (world.isBlockPowered(pos)) {
                             if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
                                 FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                                if(!Minecraft.getMinecraft().player.isCreative()){
+                                if (!Minecraft.getMinecraft().player.isCreative()) {
                                     if (mainSlot().isItemStackDamageable()) {
                                         mainSlot().damageItem(1, Minecraft.getMinecraft().player);
                                     }
@@ -53,7 +56,7 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
                     } else {
                         if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
                             FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                            if(!Minecraft.getMinecraft().player.isCreative()){
+                            if (!Minecraft.getMinecraft().player.isCreative()) {
                                 if (mainSlot().isItemStackDamageable()) {
                                     mainSlot().damageItem(1, Minecraft.getMinecraft().player);
                                 }

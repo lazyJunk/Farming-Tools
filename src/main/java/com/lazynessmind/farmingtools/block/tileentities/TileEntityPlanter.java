@@ -26,6 +26,7 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
         setType(getBlockMetadata());
         setRange(TypeUtil.getHorizontalRangeFromType(getType()));
         setTimeBetween(TypeUtil.getTimeBetweenFromType(getType()));
+        this.doWork = TileEntityNatureGather.getCurrentNaturePower() >= TypeUtil.powerSpendFromType(this.getType());
         if (!world.isRemote) {
             Item itemSlot = mainSlot().getItem();
             if (!mainSlot().isEmpty()) {
@@ -33,12 +34,14 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
                     crop = ((IPlantable) mainSlot().getItem()).getPlant(world, pos);
                 }
             }
-            if(timer < getTimeBetween()){
-                timer++;
-            } else if(timer >= getTimeBetween()){
-                timer = 0;
-                if(world.isAreaLoaded(pos, 10)){
-                    plantCrop(crop);
+            if (this.doWork) {
+                if (timer < getTimeBetween()) {
+                    timer++;
+                } else if (timer >= getTimeBetween()) {
+                    timer = 0;
+                    if (world.isAreaLoaded(pos, 10)) {
+                        plantCrop(crop);
+                    }
                 }
             }
             this.markDirty();
@@ -52,11 +55,12 @@ public class TileEntityPlanter extends TileEntityPedestal implements ITickable {
                     if (needRedstonePower()) {
                         if (world.isBlockPowered(pos)) {
                             world.setBlockState(poss, crop);
-                            if(!Minecraft.getMinecraft().player.isCreative()) getMainHandler().extractItem(0, 1, false);
+                            if (!Minecraft.getMinecraft().player.isCreative())
+                                getMainHandler().extractItem(0, 1, false);
                         }
                     } else {
                         world.setBlockState(poss, crop);
-                        if(!Minecraft.getMinecraft().player.isCreative()) getMainHandler().extractItem(0, 1, false);
+                        if (!Minecraft.getMinecraft().player.isCreative()) getMainHandler().extractItem(0, 1, false);
                     }
                 }
             }
