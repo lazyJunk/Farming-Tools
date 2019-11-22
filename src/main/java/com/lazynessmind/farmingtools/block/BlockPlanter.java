@@ -30,7 +30,7 @@ public class BlockPlanter extends BlockPedestal<TileEntityPlanter> {
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), getTileEntity(worldIn, pos).mainSlot());
+        InventoryHelper.dropInventoryItems(worldIn, pos, getTileEntity(worldIn, pos));
         TileEntityNatureGather.decreaseChangeToDestroy(0.3);
     }
 
