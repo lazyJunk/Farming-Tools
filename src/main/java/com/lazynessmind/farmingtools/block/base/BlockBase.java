@@ -1,7 +1,6 @@
 package com.lazynessmind.farmingtools.block.base;
 
 import com.lazynessmind.farmingtools.FarmingTools;
-import com.lazynessmind.farmingtools.FarmingToolsConst;
 import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
@@ -10,19 +9,19 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
-public class FTBlock extends Block implements IHasModel {
+public class BlockBase extends Block implements IHasModel {
 
     public String name;
 
-    public FTBlock(Material materialIn, String name, boolean creative, boolean hasItemBlock) {
+    public BlockBase(Material materialIn, String name, boolean creative, boolean hasItemBlock) {
         super(materialIn);
         this.name = name;
         setUnlocalizedName(name);
         setRegistryName(name);
-        if(creative){
+        if (creative) {
             setCreativeTab(FarmingTools.rndItemsTab);
         }
-        if(!hasItemBlock){
+        if (!hasItemBlock) {
             FarmingToolsItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
         }
         FarmingToolsBlocks.BLOCKS.add(this);
@@ -36,9 +35,5 @@ public class FTBlock extends Block implements IHasModel {
     @Override
     public void registerModels(int metadata) {
 
-    }
-
-    public String getStringId(){
-        return FarmingToolsConst.MODID+":"+name;
     }
 }
