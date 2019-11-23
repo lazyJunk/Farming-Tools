@@ -21,9 +21,8 @@ public class ItemBlockPedestal extends FTItemBlock {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add("");
         tooltip.add(TextFormatting.WHITE + "Type: " + TextFormatting.GREEN + TypeUtil.getNameFromType(stack.getMetadata()));
         tooltip.add(TextFormatting.WHITE + "Base cooldown: " + TextFormatting.GREEN + TypeUtil.getWorkTime(stack.getMetadata()));
-        tooltip.add(TextFormatting.WHITE + "Base range: " + TextFormatting.GREEN + 1);
+        tooltip.add(TextFormatting.WHITE + "Cost per work: " + TextFormatting.GREEN + TypeUtil.energyExtractFromType(stack.getMetadata()));
     }
 }
