@@ -37,4 +37,16 @@ public class ParticleCreator {
             }
         }
     }
+
+    @SideOnly(Side.CLIENT)
+    public static void spawnRedstoneParticle(BlockPos pos, World worldIn){
+        double d0 = (double) pos.getX() + 0.5D + ((double) worldIn.rand.nextFloat() - 0.5D) * 0.2D;
+        double d1 = (double) ((float) pos.getY() + 0.9735D);
+        double d2 = (double) pos.getZ() + 0.5D + ((double) worldIn.rand.nextFloat() - 0.5D) * 0.2D;
+        float f = 15.0F;
+        float f1 = f * 0.6F + 0.4F;
+        float f2 = Math.max(0.0F, f * f * 0.7F - 0.5F);
+        float f3 = Math.max(0.0F, f * f * 0.6F - 0.7F);
+        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, (double) f1, (double) f2, (double) f3);
+    }
 }

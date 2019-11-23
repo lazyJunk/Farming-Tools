@@ -15,5 +15,4 @@ public class FarmingToolsBlocks {
     public static final Block GROWTH_PEDESTAL = new BlockGrowthPedestal("growth_pedestal");
     public static final Block HARVESTER = new BlockHarvester("harvester");
     public static final Block PLANTER = new BlockPlanter("planter");
-    public static final Block NATURE_GATHER = new BlockNatureGather("nature_gather");
 }

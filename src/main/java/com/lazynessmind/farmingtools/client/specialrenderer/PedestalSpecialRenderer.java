@@ -22,7 +22,7 @@ public class PedestalSpecialRenderer<T extends TileEntityPedestal> extends TileE
             yaw = 0f;
         }
 
-        entityItem.setItem(te.getMainHandler().getStackInSlot(0));
+        entityItem.setItem(te.getStackInSlot(0));
 
         GlStateManager.pushMatrix();
         {
@@ -40,7 +40,7 @@ public class PedestalSpecialRenderer<T extends TileEntityPedestal> extends TileE
             this.setLightmapDisabled(true);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            RenderUtils.renderBox(bufferbuilder, (x - te.getRange()), (y - te.getVerticalRange()), (z - te.getRange()), (x + te.getRange() + 1), (y + te.getVerticalRange() + 1), (z + te.getRange() + 1), 255, 255, 255, 2f, tessellator);
+            RenderUtils.renderBox(bufferbuilder, (x - 1), y, (z - 1), (x + 1), (y + 1), (z + 1), 255, 255, 255, 2f, tessellator);
             this.setLightmapDisabled(false);
         }
     }
@@ -50,7 +50,7 @@ public class PedestalSpecialRenderer<T extends TileEntityPedestal> extends TileE
             this.setLightmapDisabled(true);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            RenderUtils.renderBox(bufferbuilder, (x - te.getRange()), (y - te.getVerticalRange()), (z - te.getRange()), (x + te.getRange() + 1), (y + te.getVerticalRange()), (z + te.getRange() + 1), r, g, b, 2f, tessellator);
+            RenderUtils.renderBox(bufferbuilder, (x - 1), y, (z - 1), (x + 2), (y + 1), (z + 2), r, g, b, 2f, tessellator);
             this.setLightmapDisabled(false);
         }
     }

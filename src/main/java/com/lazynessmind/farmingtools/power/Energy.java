@@ -77,7 +77,7 @@ public class Energy implements IEnergyStorage {
     public boolean canReceive() {
         return this.maxReceive > 0;
     }
-    
+
     public boolean canExtractFromInternal(){
         return this.currentEnergy != 0;
     }
