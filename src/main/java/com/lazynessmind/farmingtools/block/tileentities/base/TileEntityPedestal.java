@@ -1,83 +1,102 @@
 package com.lazynessmind.farmingtools.block.tileentities.base;
 
-import com.lazynessmind.farmingtools.block.tileentities.TileEntityNatureGather;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
+import com.lazynessmind.farmingtools.power.Energy;
 import com.lazynessmind.farmingtools.util.TypeUtil;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("unchecked cast")
-public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPower {
+public abstract class TileEntityPedestal extends TileSidedInventoryBase implements IRange, IRedPower {
 
     private boolean showRange, redPower;
-    private int range, yRange;
     private int type;
-    private double timeBetween;
-    protected boolean doWork = false;
+    private double workTime;
 
-    private ItemStackHandler itemStackHandler;
+    private int[] SLOTS_SIDES = new int[]{0};
 
-    public TileEntityPedestal(boolean showRange, boolean redPower, int yRange) {
+    private IItemHandler handlerEast = new SidedInvWrapper(this, EnumFacing.EAST);
+    private IItemHandler handlerWest = new SidedInvWrapper(this, EnumFacing.WEST);
+    private IItemHandler handlerNorth = new SidedInvWrapper(this, EnumFacing.NORTH);
+    private IItemHandler handlerSouth = new SidedInvWrapper(this, EnumFacing.SOUTH);
+
+    private Energy energy;
+
+    public TileEntityPedestal(boolean showRange, boolean redPower) {
+        super(1);
         this.showRange = showRange;
         this.redPower = redPower;
-        this.range = TypeUtil.getHorizontalRangeFromType(0);
-        this.timeBetween = TypeUtil.getTimeBetweenFromType(0);
-        this.yRange = yRange;
+        this.workTime = TypeUtil.getTimeBetweenFromType(0);
         this.type = 0;
 
-        this.itemStackHandler = new ItemStackHandler(1);
+        this.energy = new Energy(10000, 1000);
+    }
 
-        // ? For some reason that i can't understand, i need to /2 because is *2, it´s 8am and didn't sleep yet.
-        TileEntityNatureGather.increaseChangeToDestroy(0.15);
+    public Energy getEnergy() {
+        return this.energy;
     }
 
     @Override
     public void writeNBT(NBTTagCompound compound) {
         super.writeNBT(compound);
 
-        compound.setTag("Items", this.itemStackHandler.serializeNBT());
+        compound.setTag("Items", this.getInv().serializeNBT());
         compound.setBoolean("ShowRange", this.showRange);
         compound.setBoolean("NeedRedstone", this.redPower);
-        compound.setInteger("Range", this.range);
-        compound.setInteger("yRange", this.yRange);
         compound.setInteger("Type", this.type);
-        compound.setDouble("TimeBetween", this.timeBetween);
+        compound.setDouble("TimeBetween", this.workTime);
+        this.getEnergy().save(compound);
     }
 
     @Override
     public void readNBT(NBTTagCompound compound) {
         super.readNBT(compound);
 
-        this.itemStackHandler.deserializeNBT(compound.getCompoundTag("Items"));
+        this.getInv().deserializeNBT(compound.getCompoundTag("Items"));
         this.showRange = compound.getBoolean("ShowRange");
         this.redPower = compound.getBoolean("NeedRedstone");
-        this.range = compound.getInteger("Range");
-        this.yRange = compound.getInteger("yRange");
         this.type = compound.getInteger("Type");
-        this.timeBetween = compound.getDouble("RandomChange");
+        this.workTime = compound.getDouble("RandomChange");
+        this.getEnergy().load(compound);
     }
 
     @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+            return true;
+        } else if(capability == CapabilityEnergy.ENERGY){
+            return true;
+        }
+        return false;
     }
 
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            if (facing == EnumFacing.WEST || facing == EnumFacing.EAST || facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH) {
-                return (T) this.itemStackHandler;
-            }
-        }
+        if (facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            if (facing == EnumFacing.EAST)
+                return (T) handlerEast;
+            else if (facing == EnumFacing.WEST)
+                return (T) handlerWest;
+            else if (facing == EnumFacing.NORTH)
+                return (T) handlerNorth;
+            else if (facing == EnumFacing.SOUTH)
+                return (T) handlerSouth;
+        if (facing != null && capability == CapabilityEnergy.ENERGY)
+                return (T) energy;
         return super.getCapability(capability, facing);
+    }
+
+    public boolean canWork(){
+        return this.energy.canExtractFromInternal();
     }
 
     @Override
@@ -102,40 +121,29 @@ public class TileEntityPedestal extends FTTileEntity implements IRange, IRedPowe
         markDirty();
     }
 
-    public int getRange() {
-        return range;
-    }
-
-    public void setRange(int range) {
-        this.range = range;
+    public void setType(int type) {
+        this.type = type;
         markDirty();
     }
 
-    public int getVerticalRange() {
-        return yRange;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public int getType() {
-        return type;
+        return this.type;
     }
 
-    public double getTimeBetween() {
-        return timeBetween;
+    public double getWorkTime() {
+        return this.workTime;
     }
 
-    public void setTimeBetween(double timeBetween) {
-        this.timeBetween = timeBetween;
+    public void outWorkTime(double timeBetween) {
+        this.workTime = timeBetween;
     }
 
-    public ItemStackHandler getMainHandler() {
-        return this.itemStackHandler;
-    }
-
-    public ItemStack mainSlot() {
-        return getMainHandler().getStackInSlot(0);
+    @Override
+    protected int[] getSlotForFace(EnumFacing facing) {
+        if (facing == EnumFacing.EAST || facing == EnumFacing.WEST || facing == EnumFacing.NORTH) {
+            return this.SLOTS_SIDES;
+        } else {
+            return new int[0];
+        }
     }
 }
