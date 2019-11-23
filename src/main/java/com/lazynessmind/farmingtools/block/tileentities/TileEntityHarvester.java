@@ -1,10 +1,15 @@
 package com.lazynessmind.farmingtools.block.tileentities;
 
+import com.lazynessmind.farmingtools.block.tileentities.base.BasicItemHandler;
 import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import com.lazynessmind.farmingtools.util.TypeUtil;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
@@ -13,24 +18,25 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
     private int timer;
 
     public TileEntityHarvester() {
-        super(false, false, 3);
+        super(false, false);
+    }
+
+    @Override
+    public BasicItemHandler getInv() {
+        return super.getInv();
     }
 
     @Override
     public void update() {
-        setType(getBlockMetadata());
-        setRange(TypeUtil.getHorizontalRangeFromType(getType()));
-        setTimeBetween(TypeUtil.getTimeBetweenFromType(getType()));
-        this.doWork = TileEntityNatureGather.getCurrentNaturePower() >= TypeUtil.powerSpendFromType(this.getType());
-        if (!world.isRemote) {
-            if (this.doWork) {
-                if (timer < getTimeBetween()) {
-                    timer++;
-                } else if (timer >= getTimeBetween()) {
-                    timer = 0;
-                    if (world.isAreaLoaded(pos, 10)) {
-                        harvestBlock(pos);
-                    }
+        this.updateValues();
+
+        if (this.world != null && !this.world.isRemote) {
+            if (this.canWork()) {
+                if (this.timer < this.getWorkTime()) {
+                    this.timer++;
+                } else if (this.timer >= this.getWorkTime()) {
+                    this.timer = 0;
+                    this.harvestBlock(this.pos);
                 }
             }
         }
@@ -38,27 +44,35 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
     }
 
     private void harvestBlock(BlockPos pos) {
-        if (!mainSlot().isEmpty()) {
-            for (BlockPos poss : FarmUtils.checkInRange(getRange(), pos, 3, false)) {
-                if (world.getBlockState(poss).getBlock() instanceof BlockCrops) {
-                    BlockCrops crops = (BlockCrops) world.getBlockState(poss).getBlock();
-                    if (needRedstonePower()) {
-                        if (world.isBlockPowered(pos)) {
-                            if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
-                                FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                                if (!Minecraft.getMinecraft().player.isCreative()) {
-                                    if (mainSlot().isItemStackDamageable()) {
-                                        mainSlot().damageItem(1, Minecraft.getMinecraft().player);
+        ItemStack mainSlot = this.getStackInSlot(0);
+
+        if (!mainSlot.isEmpty()) {
+            if (mainSlot.getItem() instanceof ItemHoe) {
+                for (BlockPos poss : FarmUtils.checkInRange(1, pos, 3, false)) {
+                    if (this.world.getBlockState(poss).getBlock() instanceof BlockCrops) {
+                        BlockCrops crops = (BlockCrops) this.world.getBlockState(poss).getBlock();
+                        if (this.needRedstonePower()) {
+                            if (this.world.isBlockPowered(pos)) {
+                                if (FarmUtils.canFarm(crops, this.world, poss) && this.hasHoeOnSlot()) {
+                                    FarmUtils.farmAndDrop(crops, this.world, poss, this.world.getBlockState(poss), true);
+                                    EntityPlayer player = Minecraft.getMinecraft().player;
+                                    if (player != null && !player.isCreative()) {
+                                        this.getEnergy().removeFromBuffer(this.getCostPerWork());
+                                        if (mainSlot.isItemStackDamageable()) {
+                                            mainSlot.damageItem(1, player);
+                                        }
                                     }
                                 }
                             }
-                        }
-                    } else {
-                        if (FarmUtils.canFarm(crops, world, poss) && hasHoeOnSlot()) {
-                            FarmUtils.farmAndDrop(crops, world, poss, world.getBlockState(poss), true);
-                            if (!Minecraft.getMinecraft().player.isCreative()) {
-                                if (mainSlot().isItemStackDamageable()) {
-                                    mainSlot().damageItem(1, Minecraft.getMinecraft().player);
+                        } else {
+                            if (FarmUtils.canFarm(crops, this.world, poss) && this.hasHoeOnSlot()) {
+                                FarmUtils.farmAndDrop(crops, this.world, poss, this.world.getBlockState(poss), true);
+                                EntityPlayer player = Minecraft.getMinecraft().player;
+                                if (player != null && !player.isCreative()) {
+                                    this.getEnergy().removeFromBuffer(this.getCostPerWork());
+                                    if (mainSlot.isItemStackDamageable()) {
+                                        mainSlot.damageItem(1, player);
+                                    }
                                 }
                             }
                         }
@@ -69,6 +83,23 @@ public class TileEntityHarvester extends TileEntityPedestal implements ITickable
     }
 
     public boolean hasHoeOnSlot() {
-        return !mainSlot().isEmpty();
+        return !this.getStackInSlot(0).isEmpty();
+    }
+
+    @Override
+    protected boolean canInsertOnSlot(int slotIndex, ItemStack itemStackIn, EnumFacing direction) {
+        if (slotIndex == 0) {
+            return this.isItemValid(slotIndex, itemStackIn);
+        } else return false;
+    }
+
+    @Override
+    protected boolean canExtractOnSlot(int slotIndex, ItemStack itemStackIn, EnumFacing direction) {
+        return false;
+    }
+
+    @Override
+    protected boolean isItemValid(int index, ItemStack stack) {
+        return index == 0 && stack.getItem() instanceof ItemHoe;
     }
 }
