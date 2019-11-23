@@ -97,6 +97,12 @@ public abstract class TileEntityPedestal extends TileSidedInventoryBase implemen
         return super.getCapability(capability, facing);
     }
 
+    public void updateValues(){
+        this.setType(this.getBlockMetadata());
+        this.outWorkTime(TypeUtil.getWorkTime(this.getType()));
+        this.setCostPerWork(TypeUtil.energyExtractFromType(this.getType()));
+    }
+
     public boolean canWork(){
         return this.energy.canExtractFromInternal();
     }
