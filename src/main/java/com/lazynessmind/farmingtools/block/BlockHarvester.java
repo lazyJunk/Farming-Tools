@@ -3,13 +3,11 @@ package com.lazynessmind.farmingtools.block;
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.block.base.BlockPedestal;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;
-import com.lazynessmind.farmingtools.block.tileentities.TileEntityNatureGather;
 import com.lazynessmind.farmingtools.client.gui.FTGuis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +30,6 @@ public class BlockHarvester extends BlockPedestal<TileEntityHarvester> {
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         InventoryHelper.dropInventoryItems(worldIn, pos, getTileEntity(worldIn, pos));
-        TileEntityNatureGather.decreaseChangeToDestroy(0.3);
     }
 
     @Override

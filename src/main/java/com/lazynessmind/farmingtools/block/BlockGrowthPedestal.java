@@ -3,7 +3,6 @@ package com.lazynessmind.farmingtools.block;
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.block.base.BlockPedestal;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
-import com.lazynessmind.farmingtools.block.tileentities.TileEntityNatureGather;
 import com.lazynessmind.farmingtools.client.gui.FTGuis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -31,7 +30,6 @@ public class BlockGrowthPedestal extends BlockPedestal<TileEntityGrowthPedestal>
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         InventoryHelper.dropInventoryItems(worldIn, pos, getTileEntity(worldIn, pos));
-        TileEntityNatureGather.decreaseChangeToDestroy(0.3);
     }
 
     @Override
