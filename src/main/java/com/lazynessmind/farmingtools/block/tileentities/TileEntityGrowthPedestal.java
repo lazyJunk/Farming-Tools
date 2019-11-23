@@ -1,11 +1,15 @@
 package com.lazynessmind.farmingtools.block.tileentities;
 
+import com.lazynessmind.farmingtools.block.tileentities.base.BasicItemHandler;
 import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.init.FarmingToolsItems;
+import com.lazynessmind.farmingtools.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.util.FarmUtils;
-import com.lazynessmind.farmingtools.util.TypeUtil;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
@@ -14,24 +18,25 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
     private int timer = 0;
 
     public TileEntityGrowthPedestal() {
-        super(false, false, 1);
+        super(false, false);
+    }
+
+    @Override
+    public BasicItemHandler getInv() {
+        return super.getInv();
     }
 
     @Override
     public void update() {
-        setType(getBlockMetadata());
-        setRange(TypeUtil.getHorizontalRangeFromType(getType()));
-        setTimeBetween(TypeUtil.getTimeBetweenFromType(getType()));
-        this.doWork = TileEntityNatureGather.getCurrentNaturePower() >= TypeUtil.powerSpendFromType(this.getType());
-        if (!world.isRemote) {
-            if (this.doWork) {
-                if (timer < getTimeBetween()) {
-                    timer++;
-                } else if (timer >= getTimeBetween()) {
-                    timer = 0;
-                    if (world.isAreaLoaded(pos, 10)) {
-                        tickCrop();
-                    }
+        this.updateValues();
+
+        if (this.world != null && !this.world.isRemote) {
+            if (this.canWork()) {
+                if (this.timer < this.getWorkTime()) {
+                    this.timer++;
+                } else if (this.timer >= this.getWorkTime()) {
+                    this.timer = 0;
+                    this.tickCrop();
                 }
             }
         }
@@ -39,27 +44,54 @@ public class TileEntityGrowthPedestal extends TileEntityPedestal implements ITic
     }
 
     private void tickCrop() {
-        if (mainSlot().getCount() != 0 && mainSlot().getItem() == FarmingToolsItems.ADVANCED_BONE_MEAL) {
-            for (BlockPos blockPos : FarmUtils.checkInRange(getRange(), pos, 1, false)) {
-                if (world.getBlockState(blockPos).getBlock() instanceof BlockCrops) {
-                    BlockCrops crops = (BlockCrops) world.getBlockState(blockPos).getBlock();
-                    if (needRedstonePower()) {
-                        if (world.isBlockPowered(pos)) {
-                            if (!FarmUtils.canFarm(crops, world, blockPos)) {
-                                world.setBlockState(blockPos, crops.getStateFromMeta(crops.getMaxAge()), 3);
-                                if (!Minecraft.getMinecraft().player.isCreative())
-                                    getMainHandler().extractItem(0, 1, false);
+        ItemStack mainSlot = this.getStackInSlot(0);
+
+        if (mainSlot.getCount() != 0) {
+            if (mainSlot.getItem() == FarmingToolsItems.ADVANCED_BONE_MEAL) {
+                for (BlockPos blockPos : FarmUtils.checkInXZRange(1, this.pos, false)) {
+                    if (this.world.getBlockState(blockPos).getBlock() instanceof BlockCrops) {
+                        BlockCrops crops = (BlockCrops) this.world.getBlockState(blockPos).getBlock();
+                        if (this.needRedstonePower()) {
+                            if (this.world.isBlockPowered(this.pos)) {
+                                if (!FarmUtils.canFarm(crops, this.world, blockPos)) {
+                                    this.world.setBlockState(blockPos, crops.getStateFromMeta(crops.getMaxAge()), 3);
+                                    EntityPlayer player = Minecraft.getMinecraft().player;
+                                    if (player != null && !player.isCreative()){
+                                        this.decrStackSize(0, 1);
+                                        this.getEnergy().removeFromBuffer(this.getCostPerWork());
+                                    }
+                                }
                             }
-                        }
-                    } else {
-                        if (!FarmUtils.canFarm(crops, world, blockPos)) {
-                            world.setBlockState(blockPos, crops.getStateFromMeta(crops.getMaxAge()), 3);
-                            if (!Minecraft.getMinecraft().player.isCreative())
-                                getMainHandler().extractItem(0, 1, false);
+                        } else {
+                            if (!FarmUtils.canFarm(crops, this.world, blockPos)) {
+                                this.world.setBlockState(blockPos, crops.getStateFromMeta(crops.getMaxAge()), 3);
+                                EntityPlayer player = Minecraft.getMinecraft().player;
+                                if (player != null && !player.isCreative()){
+                                    this.decrStackSize(0, 1);
+                                    this.getEnergy().removeFromBuffer(this.getCostPerWork());
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    @Override
+    protected boolean canInsertOnSlot(int slotIndex, ItemStack itemStackIn, EnumFacing direction) {
+        if (slotIndex == 0) {
+            return this.isItemValid(slotIndex, itemStackIn);
+        } else return false;
+    }
+
+    @Override
+    protected boolean canExtractOnSlot(int slotIndex, ItemStack itemStackIn, EnumFacing direction) {
+        return false;
+    }
+
+    @Override
+    protected boolean isItemValid(int index, ItemStack stack) {
+        return index == 0 && stack.getItem() instanceof ItemAdvancedBoneMeal;
     }
 }
