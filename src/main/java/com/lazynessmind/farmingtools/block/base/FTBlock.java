@@ -20,7 +20,7 @@ public class FTBlock extends Block implements IHasModel {
         setUnlocalizedName(name);
         setRegistryName(name);
         if(creative){
-            setCreativeTab(FarmingTools.rndBlocksTab);
+            setCreativeTab(FarmingTools.rndItemsTab);
         }
         if(!hasItemBlock){
             FarmingToolsItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
