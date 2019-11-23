@@ -20,6 +20,7 @@ public abstract class TileEntityPedestal extends TileSidedInventoryBase implemen
     private boolean showRange, redPower;
     private int type;
     private double workTime;
+    private int costPerWork;
 
     private int[] SLOTS_SIDES = new int[]{0};
 
@@ -34,10 +35,11 @@ public abstract class TileEntityPedestal extends TileSidedInventoryBase implemen
         super(1);
         this.showRange = showRange;
         this.redPower = redPower;
-        this.workTime = TypeUtil.getTimeBetweenFromType(0);
+        this.workTime = TypeUtil.getWorkTime(0);
         this.type = 0;
+        this.costPerWork = TypeUtil.energyExtractFromType(0);
 
-        this.energy = new Energy(10000, 1000);
+        this.energy = new Energy(10000, 10000);
     }
 
     public Energy getEnergy() {
@@ -136,6 +138,14 @@ public abstract class TileEntityPedestal extends TileSidedInventoryBase implemen
 
     public void outWorkTime(double timeBetween) {
         this.workTime = timeBetween;
+    }
+
+    public int getCostPerWork() {
+        return this.costPerWork;
+    }
+
+    public void setCostPerWork(int costPerWork) {
+        this.costPerWork = costPerWork;
     }
 
     @Override
