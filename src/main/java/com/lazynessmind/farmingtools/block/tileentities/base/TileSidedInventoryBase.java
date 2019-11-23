@@ -8,7 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
-public abstract class TileSidedInventoryBase extends FTTileEntity implements ISidedInventory {
+public abstract class TileSidedInventoryBase extends TileEntityBase implements ISidedInventory {
 
     private BasicItemHandler inv;
 

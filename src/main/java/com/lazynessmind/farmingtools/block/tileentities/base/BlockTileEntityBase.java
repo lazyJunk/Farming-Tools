@@ -1,6 +1,6 @@
 package com.lazynessmind.farmingtools.block.tileentities.base;
 
-import com.lazynessmind.farmingtools.block.base.FTBlock;
+import com.lazynessmind.farmingtools.block.base.BlockBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -8,9 +8,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class FTBlockTileEntity<TE extends TileEntity> extends FTBlock {
+public abstract class BlockTileEntityBase<TE extends TileEntity> extends BlockBase {
 
-    public FTBlockTileEntity(Material material, String name, boolean creative, boolean hasItemBlock) {
+    public BlockTileEntityBase(Material material, String name, boolean creative, boolean hasItemBlock) {
         super(material, name, creative, hasItemBlock);
     }
 

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class FTTileEntity extends TileEntity {
+public class TileEntityBase extends TileEntity {
 
     public void scheduleUpdate(){
         getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
