@@ -13,7 +13,7 @@ public class GuiHarvester extends GuiBase {
     private TileEntityHarvester tileEntityHarvester;
 
     public GuiHarvester(InventoryPlayer inventoryPlayer, TileEntityHarvester tileEntityHarvester) {
-        super(new ContainerPedestal(inventoryPlayer, tileEntityHarvester, new SlotHarvester(tileEntityHarvester.getMainHandler(), 0, 80, 33)), inventoryPlayer, tileEntityHarvester, "farmingtools:harvester");
+        super(new ContainerPedestal(inventoryPlayer, tileEntityHarvester, new SlotHarvester(tileEntityHarvester, 0, 80, 33)), inventoryPlayer, tileEntityHarvester, "farmingtools:harvester");
         this.tileEntityHarvester = tileEntityHarvester;
     }
 

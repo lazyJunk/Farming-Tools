@@ -1,7 +1,7 @@
 package com.lazynessmind.farmingtools.network.packet;
 
-import com.lazynessmind.farmingtools.block.base.FTBlock;
-import com.lazynessmind.farmingtools.block.tileentities.base.FTBlockTileEntity;
+import com.lazynessmind.farmingtools.block.base.BlockBase;
+import com.lazynessmind.farmingtools.block.tileentities.base.BlockTileEntityBase;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
@@ -62,13 +62,13 @@ public class MessageRedstonePower implements IMessage {
                 public void run() {
                     BlockPos pos = new BlockPos(message.x, message.y, message.z);
                     World world = player.world;
-                    if(world.getBlockState(pos).getBlock() == FTBlock.getBlockFromName(message.tileEntityId)) {
-                        Block temp = FTBlock.getBlockFromName(message.tileEntityId);
-                        if (temp instanceof FTBlockTileEntity) {
-                            TileEntity blockTileEntity = ((FTBlockTileEntity) temp).getTileEntity(world, pos);
+                    if(world.getBlockState(pos).getBlock() == BlockBase.getBlockFromName(message.tileEntityId)) {
+                        Block temp = BlockBase.getBlockFromName(message.tileEntityId);
+                        if (temp instanceof BlockTileEntityBase) {
+                            TileEntity blockTileEntity = ((BlockTileEntityBase) temp).getTileEntity(world, pos);
                             if(blockTileEntity instanceof IRedPower){
                                 ((IRedPower) blockTileEntity).setNeedRedstonePower(message.state);
-                                ((FTBlockTileEntity) temp).scheduleUpdate(world, pos);
+                                ((BlockTileEntityBase) temp).scheduleUpdate(world, pos);
                             }
 
                         }

@@ -11,9 +11,9 @@ import net.minecraftforge.items.SlotItemHandler;
 public class ContainerPedestal extends Container {
 
     public TileEntityPedestal pedestal;
-    public SlotItemHandler mainItemSlot;
+    public Slot mainItemSlot;
 
-    public ContainerPedestal(InventoryPlayer inventoryPlayer, TileEntityPedestal pedestal, SlotItemHandler mainItemSlot) {
+    public ContainerPedestal(InventoryPlayer inventoryPlayer, TileEntityPedestal pedestal, Slot mainItemSlot) {
         this.pedestal = pedestal;
         this.mainItemSlot = mainItemSlot;
 
@@ -35,7 +35,7 @@ public class ContainerPedestal extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return pedestal.isUsableByPlayer(playerIn);
+        return true;
     }
 
 

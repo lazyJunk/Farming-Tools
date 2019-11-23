@@ -23,7 +23,7 @@ public class ItemBlockPedestal extends FTItemBlock {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add("");
         tooltip.add(TextFormatting.WHITE + "Type: " + TextFormatting.GREEN + TypeUtil.getNameFromType(stack.getMetadata()));
-        tooltip.add(TextFormatting.WHITE + "Base cooldown: " + TextFormatting.GREEN + TypeUtil.getTimeBetweenFromType(stack.getMetadata()));
+        tooltip.add(TextFormatting.WHITE + "Base cooldown: " + TextFormatting.GREEN + TypeUtil.getWorkTime(stack.getMetadata()));
         tooltip.add(TextFormatting.WHITE + "Base range: " + TextFormatting.GREEN + 1);
     }
 }

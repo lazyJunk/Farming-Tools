@@ -33,7 +33,6 @@ public class RegistryHandler {
         GameRegistry.registerTileEntity(TileEntityGrowthPedestal.class, "farmingtools:growthPedestal");
         GameRegistry.registerTileEntity(TileEntityHarvester.class, "farmingtools:harvester");
         GameRegistry.registerTileEntity(TileEntityPlanter.class, "farmingtools:planter");
-        GameRegistry.registerTileEntity(TileEntityNatureGather.class, "farmingtools:nature_gather");
     }
 
     @SubscribeEvent
@@ -65,10 +64,5 @@ public class RegistryHandler {
         } else {
             FTRegistryHandler.registryHoeRightClickOnCrops(event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getPos());
         }
-    }
-
-    @SubscribeEvent
-    public static void onWorldExit(PlayerEvent.PlayerLoggedOutEvent event){
-        TileEntityNatureGather.resetChangeToDestroy();
     }
 }

@@ -24,11 +24,11 @@ public class GuiHandler implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if(ID == FTGuis.HARVESTER){
-            return new ContainerPedestal(player.inventory, (TileEntityHarvester)world.getTileEntity(new BlockPos(x, y, z)), new SlotHarvester(((TileEntityHarvester) world.getTileEntity(new BlockPos(x, y, z))).getMainHandler(), 0, 80, 33));
+            return new ContainerPedestal(player.inventory, (TileEntityHarvester)world.getTileEntity(new BlockPos(x, y, z)), new SlotHarvester(((TileEntityHarvester) world.getTileEntity(new BlockPos(x, y, z))), 0, 80, 33));
         } else if(ID == FTGuis.PLANTER){
-            return new ContainerPedestal(player.inventory, (TileEntityPlanter)world.getTileEntity(new BlockPos(x, y, z)), new SlotPlanter(((TileEntityPlanter) world.getTileEntity(new BlockPos(x, y, z))).getMainHandler(), 0, 80, 33));
+            return new ContainerPedestal(player.inventory, (TileEntityPlanter)world.getTileEntity(new BlockPos(x, y, z)), new SlotPlanter(((TileEntityPlanter) world.getTileEntity(new BlockPos(x, y, z))), 0, 80, 33));
         } else if(ID == FTGuis.GROWTHER){
-            return new ContainerPedestal(player.inventory, (TileEntityGrowthPedestal)world.getTileEntity(new BlockPos(x, y, z)), new SlotGrowthPedestal(((TileEntityGrowthPedestal) world.getTileEntity(new BlockPos(x, y, z))).getMainHandler(), 0, 80, 33));
+            return new ContainerPedestal(player.inventory, (TileEntityGrowthPedestal)world.getTileEntity(new BlockPos(x, y, z)), new SlotGrowthPedestal(((TileEntityGrowthPedestal) world.getTileEntity(new BlockPos(x, y, z))), 0, 80, 33));
         }
         return null;
     }

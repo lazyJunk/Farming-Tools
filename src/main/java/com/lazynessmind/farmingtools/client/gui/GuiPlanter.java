@@ -11,7 +11,7 @@ public class GuiPlanter extends GuiBase {
     private TileEntityPlanter planter;
 
     public GuiPlanter(InventoryPlayer inventoryPlayer, TileEntityPlanter tileEntityPlanter) {
-        super(new ContainerPedestal(inventoryPlayer, tileEntityPlanter, new SlotPlanter(tileEntityPlanter.getMainHandler(), 0, 80, 33)), inventoryPlayer, tileEntityPlanter, "farmingtools:planter");
+        super(new ContainerPedestal(inventoryPlayer, tileEntityPlanter, new SlotPlanter(tileEntityPlanter, 0, 80, 33)), inventoryPlayer, tileEntityPlanter, "farmingtools:planter");
         this.planter = tileEntityPlanter;
     }
 

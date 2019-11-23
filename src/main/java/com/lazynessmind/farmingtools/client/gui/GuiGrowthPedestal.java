@@ -10,7 +10,7 @@ public class GuiGrowthPedestal extends GuiBase {
 
 
     public GuiGrowthPedestal(InventoryPlayer inventoryPlayer, TileEntityGrowthPedestal tileEntityGrowthPedestal) {
-        super(new ContainerPedestal(inventoryPlayer, tileEntityGrowthPedestal, new SlotGrowthPedestal(tileEntityGrowthPedestal.getMainHandler(), 0, 80, 33)), inventoryPlayer, tileEntityGrowthPedestal, "farmingtools:growth_pedestal");
+        super(new ContainerPedestal(inventoryPlayer, tileEntityGrowthPedestal, new SlotGrowthPedestal(tileEntityGrowthPedestal, 0, 80, 33)), inventoryPlayer, tileEntityGrowthPedestal, "farmingtools:growth_pedestal");
     }
 
     @Override
