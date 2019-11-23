@@ -16,18 +16,7 @@ public class TypeUtil {
         return "I don´t know... Something is wrong!";
     }
 
-    public static int getVerticalRangeFromPedestal(int id) {
-        switch (id) {
-            case 0:
-                return 3;
-            case 1:
-            case 2:
-                return 1;
-        }
-        return 666;
-    }
-
-    public static int getTimeBetweenFromType(int type) {
+    public static int getWorkTime(int type) {
         switch (type) {
             case 0:
                 return 200;
@@ -41,19 +30,7 @@ public class TypeUtil {
         return 69;
     }
 
-    public static int getHorizontalRangeFromType(int type) {
-        switch (type) {
-            case 0:
-                return 1;
-            case 1:
-                return 2;
-            case 3:
-                return 3;
-        }
-        return 99;
-    }
-
-    public static int powerSpendFromType(int type) {
+    public static int energyExtractFromType(int type) {
         switch (type) {
             case 0:
                 return 100;
