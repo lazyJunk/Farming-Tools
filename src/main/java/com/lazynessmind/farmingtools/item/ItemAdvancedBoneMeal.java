@@ -74,6 +74,9 @@ public class ItemAdvancedBoneMeal extends FTItem {
             BlockReed sugarCane = (BlockReed)worldIn.getBlockState(pos).getBlock();
             growSugarCane(sugarCane, worldIn, pos, player, hand);
             return EnumActionResult.SUCCESS;
+        } else if(worldIn.getBlockState(pos).getBlock() instanceof BlockSapling){
+            BlockSapling sapling = (BlockSapling)worldIn.getBlockState(pos).getBlock();
+            sapling.generateTree(worldIn, pos, worldIn.getBlockState(pos), worldIn.rand);
         }
         return EnumActionResult.PASS;
     }
