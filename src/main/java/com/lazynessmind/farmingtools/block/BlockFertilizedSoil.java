@@ -1,6 +1,6 @@
 package com.lazynessmind.farmingtools.block;
 
-import com.lazynessmind.farmingtools.block.tileentities.base.FTBlockTileEntity;
+import com.lazynessmind.farmingtools.block.tileentities.base.BlockTileEntityBase;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityFertilizedSoil;
 import com.lazynessmind.farmingtools.util.ParticleCreator;
 import net.minecraft.block.SoundType;
@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class BlockFertilizedSoil extends FTBlockTileEntity<TileEntityFertilizedSoil> {
+public class BlockFertilizedSoil extends BlockTileEntityBase<TileEntityFertilizedSoil> {
 
     //Copied base AABB from minecraft farmland
     private static final AxisAlignedBB COPIED_FARMLAND_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.9375D, 1.0D);
