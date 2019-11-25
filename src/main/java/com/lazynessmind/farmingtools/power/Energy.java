@@ -84,7 +84,15 @@ public class Energy implements IEnergyStorage {
 
     public void removeFromBuffer(int amount){
         int newValue = this.currentEnergy - amount;
-        if(canExtractFromInternal() && newValue > 0) this.currentEnergy = newValue;
+        if(newValue > 0) this.currentEnergy = newValue;
         else if(newValue < 0) this.currentEnergy = 0;
+    }
+
+    public void setCurrentEnergy(int currentEnergy) {
+        this.currentEnergy = currentEnergy;
+    }
+
+    public int getCurrentEnergy() {
+        return this.currentEnergy;
     }
 }

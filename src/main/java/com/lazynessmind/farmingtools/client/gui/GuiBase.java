@@ -1,20 +1,20 @@
 package com.lazynessmind.farmingtools.client.gui;
 
 import com.lazynessmind.farmingtools.client.gui.button.HoverButton;
+import com.lazynessmind.farmingtools.client.gui.button.ProgressBar;
 import com.lazynessmind.farmingtools.client.gui.button.TwoStateButton;
 import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.network.FTNetworkHandler;
+import com.lazynessmind.farmingtools.network.packet.MessageGetEnergy;
 import com.lazynessmind.farmingtools.network.packet.MessageRedstonePower;
 import com.lazynessmind.farmingtools.network.packet.MessageShowArea;
-import com.lazynessmind.farmingtools.util.TypeUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.client.config.HoverChecker;
 
@@ -24,17 +24,18 @@ import java.util.List;
 
 public class GuiBase extends GuiContainer {
 
-    private TileEntity tileEntity;
-    private int x;
-    private int y;
-    private int z;
+    private TileEntityPedestal tileEntity;
+    public int x;
+    public int y;
+    public int z;
     private int guiRight, guiBottom;
     private String tileEntityId;
     private HoverChecker areaChecker, redstoneChecker, infoChecker;
     private TwoStateButton showEffectAreaButton, activeRedstone;
     private HoverButton info;
 
-    public GuiBase(Container container, InventoryPlayer inventoryPlayer, TileEntity tileEntity, String tileEntityId) {
+
+    public GuiBase(Container container, InventoryPlayer inventoryPlayer, TileEntityPedestal tileEntity, String tileEntityId) {
         super(container);
         this.tileEntity = tileEntity;
         this.x = tileEntity.getPos().getX();
@@ -49,6 +50,7 @@ public class GuiBase extends GuiContainer {
         this.xSize = 196;
         this.guiRight = (this.width/2) + (this.xSize/2);
         this.guiBottom = (this.height/2) + (this.ySize/2);
+
         info = addButton(new HoverButton(903, guiRight - 18, guiTop + 2, GuiTextures.Icon.INFO));
 
         if (tileEntity instanceof IRange) {
@@ -85,7 +87,6 @@ public class GuiBase extends GuiContainer {
         
         renderHoveredToolTip(mouseX, mouseY);
     }
-
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {

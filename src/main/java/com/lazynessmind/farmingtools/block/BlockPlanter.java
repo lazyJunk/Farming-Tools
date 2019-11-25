@@ -3,6 +3,7 @@ package com.lazynessmind.farmingtools.block;
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.block.base.BlockPedestal;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityPlanter;
+import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.client.gui.FTGuis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

@@ -21,6 +21,7 @@ public abstract class TileEntityPedestal extends TileSidedInventoryBase implemen
     private int type;
     private double workTime;
     private int costPerWork;
+    public int currentEnergy = 0;
 
     private int[] SLOTS_SIDES = new int[]{0};
 
@@ -101,6 +102,7 @@ public abstract class TileEntityPedestal extends TileSidedInventoryBase implemen
         this.setType(this.getBlockMetadata());
         this.outWorkTime(TypeUtil.getWorkTime(this.getType()));
         this.setCostPerWork(TypeUtil.energyExtractFromType(this.getType()));
+        this.currentEnergy = this.getEnergy().getCurrentEnergy();
     }
 
     public boolean canWork(){
@@ -161,5 +163,15 @@ public abstract class TileEntityPedestal extends TileSidedInventoryBase implemen
         } else {
             return new int[0];
         }
+    }
+
+    @Override
+    public int getField(int id) {
+        return id == 0 ? this.energy.getCurrentEnergy() : 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        this.energy.setCurrentEnergy(value);
     }
 }
