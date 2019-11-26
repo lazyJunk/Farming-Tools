@@ -30,10 +30,8 @@ public class GuiBase extends GuiContainer {
     public int z;
     private int guiRight, guiBottom;
     private String tileEntityId;
-    private HoverChecker areaChecker, redstoneChecker, infoChecker;
+    private HoverChecker areaChecker, redstoneChecker;
     private TwoStateButton showEffectAreaButton, activeRedstone;
-    private HoverButton info;
-
 
     public GuiBase(Container container, InventoryPlayer inventoryPlayer, TileEntityPedestal tileEntity, String tileEntityId) {
         super(container);
@@ -51,8 +49,6 @@ public class GuiBase extends GuiContainer {
         this.guiRight = (this.width/2) + (this.xSize/2);
         this.guiBottom = (this.height/2) + (this.ySize/2);
 
-        info = addButton(new HoverButton(903, guiRight - 18, guiTop + 2, GuiTextures.Icon.INFO));
-
         if (tileEntity instanceof IRange) {
             showEffectAreaButton = addButton(new TwoStateButton(901, this.guiLeft + 5, this.guiTop + 5, GuiTextures.Icon.BB));
             showEffectAreaButton.isActive = ((IRange) tileEntity).canShowRangeArea();
@@ -65,7 +61,6 @@ public class GuiBase extends GuiContainer {
 
         areaChecker = new HoverChecker(showEffectAreaButton, 200);
         redstoneChecker = new HoverChecker(activeRedstone, 200);
-        infoChecker = new HoverChecker(info, 100);
     }
 
     @Override

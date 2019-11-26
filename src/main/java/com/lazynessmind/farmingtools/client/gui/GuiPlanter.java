@@ -37,7 +37,8 @@ public class GuiPlanter extends GuiBase {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
+        String titleGui = "Planter Pedestal";
+        fontRenderer.drawString(titleGui, (this.xSize / 2 - fontRenderer.getStringWidth(titleGui) / 2) + 3, 8, 4210752);
     }
 
     @Override

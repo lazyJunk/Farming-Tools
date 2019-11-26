@@ -37,7 +37,6 @@ public class GuiGrowthPedestal extends GuiBase {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String titleGui = "Growth Pedestal";
         fontRenderer.drawString(titleGui, (this.xSize / 2 - fontRenderer.getStringWidth(titleGui) / 2) + 3, 8, 4210752);
-
     }
 
     @Override

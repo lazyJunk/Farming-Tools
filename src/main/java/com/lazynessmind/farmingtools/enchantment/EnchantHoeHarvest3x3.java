@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 public class EnchantHoeHarvest3x3 extends Enchantment {
 
     public EnchantHoeHarvest3x3() {
-        super(Rarity.RARE, FarmingToolsEnchants.HOE, new EntityEquipmentSlot[]{EntityEquipmentSlot.MAINHAND});
+        super(Rarity.COMMON, FarmingToolsEnchants.HOE, new EntityEquipmentSlot[]{EntityEquipmentSlot.MAINHAND});
         setRegistryName("3x3harvest");
         setName("3x3harvest");
 
@@ -18,12 +18,12 @@ public class EnchantHoeHarvest3x3 extends Enchantment {
 
     @Override
     public int getMinEnchantability(int enchantmentLevel) {
-        return 20 * enchantmentLevel;
+        return enchantmentLevel;
     }
 
     @Override
     public int getMaxEnchantability(int enchantmentLevel) {
-        return getMinEnchantability(enchantmentLevel) + 10;
+        return getMinEnchantability(enchantmentLevel) + 30;
     }
 
     @Override

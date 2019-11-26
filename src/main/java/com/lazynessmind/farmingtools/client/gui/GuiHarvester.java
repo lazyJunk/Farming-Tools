@@ -33,18 +33,12 @@ public class GuiHarvester extends GuiBase {
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.energy.draw(currentEnergy);
         FTNetworkHandler.sendPacketToServer(new MessageGetEnergy(x, y, z, "com.lazynessmind.farmingtools.client.gui.GuiHarvester", "currentEnergy"));
-
-
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String titleGui = "Harvester";
-        String hoeNeeded = "Where is the hoe?";
+        String titleGui = "Harvester Pedestal";
         fontRenderer.drawString(titleGui, (this.xSize / 2 - fontRenderer.getStringWidth(titleGui) / 2) + 3, 8, 4210752);
-        if (!tileEntityHarvester.hasHoeOnSlot()) {
-            fontRenderer.drawString(hoeNeeded, (this.xSize / 2 - fontRenderer.getStringWidth(hoeNeeded) / 2) + 3, 70, Color.RED.getRGB());
-        }
     }
 
     @Override
