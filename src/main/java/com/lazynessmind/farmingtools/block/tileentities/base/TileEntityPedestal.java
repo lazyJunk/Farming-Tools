@@ -106,7 +106,7 @@ public abstract class TileEntityPedestal extends TileSidedInventoryBase implemen
     }
 
     public boolean canWork(){
-        return this.energy.canExtractFromInternal();
+        return this.energy.getEnergyStored() > getCostPerWork();
     }
 
     @Override
