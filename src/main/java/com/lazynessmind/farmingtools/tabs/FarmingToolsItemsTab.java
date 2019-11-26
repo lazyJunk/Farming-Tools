@@ -1,8 +1,7 @@
 package com.lazynessmind.farmingtools.tabs;
 
-import com.lazynessmind.farmingtools.init.FarmingToolsItems;
+import com.lazynessmind.farmingtools.FarmingToolsItems;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class FarmingToolsItemsTab extends CreativeTabs {

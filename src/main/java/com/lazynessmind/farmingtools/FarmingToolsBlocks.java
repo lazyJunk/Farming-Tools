@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init;
+package com.lazynessmind.farmingtools;
 
 import com.lazynessmind.farmingtools.block.*;
 import net.minecraft.block.Block;

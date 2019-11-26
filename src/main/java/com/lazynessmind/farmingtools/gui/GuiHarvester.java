@@ -1,15 +1,12 @@
-package com.lazynessmind.farmingtools.client.gui;
+package com.lazynessmind.farmingtools.gui;
 
-import com.lazynessmind.farmingtools.client.gui.button.ProgressBar;
-import com.lazynessmind.farmingtools.client.gui.container.ContainerPedestal;
-import com.lazynessmind.farmingtools.client.gui.container.slots.SlotHarvester;
+import com.lazynessmind.farmingtools.gui.container.ContainerPedestal;
+import com.lazynessmind.farmingtools.gui.container.slots.SlotHarvester;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;
 import com.lazynessmind.farmingtools.network.FTNetworkHandler;
 import com.lazynessmind.farmingtools.network.packet.MessageGetEnergy;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
-
-import java.awt.*;
 
 public class GuiHarvester extends GuiBase {
 
@@ -32,7 +29,7 @@ public class GuiHarvester extends GuiBase {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.energy.draw(currentEnergy);
-        FTNetworkHandler.sendPacketToServer(new MessageGetEnergy(x, y, z, "com.lazynessmind.farmingtools.client.gui.GuiHarvester", "currentEnergy"));
+        FTNetworkHandler.sendPacketToServer(new MessageGetEnergy(x, y, z, "com.lazynessmind.farmingtools.gui.GuiHarvester", "currentEnergy"));
     }
 
     @Override

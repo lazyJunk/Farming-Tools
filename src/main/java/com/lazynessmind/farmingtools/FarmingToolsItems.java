@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init;
+package com.lazynessmind.farmingtools;
 
 import com.lazynessmind.farmingtools.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.item.ItemTypeUpgrade;

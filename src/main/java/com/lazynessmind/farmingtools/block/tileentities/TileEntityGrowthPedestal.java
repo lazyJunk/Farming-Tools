@@ -2,7 +2,7 @@ package com.lazynessmind.farmingtools.block.tileentities;
 
 import com.lazynessmind.farmingtools.block.tileentities.base.BasicItemHandler;
 import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
-import com.lazynessmind.farmingtools.init.FarmingToolsItems;
+import com.lazynessmind.farmingtools.FarmingToolsItems;
 import com.lazynessmind.farmingtools.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.util.FarmUtils;
 import net.minecraft.block.BlockCrops;

@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.client.specialrenderer;
+package com.lazynessmind.farmingtools.block.tileentities.specialrenderer;
 
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
 

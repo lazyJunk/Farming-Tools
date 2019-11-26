@@ -1,7 +1,7 @@
 package com.lazynessmind.farmingtools.item.base;
 
 import com.lazynessmind.farmingtools.FarmingTools;
-import com.lazynessmind.farmingtools.init.FarmingToolsItems;
+import com.lazynessmind.farmingtools.FarmingToolsItems;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
 import com.lazynessmind.farmingtools.util.RarityUtil;
 import net.minecraft.item.EnumRarity;

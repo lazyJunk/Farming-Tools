@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.client.gui.container;
+package com.lazynessmind.farmingtools.gui.container;
 
 import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -6,7 +6,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.*;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerPedestal extends Container {
 

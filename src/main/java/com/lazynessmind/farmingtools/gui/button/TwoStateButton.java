@@ -1,6 +1,6 @@
-package com.lazynessmind.farmingtools.client.gui.button;
+package com.lazynessmind.farmingtools.gui.button;
 
-import com.lazynessmind.farmingtools.client.gui.GuiTextures;
+import com.lazynessmind.farmingtools.gui.GuiTextures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;

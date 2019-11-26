@@ -3,7 +3,7 @@ package com.lazynessmind.farmingtools.block.base;
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.block.tileentities.base.BlockTileEntityBase;
 import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
-import com.lazynessmind.farmingtools.init.FarmingToolsItems;
+import com.lazynessmind.farmingtools.FarmingToolsItems;
 import com.lazynessmind.farmingtools.item.ItemBlockPedestal;
 import com.lazynessmind.farmingtools.util.Enum;
 import com.lazynessmind.farmingtools.util.ParticleCreator;

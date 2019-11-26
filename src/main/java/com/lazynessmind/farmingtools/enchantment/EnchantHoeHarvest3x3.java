@@ -1,6 +1,6 @@
 package com.lazynessmind.farmingtools.enchantment;
 
-import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
+import com.lazynessmind.farmingtools.FarmingToolsEnchants;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemHoe;

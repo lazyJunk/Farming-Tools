@@ -1,13 +1,13 @@
 package com.lazynessmind.farmingtools.registry;
 
-import com.lazynessmind.farmingtools.client.gui.container.ContainerPedestal;
-import com.lazynessmind.farmingtools.client.gui.container.slots.SlotGrowthPedestal;
-import com.lazynessmind.farmingtools.client.gui.container.slots.SlotHarvester;
-import com.lazynessmind.farmingtools.client.gui.container.slots.SlotPlanter;
-import com.lazynessmind.farmingtools.client.gui.FTGuis;
-import com.lazynessmind.farmingtools.client.gui.GuiGrowthPedestal;
-import com.lazynessmind.farmingtools.client.gui.GuiHarvester;
-import com.lazynessmind.farmingtools.client.gui.GuiPlanter;
+import com.lazynessmind.farmingtools.gui.container.ContainerPedestal;
+import com.lazynessmind.farmingtools.gui.container.slots.SlotGrowthPedestal;
+import com.lazynessmind.farmingtools.gui.container.slots.SlotHarvester;
+import com.lazynessmind.farmingtools.gui.container.slots.SlotPlanter;
+import com.lazynessmind.farmingtools.gui.FTGuis;
+import com.lazynessmind.farmingtools.gui.GuiGrowthPedestal;
+import com.lazynessmind.farmingtools.gui.GuiHarvester;
+import com.lazynessmind.farmingtools.gui.GuiPlanter;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityPlanter;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;

@@ -2,12 +2,12 @@ package com.lazynessmind.farmingtools.registry;
 
 import com.lazynessmind.farmingtools.FarmingTools;
 import com.lazynessmind.farmingtools.FarmingToolsConst;
-import com.lazynessmind.farmingtools.client.specialrenderer.GrowthPedestalSpecialRenderer;
-import com.lazynessmind.farmingtools.client.specialrenderer.HarvesterSpecialRenderer;
-import com.lazynessmind.farmingtools.client.specialrenderer.PlanterSpecialRenderer;
+import com.lazynessmind.farmingtools.block.tileentities.specialrenderer.GrowthPedestalSpecialRenderer;
+import com.lazynessmind.farmingtools.block.tileentities.specialrenderer.HarvesterSpecialRenderer;
+import com.lazynessmind.farmingtools.block.tileentities.specialrenderer.PlanterSpecialRenderer;
 import com.lazynessmind.farmingtools.config.FarmingToolsConfigs;
-import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
-import com.lazynessmind.farmingtools.init.FarmingToolsItems;
+import com.lazynessmind.farmingtools.FarmingToolsBlocks;
+import com.lazynessmind.farmingtools.FarmingToolsItems;
 import com.lazynessmind.farmingtools.item.ItemAdvancedBoneMeal;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityHarvester;

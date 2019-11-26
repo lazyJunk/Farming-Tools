@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.client.gui.button;
+package com.lazynessmind.farmingtools.gui;
 
 import com.lazynessmind.farmingtools.FarmingToolsConst;
 import net.minecraft.client.Minecraft;

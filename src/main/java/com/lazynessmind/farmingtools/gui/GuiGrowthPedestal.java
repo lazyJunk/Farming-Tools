@@ -1,8 +1,7 @@
-package com.lazynessmind.farmingtools.client.gui;
+package com.lazynessmind.farmingtools.gui;
 
-import com.lazynessmind.farmingtools.client.gui.button.ProgressBar;
-import com.lazynessmind.farmingtools.client.gui.container.ContainerPedestal;
-import com.lazynessmind.farmingtools.client.gui.container.slots.SlotGrowthPedestal;
+import com.lazynessmind.farmingtools.gui.container.ContainerPedestal;
+import com.lazynessmind.farmingtools.gui.container.slots.SlotGrowthPedestal;
 import com.lazynessmind.farmingtools.block.tileentities.TileEntityGrowthPedestal;
 import com.lazynessmind.farmingtools.network.FTNetworkHandler;
 import com.lazynessmind.farmingtools.network.packet.MessageGetEnergy;
@@ -30,7 +29,7 @@ public class GuiGrowthPedestal extends GuiBase {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.energy.draw(currentEnergy);
-        FTNetworkHandler.sendPacketToServer(new MessageGetEnergy(x, y, z, "com.lazynessmind.farmingtools.client.gui.GuiGrowthPedestal", "currentEnergy"));
+        FTNetworkHandler.sendPacketToServer(new MessageGetEnergy(x, y, z, "com.lazynessmind.farmingtools.gui.GuiGrowthPedestal", "currentEnergy"));
     }
 
     @Override

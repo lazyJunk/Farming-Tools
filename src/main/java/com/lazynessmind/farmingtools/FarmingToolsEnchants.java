@@ -1,4 +1,4 @@
-package com.lazynessmind.farmingtools.init;
+package com.lazynessmind.farmingtools;
 
 import com.lazynessmind.farmingtools.enchantment.EnchantHoeHarvest3x3;
 import net.minecraft.enchantment.Enchantment;

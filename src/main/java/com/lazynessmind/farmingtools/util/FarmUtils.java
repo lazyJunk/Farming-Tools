@@ -1,6 +1,6 @@
 package com.lazynessmind.farmingtools.util;
 
-import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
+import com.lazynessmind.farmingtools.FarmingToolsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;

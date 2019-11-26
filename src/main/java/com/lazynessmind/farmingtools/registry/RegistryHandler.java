@@ -1,9 +1,9 @@
 package com.lazynessmind.farmingtools.registry;
 
 import com.lazynessmind.farmingtools.block.tileentities.*;
-import com.lazynessmind.farmingtools.init.FarmingToolsBlocks;
-import com.lazynessmind.farmingtools.init.FarmingToolsEnchants;
-import com.lazynessmind.farmingtools.init.FarmingToolsItems;
+import com.lazynessmind.farmingtools.FarmingToolsBlocks;
+import com.lazynessmind.farmingtools.FarmingToolsEnchants;
+import com.lazynessmind.farmingtools.FarmingToolsItems;
 import com.lazynessmind.farmingtools.interfaces.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -12,10 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod.EventBusSubscriber

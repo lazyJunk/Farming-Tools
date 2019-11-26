@@ -1,16 +1,12 @@
-package com.lazynessmind.farmingtools.client.gui;
+package com.lazynessmind.farmingtools.gui;
 
-import com.lazynessmind.farmingtools.client.gui.button.HoverButton;
-import com.lazynessmind.farmingtools.client.gui.button.ProgressBar;
-import com.lazynessmind.farmingtools.client.gui.button.TwoStateButton;
+import com.lazynessmind.farmingtools.gui.button.TwoStateButton;
 import com.lazynessmind.farmingtools.block.tileentities.base.TileEntityPedestal;
 import com.lazynessmind.farmingtools.interfaces.IRange;
 import com.lazynessmind.farmingtools.interfaces.IRedPower;
 import com.lazynessmind.farmingtools.network.FTNetworkHandler;
-import com.lazynessmind.farmingtools.network.packet.MessageGetEnergy;
 import com.lazynessmind.farmingtools.network.packet.MessageRedstonePower;
 import com.lazynessmind.farmingtools.network.packet.MessageShowArea;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
