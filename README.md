@@ -1,44 +1,54 @@
-# Discontinued!
+#### Disclaimer:
+If you want to learn from this repo you are comfortable, but I would not recommend it as it is very old because it was my first MOD and I didn't know what I was doing. This latest update is only for those people who still use it.
 
-### Welcome to Farming Tools Mod to Forge 1.12.2!
+<h1 align="center">Farming Tools</h1>
 
-[![CurseForge](http://cf.way2muchnoise.eu/full_331657_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/farming-tools) [![CurseForge](http://cf.way2muchnoise.eu/versions/331657.svg)](https://www.curseforge.com/minecraft/mc-mods/farming-tools)
+<p align="center">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/lazynessmind/Farming-Tools.svg">
 
-This mod add tools to faster and better farming in Minecraft.
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lazynessmind/Farming-Tools.svg">
+  
+  <a href="https://github.com/lazynessmind/Farming-Tools/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lazynessmind/Farming-Tools.svg">
+  </a>
 
-&#x1F534; Currently in **development**;
+  <a href="https://github.com/lazynessmind/Farming-Tools/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/lazynessmind/Farming-Tools.svg">
+  </a>
 
-&#x1F535; Existing features **can change in future updates**.
+  <a href="https://www.curseforge.com/minecraft/mc-mods/farming-tools">
+    <img alt="Repository issues" src="http://cf.way2muchnoise.eu/full_351283_downloads.svg">
+  </a>
 
-## Changelogs/Wiki:
+  <a href="https://www.curseforge.com/minecraft/mc-mods/farming-tools">
+    <img alt="Repository issues" src="http://cf.way2muchnoise.eu/versions/351283.svg">
+  </a>
 
-- **Release:** https://github.com/lazynessmind/Farming-Tools/releases
-- **Wiki:** https://github.com/lazynessmind/Farming-Tools/wiki
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+</p>
 
-## Bugs or suggestions:
+## Description:
 
-- **Github Via Issues:** https://github.com/lazynessmind/Farming-Tools/issues
-- **Twitter:** https://twitter.com/kratosyt21
-	
+  Have you ever had to wait for your seeds to grow? Not happening again with Farming Tools.
+
+## Changelog:
+
+<details>
+  <summary>Click to see:</summary>
+  
+  **1.1**
+  * Last release.;
+      
+</details>
+
+## Features:
+
+- **Check youtube to see:** https://www.youtube.com/playlist?list=PLm89ifP7JbgBzTu7hFyxDGCrApFSWXv-S
+
 ## Links:
 
 - **Github:** https://github.com/lazynessmind
-- **Twitter:**  https://twitter.com/lazynessmind
+- **Twitter:**  https://twitter.com/nesslazy_
 - **Twitch:** https://www.twitch.tv/lazynessmind
 
-## Common between repos:
-  
-* Instagram:
-  **@baka.marco**
-* Website:
-  working
-  
-### License MIT | Copyright 2019 | DevDarkCode
-
-![MIT](https://opensource.org/files/OSI_Approved_License.png)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+### License MIT | Copyright 2019 | lazynessmind
