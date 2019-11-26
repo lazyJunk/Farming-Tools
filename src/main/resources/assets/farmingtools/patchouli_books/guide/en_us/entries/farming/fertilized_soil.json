@@ -1,0 +1,17 @@
+{
+  "name": "Fertilized Soil",
+  "icon": "farmingtools:fertilized_soil",
+  "category": "farming",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Fertilized soil has the effect of a farmland, but it doesn't need $(bold)$(5)water$() and maybe makes $(bold)$(6)crops grow faster."
+    },
+    {
+      "type": "spotlight",
+      "item": "farmingtools:fertilized_soil",
+      "text": "",
+      "link_recipe": true
+    }
+  ]
+}

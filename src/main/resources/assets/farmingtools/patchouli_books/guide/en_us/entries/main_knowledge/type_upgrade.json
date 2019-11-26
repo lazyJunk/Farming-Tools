@@ -1,0 +1,21 @@
+{
+  "name": "Type Upgrades",
+  "icon": "farmingtools:type_upgrade",
+  "category": "knowledge",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Type upgrades are the only way to improve your $(bold)$(6)$(l:main_knowledge/pedestals)Pedestals$().$(br2)At the moment they are the only upgrades available in the mod but in the future there will be more. $(br2) Right click on the $(bold)$(5)Pedestal$() to use the upgrade."
+    },
+    {
+      "type": "crafting",
+      "recipe": "farmingtools:type_upgrade_iron",
+      "recipe2": "farmingtools:type_upgrade_gold"
+    },
+    {
+      "type": "crafting",
+      "recipe": "farmingtools:type_upgrade_diamond",
+      "recipe2": "farmingtools:type_upgrade_emerald"
+    }
+  ]
+}

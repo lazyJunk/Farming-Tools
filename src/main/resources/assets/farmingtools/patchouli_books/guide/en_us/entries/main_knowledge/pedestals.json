@@ -1,0 +1,15 @@
+{
+  "name": "Pedestals",
+  "icon": "farmingtools:planter",
+  "category": "knowledge",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Pedestals are the $(bold)$(4)heart$() of every mod because they make $(bold)$(9)things happen$().$(br2)In all we have four types of materials: $(bold)$(7)Iron, $(6)Gold, $(1)Diamond, $(2)Emerald$(). Iron Type being the worst, and Emerald Type being the best."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)$(6)INFO:(Iron, Gold, Diamond, Emerald)$()$(br2)$(bold)$(3)$(li)Power Post:$()$(br) 100, 200, 300, 400;$(br)$(bold)$(3)$(li)Cooldown:$()$(br) 200, 150, 100, 50;$(br)$(bold)$(3)$(li)Power Hold:$()$(br) 10000; $(br2) Can accept $(bold)$(4)Energy$() from the all sides and $(bold)$(2)Items$() only from the sides."
+    }
+  ]
+}

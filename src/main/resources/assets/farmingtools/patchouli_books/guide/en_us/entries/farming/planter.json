@@ -1,0 +1,17 @@
+{
+  "name": "Planter",
+  "icon": "farmingtools:planter",
+  "category": "farming",
+  "pages": [
+    {
+      "type": "text",
+      "text": "As the name suggests, this $(bold)$(5)Pedestal$() plants automatically ... if given a $(bold)$(2)seed$() and some $(bold)$(6)power$()."
+    },
+    {
+      "type": "spotlight",
+      "item": "farmingtools:planter",
+      "link_recipe": false,
+      "text": "$(bold)$(5)Planter$() is part of the pedestals, which means it has several $(bold)$(4)variations$()."
+    }
+  ]
+}

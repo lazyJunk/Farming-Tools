@@ -1,0 +1,17 @@
+{
+  "name": "Harvester",
+  "icon": "farmingtools:harvester",
+  "category": "farming",
+  "pages": [
+    {
+      "type": "text",
+      "text": "As the name suggests, this $(bold)$(5)Pedestal$() harvest automatically ... if given a $(bold)$(2)hoe$() and some $(bold)$(6)power$()."
+    },
+    {
+      "type": "spotlight",
+      "item": "farmingtools:harvester",
+      "link_recipe": false,
+      "text": "$(bold)$(5)Harvester$() is part of the pedestals, which means it has several $(bold)$(4)variations$()."
+    }
+  ]
+}

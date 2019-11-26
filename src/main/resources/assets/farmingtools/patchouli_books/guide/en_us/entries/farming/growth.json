@@ -1,0 +1,17 @@
+{
+  "name": "Growth Pedestal",
+  "icon": "farmingtools:growth_pedestal",
+  "category": "farming",
+  "pages": [
+    {
+      "type": "text",
+      "text": "As the name suggests, this $(bold)$(5)Pedestal$() grow crops automatically ... if given $(bold)$(2)Advanced Bone Meal$() and some $(bold)$(6)power$()."
+    },
+    {
+      "type": "spotlight",
+      "item": "farmingtools:growth_pedestal",
+      "link_recipe": false,
+      "text": "$(bold)$(5)Growth Pedestal$() is part of the pedestals, which means it has several $(bold)$(4)variations$(). $(br2)$(2)$(l:main_knowledge/pedestals)Click to see more!$()"
+    }
+  ]
+}

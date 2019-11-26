@@ -1,0 +1,13 @@
+{
+  "name": "3x3 Harvester",
+  "icon": "minecraft:golden_hoe",
+  "category": "features",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "minecraft:book",
+      "link_recipe": false,
+      "text": "$(bold)$(5)Enchantment$() that when applied in a hoe, makes you Harvest a $(bold)$(b)3x3 area$() of crops on right click. $(br2) $(bold)$(6)Tip:$() If you right click with a none enchantment hoe on crop you have the same result, $(c)but only$() on the clicked crop."
+    }
+  ]
+}

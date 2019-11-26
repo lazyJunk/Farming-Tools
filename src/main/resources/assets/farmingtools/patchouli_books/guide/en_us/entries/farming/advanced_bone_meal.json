@@ -1,0 +1,16 @@
+{
+  "name": "Advanced Bone Meal",
+  "icon": "farmingtools:advanced_bone_meal",
+  "category": "farming",
+  "pages": [
+    {
+      "type": "text",
+      "text": "I know it's not the best name in the world. With this you do everything bone meal can do but much better. $(bold)$(6)Grows crops, trees, sugar canes, nether wart$(), all of this instantly."
+    },
+    {
+      "type": "crafting",
+      "recipe": "farmingtools:advanced_bone_meal",
+      "text": "$(bold)$(2)Can be used in dispenser!"
+    }
+  ]
+}
